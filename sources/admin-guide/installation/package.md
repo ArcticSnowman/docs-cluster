@@ -14,10 +14,8 @@ $ curl -sSL https://get.docker.com/ubuntu/ | sudo sh
 
 #### Docker configuration:
 ```
-stop docker demon
-modify docker init script or put our version of init script and replace default one.
-docker will start like this:
-docker -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock -d &
+echo "DOCKER_OPTS=\"-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock\"" >> /etc/default/docker
+service docker restart
 ```
 
 ### Install salt-master:
@@ -140,10 +138,8 @@ $ curl -sSL https://get.docker.com/ubuntu/ | sudo sh
 
 #### docker configuration:
 ```
-stop docker demon
-modify docker init script or put our version of init script and replace default one.
-docker will start like this:
-docker -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock -d &
+echo "DOCKER_OPTS=\"-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock\"" >> /etc/default/docker
+service docker restart
 ```
 
 ### Install salt-minion:
