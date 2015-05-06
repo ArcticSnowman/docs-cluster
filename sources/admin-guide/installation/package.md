@@ -8,47 +8,61 @@ Follow these instructions to install the package for Ubuntu Trusty 14.04 managed
 [http://docs.docker.com/installation/ubuntulinux](http://docs.docker.com/installation/ubuntulinux/#docker-maintained-package-installation)
 
 For the impatient, just type:
+
 ```
 $ curl -sSL https://get.docker.com/ubuntu/ | sudo sh
 ```
 
 #### Docker configuration:
+
 ```
-echo "DOCKER_OPTS=\"-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock\"" >> /etc/default/docker
-service docker restart
+$ echo "DOCKER_OPTS=\"-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock\"" >> /etc/default/docker
+$ service docker restart
 ```
 
 ### Install salt-master:
+
 ```
-echo deb http://ppa.launchpad.net/saltstack/salt/ubuntu `lsb_release -sc` main | sudo tee /etc/apt/sources.list.d/saltstack.list
-wget -q -O- "http://keyserver.ubuntu.com:11371/pks/lookup?op=get&search=0x4759FA960E27C0A6" | sudo apt-key add -
-# apt-get update
-# apt-get install -y salt-master
+$ echo deb http://ppa.launchpad.net/saltstack/salt/ubuntu `lsb_release -sc` main | sudo tee /etc/apt/sources.list.d/saltstack.list
+$ wget -q -O- "http://keyserver.ubuntu.com:11371/pks/lookup?op=get&search=0x4759FA960E27C0A6" | sudo apt-key add -
+$ apt-get update
+$ apt-get install -y salt-master
 ```
 
 ### Install salt-minion:
+
 ```
-# apt-get install -y salt-minion
+$ apt-get install -y salt-minion
 ```
 
 ### Install weave:
+
 ```
-# wget -O /usr/local/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
-# chmod a+x /usr/local/bin/weave
+$ wget -O /usr/local/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
+$ chmod a+x /usr/local/bin/weave
+```
+
 NOTE: we can host weave binary in our gluu server.
 
 Setup weave:
-# weave setup
 
-Start weave:
-# weave launch
+```
+$ weave setup
+```
+
+Start weave
+
+```
+$ weave launch
 ```
 
 ### Prometheus:
-put 'prometheus.conf' file in '/etc/gluu/prometheus/prometheus.conf'
-(maybe there is a better place to put this file?)
 
-default 'prometheus.conf' file:
+Put `prometheus.conf` file in `/etc/gluu/prometheus/prometheus.conf`
+(maybe there is a better place to put this file?).
+
+Default `prometheus.conf` file:
+
 ```
 # Global default settings.
 global {
@@ -83,47 +97,54 @@ job: {
 ```
 
 #### Pull prometheus:
+
 ```
-# docker pull prom/prometheus
+$ docker pull prom/prometheus
 ```
 
 #### Run prometheus:
+
 ```
-# docker run -d -v /etc/gluu/prometheus/prometheus.conf:/prometheus.conf prom/prometheus
+$ docker run -d -v /etc/gluu/prometheus/prometheus.conf:/prometheus.conf prom/prometheus
 ```
 
 ### Install gluu-flask:
 
 #### Ubuntu packages
+
 ```
-# apt-get install libssl-dev python-dev swig
-# apt-get build-dep openssl
+$ apt-get install libssl-dev python-dev swig
+$ apt-get build-dep openssl
 ```
 
 #### Install pip and virtualenv:
+
 ```
-# wget -q -O- https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py | python -
-# wget -q -O- https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python -
-# export PATH="/usr/local/bin:$PATH"
-# pip install virtualenv
+$ wget -q -O- https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py | python -
+$ wget -q -O- https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python -
+$ export PATH="/usr/local/bin:$PATH"
+$ pip install virtualenv
 ```
 
 #### Clone gluu-flask:
+
 ```
-# git clone git@github.com:GluuFederation/gluu-flask.git /opt/gluu-flask
+$ git clone git@github.com:GluuFederation/gluu-flask.git /opt/gluu-flask
 ```
 
 #### Install gluu-flask requirements:
+
 ```
-# virtualenv /opt/gluu-flask/env
-# /opt/gluu-flask/env/bin/pip install -r requirements.txt
+$ virtualenv /opt/gluu-flask/env
+$ /opt/gluu-flask/env/bin/pip install -r requirements.txt
 ```
 
 ## Gluu-cluster consumer deb package:
 
 ### Set this variable in root:
+
 ```
-export MASTER_HOST_IP = xxx.xxx.xxx.xxx
+$ export MASTER_HOST_IP = xxx.xxx.xxx.xxx
 ```
 
 ### Install docker:
@@ -132,29 +153,33 @@ Follow these instructions to install the package for Ubuntu Trusty 14.04 managed
 [http://docs.docker.com/installation/ubuntulinux](http://docs.docker.com/installation/ubuntulinux/#docker-maintained-package-installation)
 
 For the impatient, just type:
+
 ```
 $ curl -sSL https://get.docker.com/ubuntu/ | sudo sh
 ```
 
 #### docker configuration:
+
 ```
-echo "DOCKER_OPTS=\"-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock\"" >> /etc/default/docker
-service docker restart
+$ echo "DOCKER_OPTS=\"-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock\"" >> /etc/default/docker
+$ service docker restart
 ```
 
 ### Install salt-minion:
+
 ```
-echo deb http://ppa.launchpad.net/saltstack/salt/ubuntu `lsb_release -sc` main | sudo tee /etc/apt/sources.list.d/saltstack.list
-wget -q -O- "http://keyserver.ubuntu.com:11371/pks/lookup?op=get&search=0x4759FA960E27C0A6" | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install -y salt-minion
+$ echo deb http://ppa.launchpad.net/saltstack/salt/ubuntu `lsb_release -sc` main | sudo tee /etc/apt/sources.list.d/saltstack.list
+$ wget -q -O- "http://keyserver.ubuntu.com:11371/pks/lookup?op=get&search=0x4759FA960E27C0A6" | sudo apt-key add -
+$ sudo apt-get update
+$ sudo apt-get install -y salt-minion
 ```
 
 #### Configuration:
 
-put 'minion' config file in '/etc/salt/minion'
+put `minion` config file in `/etc/salt/minion`
 
 file content:
+
 ```
 #minion config
 
@@ -162,19 +187,28 @@ master: SALT_MASTER_IPADDR
 ```
 
 now render minion file:
+
 ```
-sed -i /etc/salt/minion -e s/SALT_MASTER_IPADDR/$MASTER_HOST_IP/ || exit 0
+$ sed -i /etc/salt/minion -e s/SALT_MASTER_IPADDR/$MASTER_HOST_IP/ || exit 0
 ```
 
 ### Install weave:
+
 ```
-sudo wget -O /usr/local/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
-sudo chmod a+x /usr/local/bin/weave
+$ sudo wget -O /usr/local/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
+$ sudo chmod a+x /usr/local/bin/weave
+```
+
 NOTE: we can host weave binary in our gluu server.
 
 Setup weave:
-weave setup
+
+```
+$ weave setup
+```
 
 Start weave:
-weave launch $MASTER_HOST_IP
+
+```
+$ weave launch $MASTER_HOST_IP
 ```
