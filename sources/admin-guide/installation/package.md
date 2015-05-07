@@ -89,7 +89,7 @@ job: {
 
 #### Run prometheus:
 ```
-# docker run -d -v /etc/gluu/prometheus/prometheus.conf:/prometheus.conf prom/prometheus
+# docker run -d -v /etc/gluu/prometheus/prometheus.conf:/prometheus.conf --cidfile="/var/run/prometheus.cid" prom/prometheus
 ```
 
 ### Install gluu-flask:
