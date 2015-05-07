@@ -105,11 +105,7 @@ $ docker pull prom/prometheus
 #### Run prometheus:
 
 ```
-<<<<<<< HEAD
 # docker run -d -v /etc/gluu/prometheus/prometheus.conf:/prometheus.conf --cidfile="/var/run/prometheus.cid" prom/prometheus
-=======
-$ docker run -d -v /etc/gluu/prometheus/prometheus.conf:/prometheus.conf prom/prometheus
->>>>>>> 54aa6e9f1961fdfd217abf0b57ba57b5d7f59114
 ```
 
 ### Install gluu-flask:
