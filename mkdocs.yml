@@ -1,4 +1,4 @@
-site_name: Gluu Cluster Docs 
+site_name: Gluu Cluster Docs
 site_description: Documenation for the Gluu Server Cluster
 site_favicon: '/img/gluu_favicon.ico'
 copyright: Copyright &copy; 2014, Gluu, Inc.
@@ -17,7 +17,8 @@ pages:
 
 # Admin Guide Sections
 - ['admin-guide/overview/index.md', 'Admin Guide', 'Overview']
-- ['admin-guide/installation/index.md', 'Admin Guide', 'Installation']
+# - ['admin-guide/installation/index.md', 'Admin Guide', 'Installation']
+- ['admin-guide/installation/package.md', 'Admin Guide', 'Installation']
 - ['admin-guide/components/index.md', 'Admin Guide', 'Components']
 - ['admin-guide/monitoring/index.md', 'Admin Guide', 'Monitoring']
 - ['admin-guide/testing/index.md', 'Admin Guide', 'Testing']
