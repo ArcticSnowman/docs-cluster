@@ -48,6 +48,12 @@ $ echo "master: $MASTER_IPADDR" >> /etc/salt/minion
 $ service salt-minion restart
 ```
 
+### Register minion to master
+
+```
+$ slat-key -y -a `hostname`
+```
+
 ### Install weave:
 
 ```
@@ -193,6 +199,7 @@ $ sudo apt-get install -y salt-minion
 $ echo "master: $MASTER_HOST_IP" >> /etc/salt/minion
 $ service salt-minion restart
 ```
+NOTE: We need to register consumer key in master manually (TODO: automate)
 
 ### Install weave:
 
