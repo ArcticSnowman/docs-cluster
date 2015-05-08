@@ -2,6 +2,12 @@
 
 ## Gluu-cluster master deb package:
 
+### Set this variable in root:
+
+```
+$ export MASTER_IPADDR = xxx.xxx.xxx.xxx
+```
+
 ### Install docker:
 
 Follow these instructions to install the package for Ubuntu Trusty 14.04 managed by docker.com:
@@ -33,6 +39,12 @@ $ apt-get install -y salt-master
 
 ```
 $ apt-get install -y salt-minion
+```
+
+### Configure salt-minion
+
+```
+$ echo "master: $MASTER_IPADDR" >> /etc/salt/minion
 ```
 
 ### Install weave:
@@ -176,20 +188,8 @@ $ sudo apt-get install -y salt-minion
 
 #### Configuration:
 
-put `minion` config file in `/etc/salt/minion`
-
-file content:
-
 ```
-#minion config
-
-master: SALT_MASTER_IPADDR
-```
-
-now render minion file:
-
-```
-$ sed -i /etc/salt/minion -e s/SALT_MASTER_IPADDR/$MASTER_HOST_IP/ || exit 0
+$ echo "master: $MASTER_HOST_IP" >> /etc/salt/minion
 ```
 
 ### Install weave:
