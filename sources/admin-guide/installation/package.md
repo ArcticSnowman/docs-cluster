@@ -51,7 +51,7 @@ $ service salt-minion restart
 ### Register minion to master
 
 ```
-$ slat-key -y -a `hostname`
+$ salt-key -y -a `hostname`
 ```
 
 ### Install weave:
