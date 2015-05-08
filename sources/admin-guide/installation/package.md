@@ -148,14 +148,15 @@ $ pip install virtualenv
 #### Clone gluu-flask:
 
 ```
-$ git clone git@github.com:GluuFederation/gluu-flask.git /opt/gluu-flask
+$ git clone git://github.com/GluuFederation/gluu-flask.git /opt/gluu-flask
 ```
 
-#### Install gluu-flask requirements:
+#### Install gluu-flask
 
 ```
-$ virtualenv /opt/gluu-flask/env
-$ /opt/gluu-flask/env/bin/pip install -r requirements.txt
+$ cd /opt/gluu-flask
+$ virtualenv env
+$ python setup.py install
 ```
 
 ## Gluu-cluster consumer deb package:
