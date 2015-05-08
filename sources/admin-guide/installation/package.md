@@ -45,6 +45,7 @@ $ apt-get install -y salt-minion
 
 ```
 $ echo "master: $MASTER_IPADDR" >> /etc/salt/minion
+$ service salt-minion restart
 ```
 
 ### Install weave:
@@ -190,6 +191,7 @@ $ sudo apt-get install -y salt-minion
 
 ```
 $ echo "master: $MASTER_HOST_IP" >> /etc/salt/minion
+$ service salt-minion restart
 ```
 
 ### Install weave:
