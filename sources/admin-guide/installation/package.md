@@ -156,7 +156,7 @@ $ git clone git://github.com/GluuFederation/gluu-flask.git /opt/gluu-flask
 ```
 $ cd /opt/gluu-flask
 $ virtualenv env
-$ python setup.py install
+$ env/bin/python setup.py install
 ```
 
 ## Gluu-cluster consumer deb package:
