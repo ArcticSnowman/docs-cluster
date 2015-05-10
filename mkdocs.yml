@@ -32,3 +32,4 @@ pages:
 # Sub Pages of Reference / API
 - ['reference/api/provider.md', '**HIDDEN**']
 - ['reference/api/cluster.md', '**HIDDEN**']
+- ['reference/api/node.md', '**HIDDEN**']
