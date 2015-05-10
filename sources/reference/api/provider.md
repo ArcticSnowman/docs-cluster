@@ -32,7 +32,7 @@ __Request example:__
 curl http://localhost:8080/provider \
     -d hostname=my-host \
     -d docker_base_url='128.199.198.172:2375' \
-    -X POST
+    -X POST -i
 ```
 
 __Response example:__
@@ -68,7 +68,7 @@ __URL:__
 __Request example:__
 
 ```sh
-curl http://localhost:8080/provider/283bfa41-2121-4433-9741-875004518677
+curl http://localhost:8080/provider/283bfa41-2121-4433-9741-875004518677 -i
 ```
 
 __Response example:__
@@ -103,7 +103,7 @@ __URL:__
 __Request example:__
 
 ```sh
-curl http://localhost:8080/provider
+curl http://localhost:8080/provider -i
 ```
 
 __Response example:__
@@ -141,7 +141,8 @@ __URL:__
 __Request example:__
 
 ```sh
-curl http://localhost:8080/provider/283bfa41-2121-4433-9741-875004518677 -X DELETE
+curl http://localhost:8080/provider/283bfa41-2121-4433-9741-875004518677 \
+    -X DELETE -i
 ```
 
 __Response example:__
