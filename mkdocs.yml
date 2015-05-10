@@ -27,4 +27,7 @@ pages:
 - ['admin-guide/installation/package.md', '**HIDDEN**']
 
 # API section
-- ['reference/api.md', 'Reference', 'API']
+- ['reference/api/index.md', 'Reference', 'API']
+
+# Sub Pages of Reference / API
+- ['reference/api/provider.md', '**HIDDEN**']
