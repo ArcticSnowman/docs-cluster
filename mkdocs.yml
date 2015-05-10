@@ -17,12 +17,14 @@ pages:
 
 # Admin Guide Sections
 - ['admin-guide/overview/index.md', 'Admin Guide', 'Overview']
-# - ['admin-guide/installation/index.md', 'Admin Guide', 'Installation']
-- ['admin-guide/installation/package.md', 'Admin Guide', 'Installation']
+- ['admin-guide/installation/index.md', 'Admin Guide', 'Installation']
 - ['admin-guide/components/index.md', 'Admin Guide', 'Components']
 - ['admin-guide/monitoring/index.md', 'Admin Guide', 'Monitoring']
 - ['admin-guide/testing/index.md', 'Admin Guide', 'Testing']
 - ['admin-guide/tuning/index.md', 'Admin Guide', 'Tuning']
+
+# Sub Pages of Admin Guide / Installation
+- ['admin-guide/installation/package.md', '**HIDDEN**']
 
 # API section
 - ['reference/api.md', 'Reference', 'API']
