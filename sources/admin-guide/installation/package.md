@@ -19,14 +19,14 @@ Follow these instructions to install the package for Ubuntu Trusty 14.04 managed
 For the impatient, just type:
 
 ```
-$ curl -sSL https://get.docker.com/ubuntu/ | sudo sh
+curl -sSL https://get.docker.com/ubuntu/ | sudo sh
 ```
 
 Afterwards, configure ``docker`` daemon:
 
 ```
-$ echo "DOCKER_OPTS=\"-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock\"" >> /etc/default/docker
-$ service docker restart
+echo "DOCKER_OPTS=\"-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock\"" >> /etc/default/docker
+service docker restart
 ```
 
 #### salt-master
@@ -34,7 +34,7 @@ $ service docker restart
 Set this variable in root:
 
 ```
-$ export MASTER_IPADDR=xxx.xxx.xxx.xxx
+export MASTER_IPADDR=xxx.xxx.xxx.xxx
 ```
 
 where `xxx.xxx.xxx.xxx` is the IP address of the machine.
@@ -42,10 +42,10 @@ where `xxx.xxx.xxx.xxx` is the IP address of the machine.
 Install `salt-master`:
 
 ```
-$ echo deb http://ppa.launchpad.net/saltstack/salt/ubuntu `lsb_release -sc` main | sudo tee /etc/apt/sources.list.d/saltstack.list
-$ wget -q -O- "http://keyserver.ubuntu.com:11371/pks/lookup?op=get&search=0x4759FA960E27C0A6" | sudo apt-key add -
-$ apt-get update
-$ apt-get install -y salt-master
+echo deb http://ppa.launchpad.net/saltstack/salt/ubuntu `lsb_release -sc` main | sudo tee /etc/apt/sources.list.d/saltstack.list
+wget -q -O- "http://keyserver.ubuntu.com:11371/pks/lookup?op=get&search=0x4759FA960E27C0A6" | sudo apt-key add -
+apt-get update
+apt-get install -y salt-master
 ```
 
 #### salt-minion
@@ -53,27 +53,33 @@ $ apt-get install -y salt-master
 Install `salt-minion`.
 
 ```
-$ apt-get install -y salt-minion
+apt-get install -y salt-minion
 ```
 
 Configure `salt-minion`:
 
 ```
-$ echo "master: $MASTER_IPADDR" >> /etc/salt/minion
-$ service salt-minion restart
+echo "master: $MASTER_IPADDR" >> /etc/salt/minion
+service salt-minion restart
 ```
 
 Register minion to master:
 
 ```
-$ salt-key -y -a `hostname`
+salt-key -y -a `hostname`
+```
+
+Test that minion is properly connected to master:
+
+```
+salt `hostname` test.ping
 ```
 
 #### weave
 
 ```
-$ wget -O /usr/local/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
-$ chmod a+x /usr/local/bin/weave
+wget -O /usr/local/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
+chmod a+x /usr/local/bin/weave
 ```
 
 NOTE: we can host `weave` binary in our gluu server.
@@ -81,13 +87,13 @@ NOTE: we can host `weave` binary in our gluu server.
 Setup `weave`:
 
 ```
-$ weave setup
+weave setup
 ```
 
 Start `weave`:
 
 ```
-$ weave launch
+weave launch
 ```
 
 #### Prometheus
@@ -133,13 +139,13 @@ job: {
 Pull `prometheus`:
 
 ```
-$ docker pull prom/prometheus
+docker pull prom/prometheus
 ```
 
 Run `prometheus`:
 
 ```
-# docker run -d -v /etc/gluu/prometheus/prometheus.conf:/etc/prometheus/prometheus.conf --cidfile="/var/run/prometheus.cid" prom/prometheus
+docker run -d -v /etc/gluu/prometheus/prometheus.conf:/etc/prometheus/prometheus.conf --cidfile="/var/run/prometheus.cid" prom/prometheus
 ```
 
 #### gluu-flask
@@ -147,31 +153,36 @@ Run `prometheus`:
 Ubuntu packages:
 
 ```
-$ apt-get install libssl-dev python-dev swig
-$ apt-get build-dep openssl
-```
-
-Install pip and virtualenv:
-
-```
-$ wget -q -O- https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py | python -
-$ wget -q -O- https://raw.github.com/pypa/pip/master/contrib/get-pip.py | python -
-$ export PATH="/usr/local/bin:$PATH"
-$ pip install virtualenv
+apt-get install -y libssl-dev python-dev swig
+apt-get build-dep -y openssl
 ```
 
 Clone gluu-flask:
 
 ```
-$ git clone git://github.com/GluuFederation/gluu-flask.git /opt/gluu-flask
+git clone git://github.com/GluuFederation/gluu-flask.git /opt/gluu-flask
 ```
 
-Install gluu-flask:
+Install gluu-flask (`gluuapi` executable will be installed to PATH):
+
+-  If using `virtualenv`:
+
+        cd /opt/gluu-flask
+        apt-get install -y python-virtualenv
+        virtualenv env
+        source env/bin/activate
+        python setup.py install
+
+-   Without `virtualenv`:
+
+        cd /opt/gluu-flask
+        apt-get install -y python-setuptools
+        python setup.py install
+
+Run `gluuapi`:
 
 ```
-$ cd /opt/gluu-flask
-$ virtualenv env
-$ env/bin/python setup.py install
+API_ENV=prod SALT_MASTER_IPADDR=$MASTER_IPADDR gluuapi
 ```
 
 ### Gluu Cluster Consumer deb Package
@@ -185,10 +196,10 @@ Gluu cluster consumer consists of various components:
 Set this variable in root:
 
 ```
-$ export MASTER_HOST_IP=xxx.xxx.xxx.xxx
+export MASTER_IPADDR=xxx.xxx.xxx.xxx
 ```
 
-The `MASTER_HOST_IP` must equal to `MASTER_IPADDR` mentioned in Gluu cluster master above.
+The `MASTER_IPADDR` must equal to `MASTER_IPADDR` mentioned in Gluu cluster master above.
 
 #### docker
 
@@ -198,14 +209,14 @@ Follow these instructions to install the package for Ubuntu Trusty 14.04 managed
 For the impatient, just type:
 
 ```
-$ curl -sSL https://get.docker.com/ubuntu/ | sudo sh
+curl -sSL https://get.docker.com/ubuntu/ | sudo sh
 ```
 
 Configure `docker` daemon:
 
 ```
-$ echo "DOCKER_OPTS=\"-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock\"" >> /etc/default/docker
-$ service docker restart
+echo "DOCKER_OPTS=\"-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock\"" >> /etc/default/docker
+service docker restart
 ```
 
 #### salt-minion
@@ -213,25 +224,26 @@ $ service docker restart
 Install salt-minion
 
 ```
-$ echo deb http://ppa.launchpad.net/saltstack/salt/ubuntu `lsb_release -sc` main | sudo tee /etc/apt/sources.list.d/saltstack.list
-$ wget -q -O- "http://keyserver.ubuntu.com:11371/pks/lookup?op=get&search=0x4759FA960E27C0A6" | sudo apt-key add -
-$ sudo apt-get update
-$ sudo apt-get install -y salt-minion
+echo deb http://ppa.launchpad.net/saltstack/salt/ubuntu `lsb_release -sc` main | sudo tee /etc/apt/sources.list.d/saltstack.list
+wget -q -O- "http://keyserver.ubuntu.com:11371/pks/lookup?op=get&search=0x4759FA960E27C0A6" | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install -y salt-minion
 ```
 
 Configure `salt-minion`:
 
 ```
-$ echo "master: $MASTER_HOST_IP" >> /etc/salt/minion
-$ service salt-minion restart
+echo "master: $MASTER_IPADDR" >> /etc/salt/minion
+service salt-minion restart
 ```
-NOTE: We need to register consumer key in master manually (TODO: automate)
+
+To register the consumer key, [Provider](../../reference/api/provider.md) entity must be created first.
 
 #### weave
 
 ```
-$ sudo wget -O /usr/local/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
-$ sudo chmod a+x /usr/local/bin/weave
+sudo wget -O /usr/local/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
+sudo chmod a+x /usr/local/bin/weave
 ```
 
 NOTE: we can host weave binary in our gluu server.
@@ -239,11 +251,11 @@ NOTE: we can host weave binary in our gluu server.
 Setup weave:
 
 ```
-$ weave setup
+weave setup
 ```
 
 Start weave:
 
 ```
-$ weave launch $MASTER_HOST_IP
+weave launch $MASTER_IPADDR
 ```
