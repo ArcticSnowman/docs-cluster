@@ -66,13 +66,14 @@ service salt-minion restart
 Register minion to master:
 
 ```
-salt-key -y -a `hostname`
+salt-key -y -a `hostname --long`
 ```
+NOTE: We need to use long hostmane in aws
 
 Test that minion is properly connected to master:
 
 ```
-salt `hostname` test.ping
+salt `hostname --long` test.ping
 ```
 
 #### weave
