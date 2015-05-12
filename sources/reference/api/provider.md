@@ -10,6 +10,9 @@ Gluu Cluster Consumer.
 
 `POST /provider`
 
+NOTE: make sure `docker`, `salt-minion`, and `weave` have been [installed and configured](../../admin-guide/installation/package.md).
+
+
 __URL:__
 
 `http://localhost:8080/provider`
