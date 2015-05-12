@@ -1,2 +1,0 @@
-# Gluu Cluster Documentation
-
