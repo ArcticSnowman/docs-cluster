@@ -16,20 +16,20 @@ pages:
 - ['index.md', 'Home']
 
 # Admin Guide Sections
-- ['docs/admin-guide/overview/index.md', 'Admin Guide', 'Overview']
-- ['docs/admin-guide/installation/index.md', 'Admin Guide', 'Installation']
-- ['docs/admin-guide/components/index.md', 'Admin Guide', 'Components']
-- ['docs/admin-guide/monitoring/index.md', 'Admin Guide', 'Monitoring']
-- ['docs/admin-guide/testing/index.md', 'Admin Guide', 'Testing']
-- ['docs/admin-guide/tuning/index.md', 'Admin Guide', 'Tuning']
+- ['docs-cluster/admin-guide/overview/index.md', 'Admin Guide', 'Overview']
+- ['docs-cluster/admin-guide/installation/index.md', 'Admin Guide', 'Installation']
+- ['docs-cluster/admin-guide/components/index.md', 'Admin Guide', 'Components']
+- ['docs-cluster/admin-guide/monitoring/index.md', 'Admin Guide', 'Monitoring']
+- ['docs-cluster/admin-guide/testing/index.md', 'Admin Guide', 'Testing']
+- ['docs-cluster/admin-guide/tuning/index.md', 'Admin Guide', 'Tuning']
 
 # Sub Pages of Admin Guide / Installation
-- ['docs/admin-guide/installation/package.md', '**HIDDEN**']
+- ['docs-cluster/admin-guide/installation/package.md', '**HIDDEN**']
 
 # API section
-- ['docs/reference/api/index.md', 'Reference', 'API']
+- ['docs-cluster/reference/api/index.md', 'Reference', 'API']
 
 # Sub Pages of Reference / API
-- ['docs/reference/api/provider.md', '**HIDDEN**']
-- ['docs/reference/api/cluster.md', '**HIDDEN**']
-- ['docs/reference/api/node.md', '**HIDDEN**']
+- ['docs-cluster/reference/api/provider.md', '**HIDDEN**']
+- ['docs-cluster/reference/api/cluster.md', '**HIDDEN**']
+- ['docs-cluster/reference/api/node.md', '**HIDDEN**']
