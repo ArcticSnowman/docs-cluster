@@ -1,0 +1,255 @@
+## Cluster API
+
+Cluster holds all nodes (`docker` containers) within `weave` network.
+
+---
+
+### Create New Cluster
+
+`POST /cluster`
+
+Note, currently the API only allow 1 cluster. This will change in the future.
+
+__URL:__
+
+`http://localhost:8080/cluster`
+
+__Form parameters:__
+
+*   `name` (required)
+
+    The name of the cluster.
+
+*   `description` (optional)
+*   `org_name` (required)
+
+    Organization name for X.509 certificate.
+
+*   `org_short_name` (required)
+
+    Organization short name for X.509 certificate.
+
+*   `city` (required)
+
+    City for X.509 certificate.
+
+*   `state` (required)
+
+    State or province name for X.509 certificate.
+
+*   `country_code` (required)
+
+    ISO 3166-1 alpha-2 country code.
+
+*   `admin_email` (required)
+
+    Admin email address for X.509 certificate.
+
+*   `ox_cluster_hostname` (required)
+
+    Domain name to use for the admin interface website.
+
+*   `weave_ip_network` (required)
+
+    The IP address for `weave` network. The supported format is `$IP:$ROUTING_PREFIX_LEN`, e.g. 10.2.1.0/24.
+
+*   `admin_pw` (required)
+
+    Default password for default Admin account.
+
+__Request example:__
+
+```sh
+curl http://localhost:8080/cluster \
+    -d name=cluster1 \
+    -d org_name=my-org \
+    -d org_short_name=my-org \
+    -d city=Austin \
+    -d state=TX \
+    -d country_code=US \
+    -d admin_email='info@example.com' \
+    -d ox_cluster_hostname=ox.example.com \
+    -d weave_ip_network=10.2.1.0/24 \
+    -d admin_pw=secret \
+    -X POST -i
+```
+
+__Response example:__
+
+```http
+HTTP/1.0 201 CREATED
+Content-Type: application/json
+Location: http://localhost:8080/cluster/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
+
+{
+    "inum_org": "@!FDF8.652A.6EFF.F5A3!0001!DA7B.9EB2",
+    "oxauth_nodes": [],
+    "inum_appliance": "@!FDF8.652A.6EFF.F5A3!0002!FA83.4368",
+    "admin_email": "info@example.com",
+    "inum_appliance_fn": "FDF8652A6EFFF5A30002FA834368",
+    "description": null,
+    "city": "Austin",
+    "base_inum": "@!FDF8.652A.6EFF.F5A3",
+    "inum_org_fn": "FDF8652A6EFFF5A30001DA7B9EB2",
+    "weave_ip_network": "10.2.1.0/24",
+    "ldaps_port": "1636",
+    "ox_cluster_hostname": "ox.example.com",
+    "state": "TX",
+    "country_code": "US",
+    "ldap_nodes": [],
+    "httpd_nodes": [],
+    "org_short_name": "my-org",
+    "org_name": "my-org",
+    "id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
+    "oxtrust_nodes": [],
+    "name": "cluster1"
+}
+```
+
+__Status Code:__
+
+* `201`: Cluster is successfully created.
+* `400`: Bad request. Possibly malformed/incorrect parameter value.
+* `403`: Access denide. Possibly unable to create more cluster.
+* `500`: The server having errors.
+
+---
+
+### Get A Cluster
+
+`GET /cluster/{id}`
+
+__URL:__
+
+`http://localhost:8080/cluster/{id}`
+
+__Request example:__
+
+```sh
+curl http://localhost:8080/cluster/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f -i
+```
+
+__Response example:__
+
+```http
+HTTP/1.0 200 OK
+Content-Type: application/json
+Location: http://localhost:8080/cluster/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
+
+{
+    "inum_org": "@!FDF8.652A.6EFF.F5A3!0001!DA7B.9EB2",
+    "oxauth_nodes": [],
+    "inum_appliance": "@!FDF8.652A.6EFF.F5A3!0002!FA83.4368",
+    "admin_email": "info@example.com",
+    "inum_appliance_fn": "FDF8652A6EFFF5A30002FA834368",
+    "description": null,
+    "city": "Austin",
+    "base_inum": "@!FDF8.652A.6EFF.F5A3",
+    "inum_org_fn": "FDF8652A6EFFF5A30001DA7B9EB2",
+    "weave_ip_network": "10.2.1.0/24",
+    "ldaps_port": "1636",
+    "ox_cluster_hostname": "ox.example.com",
+    "state": "TX",
+    "country_code": "US",
+    "ldap_nodes": [],
+    "httpd_nodes": [],
+    "org_short_name": "my-org",
+    "org_name": "my-org",
+    "id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
+    "oxtrust_nodes": [],
+    "name": "cluster1"
+}
+```
+
+__Status Code:__
+
+* `200`: Cluster is exist.
+* `404`: Cluster is not exist.
+* `500`: The server having errors.
+
+---
+
+### List All Clusters
+
+`GET /cluster`
+
+__URL:__
+
+`http://localhost:8080/cluster`
+
+__Request example:__
+
+```sh
+curl http://localhost:8080/cluster -i
+```
+
+__Response example:__
+
+```http
+HTTP/1.0 200 OK
+Content-Type: application/json
+Location: http://localhost:8080/cluster/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
+
+[
+    {
+        "inum_org": "@!FDF8.652A.6EFF.F5A3!0001!DA7B.9EB2",
+        "oxauth_nodes": [],
+        "inum_appliance": "@!FDF8.652A.6EFF.F5A3!0002!FA83.4368",
+        "admin_email": "info@example.com",
+        "inum_appliance_fn": "FDF8652A6EFFF5A30002FA834368",
+        "description": null,
+        "city": "Austin",
+        "base_inum": "@!FDF8.652A.6EFF.F5A3",
+        "inum_org_fn": "FDF8652A6EFFF5A30001DA7B9EB2",
+        "weave_ip_network": "10.2.1.0/24",
+        "ldaps_port": "1636",
+        "ox_cluster_hostname": "ox.example.com",
+        "state": "TX",
+        "country_code": "US",
+        "ldap_nodes": [],
+        "httpd_nodes": [],
+        "org_short_name": "my-org",
+        "org_name": "my-org",
+        "id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
+        "oxtrust_nodes": [],
+        "name": "cluster1"
+    }
+]
+```
+
+Note, if there's no cluster, the response body will return empty list.
+
+__Status Code:__
+
+* `200`: Request is succeed.
+* `500`: The server having errors.
+
+---
+
+### Delete A Cluster
+
+`DELETE /cluster/{id}`
+
+__URL:__
+
+`http://localhost:8080/cluster/{id}`
+
+__Request example:__
+
+```sh
+curl http://localhost:8080/cluster/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f \
+    -X DELETE -i
+```
+
+__Response example:__
+
+```http
+HTTP/1.0 204 NO CONTENT
+Content-Type: application/json
+```
+
+__Status Code:__
+
+* `204`: Cluster has been deleted.
+* `404`: Cluster is not exist.
+* `500`: The server having errors.
