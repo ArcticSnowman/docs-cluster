@@ -21,7 +21,7 @@ __Form parameters:__
 
 *   `hostname` (required)
 
-    Host name of the machine. When in doubt, use `hostname` shell command to get the name.
+    Host name of the machine. When in doubt, use `hostname --long` shell command to get the name.
 
 *   `docker_base_url` (required)
 
