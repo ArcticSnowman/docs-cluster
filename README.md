@@ -1,6 +1,10 @@
 Gluu Cluster Documentation
 ==========================
 
+The Gluu Server cluster project is a docker-based recipe for deploying multiple instances of the Gluu Server to achieve an elastic, highly avalable, centralized authentication and authorization infrastructure.
+
+# Installation
+
 Install virtualenv if necessary:
 
 ```
