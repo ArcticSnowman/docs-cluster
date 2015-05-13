@@ -172,7 +172,7 @@ __Request example:__
 
 ```sh
 curl http://localhost:8080/node/9d99c95c4043 \
-    -X DELETE -i --max-timeout 300
+    -X DELETE -i --max-time 300
 ```
 
 __Response example:__
