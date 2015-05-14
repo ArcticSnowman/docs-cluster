@@ -35,6 +35,14 @@ __Form parameters:__
     3. `oxtrust`
     4. `httpd`
 
+*   `connect_delay` (optional)
+
+    Time to wait (in seconds) before start connecting to node (default to 10 seconds).
+
+*   `exec_delay` (optional)
+
+    Time to wait (in seconds) before start executing command in node (default to 15 seconds).
+
 __Request example:__
 
 ```sh
