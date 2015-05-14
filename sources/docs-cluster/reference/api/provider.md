@@ -158,5 +158,6 @@ Content-Type: application/json
 __Status Code:__
 
 * `204`: Provider has been deleted.
+* `403`: Access denied. Refer to `message` key in JSON response for details.
 * `404`: Provider is not exist.
 * `500`: The server having errors.
