@@ -16,6 +16,7 @@ pages:
 - ['index.md', 'Home']
 
 # Admin Guide Sections
+- ['docs-cluster/admin-guide/getting-started.md', 'Admin Guide', 'Getting Started']
 - ['docs-cluster/admin-guide/overview/index.md', 'Admin Guide', 'Overview']
 - ['docs-cluster/admin-guide/installation/index.md', 'Admin Guide', 'Installation']
 - ['docs-cluster/admin-guide/components/index.md', 'Admin Guide', 'Components']
@@ -35,4 +36,3 @@ pages:
 - ['docs-cluster/reference/api/node.md', '**HIDDEN**']
 
 # Articles Sections
-- ['docs-cluster/articles/getting-started.md', 'Articles', 'Getting Started']

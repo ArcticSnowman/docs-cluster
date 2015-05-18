@@ -14,6 +14,10 @@ Container service
 
 Used to execute commands on the remote system and to copy files to docker instances.
 
+### Salt master
+
+### Salt minion
+
 ## Prometheus
 
 Used to monitor and send alerts.
