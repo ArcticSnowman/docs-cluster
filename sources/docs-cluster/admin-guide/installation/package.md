@@ -1,35 +1,51 @@
-## Gluu Cluster deb Packages
+## Gluu Cluster Packages
 
-### Gluu Cluster Master deb Package
+There are 3 main packages used by Gluu Cluster:
 
-Gluu cluster master consists of various components:
+* Gluu Cluster Master or `gluu-master`
+* Gluu Cluster API or `gluu-flask`
+* Gluu Cluster Consumer or `gluu-consumer`
 
-* `docker`
-* `salt-master`
-* `salt-minion`
-* `weave`
-* `prometheus`
-* `gluu-flask`
+Things to remember:
 
-#### docker
+* `gluu-flask` won't work without `gluu-master`, hence these 2 packages are mandatory and must be installed in a same host.
+* In single server setup, `gluu-customer` is not required at all.
 
-Follow these instructions to install the package for Ubuntu Trusty 14.04 managed by docker.com:
-[http://docs.docker.com/installation/ubuntulinux](http://docs.docker.com/installation/ubuntulinux/#docker-maintained-package-installation)
+### Gluu Cluster Master
 
-For the impatient, just type:
+Behind the scene, `gluu-master` consists of various components:
+
+* [docker](https://www.docker.com/)
+* [salt-master](https://github.com/saltstack/salt)
+* [salt-minion](https://github.com/saltstack/salt)
+* [weave](http://weave.works/)
+* [prometheus](http://prometheus.io/)
+
+#### Installing Gluu Cluster Master Components
+
+To minimize the complexity of installation, those components are packaged into a single `deb` package called `gluu-master`.
+
+The following snippet will install `gluu-master` package from Gluu repository:
 
 ```
-curl -sSL https://get.docker.com/ubuntu/ | sudo sh
+echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list
+curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add -
+apt-get update
+apt-get install -y gluu-master
 ```
 
-Afterwards, configure ``docker`` daemon:
+#### Configuring Gluu Cluster Master Components
+
+##### docker
+
+Configure ``docker`` daemon:
 
 ```
 echo "DOCKER_OPTS=\"-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock\"" >> /etc/default/docker
 service docker restart
 ```
 
-#### salt-master
+##### salt-master
 
 Set this variable in root:
 
@@ -39,22 +55,7 @@ export MASTER_IPADDR=xxx.xxx.xxx.xxx
 
 where `xxx.xxx.xxx.xxx` is the IP address of the machine.
 
-Install `salt-master`:
-
-```
-echo deb http://ppa.launchpad.net/saltstack/salt/ubuntu `lsb_release -sc` main | sudo tee /etc/apt/sources.list.d/saltstack.list
-wget -q -O- "http://keyserver.ubuntu.com:11371/pks/lookup?op=get&search=0x4759FA960E27C0A6" | sudo apt-key add -
-apt-get update
-apt-get install -y salt-master
-```
-
-#### salt-minion
-
-Install `salt-minion`.
-
-```
-apt-get install -y salt-minion
-```
+##### salt-minion
 
 Configure `salt-minion`:
 
@@ -68,7 +69,6 @@ Register minion to master:
 ```
 salt-key -y -a `hostname --long`
 ```
-NOTE: We need to use long hostmane in aws
 
 Test that minion is properly connected to master:
 
@@ -76,28 +76,16 @@ Test that minion is properly connected to master:
 salt `hostname --long` test.ping
 ```
 
-#### weave
+##### weave
 
-```
-wget -O /usr/local/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
-chmod a+x /usr/local/bin/weave
-```
-
-NOTE: we can host `weave` binary in our gluu server.
-
-Setup `weave`:
+Setup and run `weave`:
 
 ```
 weave setup
-```
-
-Start `weave`:
-
-```
 weave launch
 ```
 
-#### Prometheus
+##### Prometheus
 
 Put `prometheus.conf` file in `/etc/gluu/prometheus/prometheus.conf`
 (maybe there is a better place to put this file?).
@@ -137,48 +125,28 @@ job: {
 }
 ```
 
-Pull `prometheus`:
-
-```
-docker pull prom/prometheus
-```
-
 Run `prometheus`:
 
 ```
 docker run -d -v /etc/gluu/prometheus/prometheus.conf:/etc/prometheus/prometheus.conf --cidfile="/var/run/prometheus.cid" prom/prometheus
 ```
 
-#### gluu-flask
+The command above will pull prometheus image when necessary.
 
-Ubuntu packages:
+#### Registering Gluu Cluster Master as Provider
+
+The master key will be registered when [Provider](../../reference/api/provider.md) entity is created.
+Please note, this process requires `gluu-flask` installed and running.
+
+### Gluu Cluster API
+
+Install `gluu-flask` package:
 
 ```
-apt-get install -y libssl-dev python-dev swig
-apt-get build-dep -y openssl
+apt-get install -y gluu-flask
 ```
 
-Clone gluu-flask:
-
-```
-git clone git://github.com/GluuFederation/gluu-flask.git /opt/gluu-flask
-```
-
-Install gluu-flask (`gluuapi` executable will be installed to PATH):
-
--  If using `virtualenv`:
-
-        cd /opt/gluu-flask
-        apt-get install -y python-virtualenv
-        virtualenv env
-        source env/bin/activate
-        python setup.py install
-
--   Without `virtualenv`:
-
-        cd /opt/gluu-flask
-        apt-get install -y python-setuptools
-        python setup.py install
+This will install an executable called `gluuapi`.
 
 Run `gluuapi`:
 
@@ -186,13 +154,26 @@ Run `gluuapi`:
 API_ENV=prod SALT_MASTER_IPADDR=$MASTER_IPADDR gluuapi
 ```
 
-### Gluu Cluster Consumer deb Package
+### Gluu Cluster Consumer
 
-Gluu cluster consumer consists of various components:
+Behind the scene, `gluu-consumer` consists of various components:
 
-* `docker`
-* `salt-minion`
-* `weave`
+* [docker](https://www.docker.com/)
+* [salt-minion](https://github.com/saltstack/salt)
+* [weave](http://weave.works/)
+
+#### Installing Gluu Cluster Consumer Components
+
+To minimize the complexity of installation, those components are packaged into a single `deb` package called `gluu-consumer`.
+
+The following snippet will install `gluu-consumer` package from Gluu repository:
+
+```
+echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list
+curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add -
+apt-get update
+apt-get install -y gluu-consumer
+```
 
 Set this variable in root:
 
@@ -200,18 +181,9 @@ Set this variable in root:
 export MASTER_IPADDR=xxx.xxx.xxx.xxx
 ```
 
-The `MASTER_IPADDR` must equal to `MASTER_IPADDR` mentioned in Gluu cluster master above.
+The `MASTER_IPADDR` must equal to `MASTER_IPADDR` mentioned in Gluu Cluster Master section.
 
-#### docker
-
-Follow these instructions to install the package for Ubuntu Trusty 14.04 managed by docker.com:
-[http://docs.docker.com/installation/ubuntulinux](http://docs.docker.com/installation/ubuntulinux/#docker-maintained-package-installation)
-
-For the impatient, just type:
-
-```
-curl -sSL https://get.docker.com/ubuntu/ | sudo sh
-```
+##### docker
 
 Configure `docker` daemon:
 
@@ -220,16 +192,7 @@ echo "DOCKER_OPTS=\"-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock\"" >> /
 service docker restart
 ```
 
-#### salt-minion
-
-Install salt-minion
-
-```
-echo deb http://ppa.launchpad.net/saltstack/salt/ubuntu `lsb_release -sc` main | sudo tee /etc/apt/sources.list.d/saltstack.list
-wget -q -O- "http://keyserver.ubuntu.com:11371/pks/lookup?op=get&search=0x4759FA960E27C0A6" | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install -y salt-minion
-```
+##### salt-minion
 
 Configure `salt-minion`:
 
@@ -238,25 +201,16 @@ echo "master: $MASTER_IPADDR" >> /etc/salt/minion
 service salt-minion restart
 ```
 
-To register the consumer key, [Provider](../../reference/api/provider.md) entity must be created first.
+##### weave
 
-#### weave
-
-```
-sudo wget -O /usr/local/bin/weave https://github.com/weaveworks/weave/releases/download/latest_release/weave
-sudo chmod a+x /usr/local/bin/weave
-```
-
-NOTE: we can host weave binary in our gluu server.
-
-Setup weave:
+Setup and run `weave`:
 
 ```
 weave setup
-```
-
-Start weave:
-
-```
 weave launch $MASTER_IPADDR
 ```
+
+#### Registering Gluu Cluster Consumer as Provider
+
+The consumer key will be registered when [Provider](../../reference/api/provider.md) entity is created.
+Please note, this process requires `gluu-flask` installed and running.

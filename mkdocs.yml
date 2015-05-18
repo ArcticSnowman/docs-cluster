@@ -33,3 +33,6 @@ pages:
 - ['docs-cluster/reference/api/provider.md', '**HIDDEN**']
 - ['docs-cluster/reference/api/cluster.md', '**HIDDEN**']
 - ['docs-cluster/reference/api/node.md', '**HIDDEN**']
+
+# Articles Sections
+- ['docs-cluster/articles/getting-started.md', 'Articles', 'Getting Started']
