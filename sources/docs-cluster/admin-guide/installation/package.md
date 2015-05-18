@@ -9,7 +9,7 @@ There are 3 main packages used by Gluu Cluster:
 Things to remember:
 
 * `gluu-flask` won't work without `gluu-master`, hence these 2 packages are mandatory and must be installed in a same host.
-* In single server setup, `gluu-customer` is not required at all.
+* In single server setup, `gluu-consumer` is not required at all.
 
 ### Gluu Cluster Master
 
