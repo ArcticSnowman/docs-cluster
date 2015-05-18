@@ -102,7 +102,7 @@ global {
   labels: {
     label: {
       name: "monitor"
-      value: "codelab-monitor"
+      value: "gluu-monitor"
     }
   }
 
