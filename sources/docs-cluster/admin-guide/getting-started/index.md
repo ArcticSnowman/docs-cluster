@@ -4,7 +4,7 @@ This article assumes few things:
 
 1. The server is using Ubuntu 14.04 (as it's the only supported OS right now)
 2. We're using single server/host setup which only requires Gluu Cluster Master and Gluu Cluster API packages.
-3. We already installed and configured Gluu Cluster Packages. Refer to [Package](./installation/package.md) documentation for details.
+3. We already installed and configured Gluu Cluster Packages. Refer to [Package](../installation/package.md) documentation for details.
 4. We set `my-gluu-master` as hostname and `128.199.198.172` as IP address from `eth0` interface.
 
 ### Creating Cluster
