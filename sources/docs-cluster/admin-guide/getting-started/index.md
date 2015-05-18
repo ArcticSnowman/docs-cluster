@@ -74,8 +74,8 @@ We'll need `cluster_id` when deploying nodes, so let's keep the reference to `cl
 export CLUSTER_ID=1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
 ```
 
-[cluster-api]: ../reference/api/cluster.md
-[provider-api]: ../reference/api/provider.md
+[cluster-api]: ../../reference/api/cluster.md
+[provider-api]: ../../reference/api/provider.md
 
 ### Registering Provider
 
