@@ -9,7 +9,7 @@ This article assumes few things:
 
 ### Creating Cluster
 
-[Cluster][cluster-api] is a set of nodes deployed in one or more [Providers][provider-api]. Since Glu Cluster API only supports a single cluster for now, we're going to create a new one. Gluu Cluster API itself is a HTTP REST API, so using any HTTP client (including `curl`) will work.
+[Cluster][cluster-api] is a set of nodes deployed in one or more [Providers][provider-api]. Since Gluu Cluster API only supports a single cluster for now, we're going to create a new one. Gluu Cluster API itself is a HTTP REST API, so using any HTTP client (including `curl`) will work.
 
 Type command below in the shell:
 
