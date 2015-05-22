@@ -5,7 +5,46 @@ This article assumes few things:
 1. The server is using Ubuntu 14.04 (as it's the only supported OS right now)
 2. We're using single server/host setup which only requires Gluu Cluster Master and Gluu Cluster API packages.
 3. We already installed and configured Gluu Cluster Packages. Refer to [Package](../installation/package.md) documentation for details.
-4. We set `my-gluu-master` as hostname and `128.199.198.172` as IP address from `eth0` interface.
+4. We set `my-gluu-master` as hostname and `128.199.242.74` as IP address from `eth0` interface.
+
+### Registering Provider
+
+Provider is an entity represents a server/host where `docker`, `weave`, and `salt-minion` are hosted.
+For example, if we install `gluu-master` or `gluu-consumer` package in a server/host, then it is considered as a provider.
+
+Since this article assumes we only use `gluu-master` package, let's register the host as provider. Again, let's type command below in the shell:
+
+```
+curl http://localhost:8080/provider \
+    -d hostname=my-gluu-master \
+    -d docker_base_url='128.199.242.74:2375' \
+    -X POST -i
+```
+
+Here's a brief explanation of parameters used in command above:
+
+* `hostname` is the hostname of the server/host.
+* `docker_base_url` is the Docker API URL configured after installing `gluu-master` package.
+
+A successful request will returns a response (with HTTP status code 201) like this:
+
+```
+HTTP/1.0 201 CREATED
+Content-Type: application/json
+Location: http://localhost:8080/provider/249c282f-0490-48f3-8575-c671dfb7b618
+
+{
+    "docker_base_url": "128.199.242.74:2375",
+    "hostname": "my-gluu-master",
+    "id": "249c282f-0490-48f3-8575-c671dfb7b618"
+}
+```
+
+We'll need `provider_id` when deploying nodes, so let's keep the reference to `provider_id` as environment variable.
+
+```
+export PROVIDER_ID=249c282f-0490-48f3-8575-c671dfb7b618
+```
 
 ### Creating Cluster
 
@@ -76,45 +115,6 @@ export CLUSTER_ID=1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
 
 [cluster-api]: ../../reference/api/cluster.md
 [provider-api]: ../../reference/api/provider.md
-
-### Registering Provider
-
-Provider is an entity represents a server/host where `docker`, `weave`, and `salt-minion` are hosted.
-For example, if we install `gluu-master` or `gluu-consumer` package in a server/host, then it is considered as a provider.
-
-Since this article assumes we only use `gluu-master` package, let's register the host as provider. Again, let's type command below in the shell:
-
-```
-curl http://localhost:8080/provider \
-    -d hostname=my-gluu-master \
-    -d docker_base_url='128.199.198.172:2375' \
-    -X POST -i
-```
-
-Here's a brief explanation of parameters used in command above:
-
-* `hostname` is the hostname of the server/host.
-* `docker_base_url` is the Docker API URL configured after installing `gluu-master` package.
-
-A successful request will returns a response (with HTTP status code 201) like this:
-
-```
-HTTP/1.0 201 CREATED
-Content-Type: application/json
-Location: http://localhost:8080/provider/249c282f-0490-48f3-8575-c671dfb7b618
-
-{
-    "docker_base_url": "128.199.198.172:2375",
-    "hostname": "my-gluu-master",
-    "id": "249c282f-0490-48f3-8575-c671dfb7b618"
-}
-```
-
-We'll need `provider_id` when deploying nodes, so let's keep the reference to `provider_id` as environment variable.
-
-```
-export PROVIDER_ID=249c282f-0490-48f3-8575-c671dfb7b618
-```
 
 ### Deploying Nodes
 
