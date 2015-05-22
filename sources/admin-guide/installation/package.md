@@ -125,4 +125,4 @@ Press enter to continue the process.
 
 Head over to [Getting Started](../getting-started/index.md) page for an example on how to use Gluu Cluster API.
 
-test
+
