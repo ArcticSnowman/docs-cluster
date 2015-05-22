@@ -36,111 +36,32 @@ apt-get install -y gluu-master
 
 #### Configuring Gluu Cluster Master Components
 
-##### docker
-
-Configure ``docker`` daemon:
+Download the `postinstall.py` script:
 
 ```
-echo "DOCKER_OPTS=\"-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock\"" >> /etc/default/docker
-service docker restart
+wget https://github.com/GluuFederation/gluu-cluster-postinstall/raw/master/postinstall.py
 ```
 
-##### salt-master
-
-Set this variable in root:
-
-```
-export MASTER_IPADDR=xxx.xxx.xxx.xxx
-```
-
-where `xxx.xxx.xxx.xxx` is the IP address of the machine.
-
-##### salt-minion
-
-Configure `salt-minion`:
+Before running the script, make sure we already know which IP address we are going to use.
+Afterwards, run the `postinstall.py` script and and answer all questions prompted by the script:
 
 ```
-echo "master: $MASTER_IPADDR" >> /etc/salt/minion
-service salt-minion restart
+python postinstall.py
 ```
 
-Register minion to master:
+Here's an example of script's prompt:
 
 ```
-salt-key -y -a `hostname --long`
+root@gluu-master:~# python postinstall.py
+Enter host type (ex. master or consumer) : master
+Enter MASTER_IPADDR (ex xxx.xxx.xxx.xxx) : 128.199.242.74
 ```
 
-Test that minion is properly connected to master:
-
-```
-salt `hostname --long` test.ping
-```
-
-##### weave
-
-Setup and run `weave`:
-
-```
-weave setup
-weave launch
-```
-
-##### Prometheus
-
-Put `prometheus.conf` file in `/etc/gluu/prometheus/prometheus.conf`
-(maybe there is a better place to put this file?).
-
-Default `prometheus.conf` file:
-
-```
-# Global default settings.
-global {
-  scrape_interval: "15s"     # By default, scrape targets every 15 seconds.
-  evaluation_interval: "15s" # By default, evaluate rules every 15 seconds.
-
-  # Attach these extra labels to all timeseries collected by this Prometheus instance.
-  labels: {
-    label: {
-      name: "monitor"
-      value: "gluu-monitor"
-    }
-  }
-
-  # Load and evaluate rules in this file every 'evaluation_interval' seconds. This field may be repeated.
-  #rule_file: "prometheus.rules"
-}
-
-# A job definition containing exactly one endpoint to scrape: Here it's prometheus itself.
-job: {
-  # The job name is added as a label `job={job-name}` to any timeseries scraped from this job.
-  name: "prometheus"
-  # Override the global default and scrape targets from this job every 5 seconds.
-  scrape_interval: "5s"
-
-  # Let's define a group of targets to scrape for this job. In this case, only one.
-  target_group: {
-    # These endpoints are scraped via HTTP.
-    target: "http://localhost:9090/metrics"
-  }
-}
-```
-
-Run `prometheus`:
-
-```
-docker run -d -v /etc/gluu/prometheus/prometheus.conf:/etc/prometheus/prometheus.conf --cidfile="/var/run/prometheus.cid" prom/prometheus
-```
-
-The command above will pull prometheus image when necessary.
-
-#### Registering Gluu Cluster Master as Provider
-
-The master key will be registered when [Provider](../../reference/api/provider.md) entity is created.
-Please note, this process requires `gluu-flask` installed and running.
+Press enter to continue the process.
 
 ### Gluu Cluster API
 
-Install `gluu-flask` package:
+In master host, install `gluu-flask` package:
 
 ```
 apt-get install -y gluu-flask
@@ -151,7 +72,7 @@ This will install an executable called `gluuapi`.
 Run `gluuapi`:
 
 ```
-API_ENV=prod SALT_MASTER_IPADDR=$MASTER_IPADDR gluuapi
+API_ENV=prod SALT_MASTER_IPADDR=128.199.242.74 gluuapi
 ```
 
 ### Gluu Cluster Consumer
@@ -175,42 +96,31 @@ apt-get update
 apt-get install -y gluu-consumer
 ```
 
-Set this variable in root:
+#### Configuring Gluu Cluster Consumer Components
+
+Download the `postinstall.py` script:
 
 ```
-export MASTER_IPADDR=xxx.xxx.xxx.xxx
+wget https://github.com/GluuFederation/gluu-cluster-postinstall/raw/master/postinstall.py
 ```
 
-The `MASTER_IPADDR` must equal to `MASTER_IPADDR` mentioned in Gluu Cluster Master section.
-
-##### docker
-
-Configure `docker` daemon:
+Before running the script, make sure we already know the master's IP address we are going to use.
+Afterwards, run the `postinstall.py` script and and answer all questions prompted by the script:
 
 ```
-echo "DOCKER_OPTS=\"-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock\"" >> /etc/default/docker
-service docker restart
+python postinstall.py
 ```
 
-##### salt-minion
-
-Configure `salt-minion`:
+Here's an example of script's prompt:
 
 ```
-echo "master: $MASTER_IPADDR" >> /etc/salt/minion
-service salt-minion restart
+root@gluu-master:~# python postinstall.py
+Enter host type (ex. master or consumer) : consumer
+Enter MASTER_IPADDR (ex xxx.xxx.xxx.xxx) : 128.199.242.74
 ```
 
-##### weave
+Press enter to continue the process.
 
-Setup and run `weave`:
+### What's Next
 
-```
-weave setup
-weave launch $MASTER_IPADDR
-```
-
-#### Registering Gluu Cluster Consumer as Provider
-
-The consumer key will be registered when [Provider](../../reference/api/provider.md) entity is created.
-Please note, this process requires `gluu-flask` installed and running.
+Head over to [Getting Started](../getting-started/index.md) page for an example on how to use Gluu Cluster API.
