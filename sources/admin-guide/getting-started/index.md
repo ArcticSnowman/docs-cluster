@@ -159,7 +159,7 @@ The log file will inform whether the node deployment is succeed or failed.
 
 If `ldap` node is successfully deployed, we can continue deploying nodes for `oxauth`, `oxtrust`, `httpd` sequentially. Repeat the `curl` and `tail` command above, but make sure we're using different value for `node_type` parameter.
 
-### Accessing Web UI using Browser
+### Accessing oxTrust Web UI using Browser
 
 After all nodes successfully deployed, we can accessing the web UI using browser. Remember the `ox_cluster_hostname` parameter? Since we set `ox.example.com` as its value, open the web browser and type `https://ox.example.com` in address bar. The application will take us to login page. Enter the following values in the form fields:
 
