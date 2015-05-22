@@ -72,7 +72,7 @@ This will install an executable called `gluuapi`.
 Run `gluuapi`:
 
 ```
-API_ENV=prod SALT_MASTER_IPADDR=128.199.242.74 gluuapi
+API_ENV=prod SALT_MASTER_IPADDR=128.199.242.74 nohup gluuapi &
 ```
 
 ### Gluu Cluster Consumer
