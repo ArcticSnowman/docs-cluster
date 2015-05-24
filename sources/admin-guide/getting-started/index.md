@@ -2,25 +2,29 @@
 
 ### Pre-requisistes
 
-1. Ubuntu 14.04
-2. Gluu Server Master packages are already installed. Refer to [Package](../installation/package.md) documentation for details.
-3. We set `my-gluu-master` as hostname and `128.199.242.74` as IP address from `eth0` interface.
+1. Gluu Server Master packages are already installed. Refer to [Package](../installation/package.md) documentation for details.
+2. In this example, we'll use `gluu.example.com` as hostname and `128.199.242.74` as IP address from `eth0` interface.
 
 ### Registering Provider
 
-Provider is an entity represents a server/host where `docker`, `weave`, and `salt-minion` are hosted.
-For example, if we install `gluu-master` or `gluu-consumer` package in a server/host, then it is considered as a provider.
+In Gluu jargon, a "Provider" is server where `docker`, `weave`, and `salt-minion` are hosted.
+Both `gluu-master` and `gluu-consumer` are Providers.
 
-Since this article assumes we only use `gluu-master` package, let's register the host as provider. Again, let's type command below in the shell:
+When you first deploy a Gluu Cluster, you will start with the `gluu-master` package. After you install the 
+packages, you need to "register" Provider. This creates the entity in the gluu-flask json database. You
+need to do this so that the API's know where to deploy your instances.
+
+Note: `gluu-flask` api's should only be run on localhost, and accessed locally, as there is no
+api protection in place at this time. 
 
 ```
 curl http://localhost:8080/provider \
-    -d hostname=my-gluu-master \
+    -d hostname=gluu.example.com \
     -d docker_base_url='128.199.242.74:2375' \
     -X POST -i
 ```
 
-Here's a brief explanation of parameters used in command above:
+Here's a brief explanation of parameters used in the command above:
 
 * `hostname` is the hostname of the server/host.
 * `docker_base_url` is the Docker API URL configured after installing `gluu-master` package.
@@ -34,12 +38,12 @@ Location: http://localhost:8080/provider/249c282f-0490-48f3-8575-c671dfb7b618
 
 {
     "docker_base_url": "128.199.242.74:2375",
-    "hostname": "my-gluu-master",
+    "hostname": "gluu.example.com",
     "id": "249c282f-0490-48f3-8575-c671dfb7b618"
 }
 ```
 
-We'll need `provider_id` when deploying nodes, so let's keep the reference to `provider_id` as environment variable.
+We'll need the `provider_id` when deploying nodes, so let's keep the reference to `provider_id` as environment variable.
 
 ```
 export PROVIDER_ID=249c282f-0490-48f3-8575-c671dfb7b618
@@ -47,9 +51,9 @@ export PROVIDER_ID=249c282f-0490-48f3-8575-c671dfb7b618
 
 ### Creating Cluster
 
-[Cluster][cluster-api] is a set of nodes deployed in one or more [Providers][provider-api]. Since Gluu Cluster API only supports a single cluster for now, we're going to create a new one. Gluu Cluster API itself is a HTTP REST API, so using any HTTP client (including `curl`) will work.
-
-Type command below in the shell:
+A [Cluster][cluster-api] is a set of nodes deployed in one or more [Providers][provider-api]. The cluster
+contains information shared across providers, like hostname. Only create one cluster.
+Here is a sample using `curl`:
 
 ```
 curl http://localhost:8080/cluster \
@@ -74,7 +78,7 @@ Here's a brief explanation of parameters used in command above:
 * `weave_ip_network` is IP address network used for inter-container communication; Make we use unique IP address per cluster.
 * `admin_pw` is used for LDAP password, LDAP replication password, and oxTrust admin password.
 
-A successful request will returns a response (with HTTP status code 201) like this:
+A successful request returns a HTTP 201 status code:
 
 ```
 HTTP/1.0 201 CREATED
@@ -106,7 +110,7 @@ Location: http://localhost:8080/cluster/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
 }
 ```
 
-We'll need `cluster_id` when deploying nodes, so let's keep the reference to `cluster_id` as environment variable.
+We'll need the `cluster_id` when deploying nodes, so let's keep the reference to `cluster_id` as environment variable.
 
 ```
 export CLUSTER_ID=1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
