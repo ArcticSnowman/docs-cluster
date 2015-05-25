@@ -1,6 +1,6 @@
 ## Getting Started
 
-### Pre-requisistes
+### Pre-requisites
 
 1. Gluu Server Master packages are already installed. Refer to [Package](../installation/package.md) documentation for details.
 2. In this example, we'll use `gluu.example.com` as hostname and `128.199.242.74` as IP address from `eth0` interface.
@@ -10,12 +10,12 @@
 In Gluu jargon, a "Provider" is server where `docker`, `weave`, and `salt-minion` are hosted.
 Both `gluu-master` and `gluu-consumer` are Providers.
 
-When you first deploy a Gluu Cluster, you will start with the `gluu-master` package. After you install the 
+When you first deploy a Gluu Cluster, you will start with the `gluu-master` package. After you install the
 packages, you need to "register" Provider. This creates the entity in the gluu-flask json database. You
 need to do this so that the API's know where to deploy your instances.
 
 Note: `gluu-flask` api's should only be run on localhost, and accessed locally, as there is no
-api protection in place at this time. 
+api protection in place at this time.
 
 ```
 curl http://localhost:8080/provider \
@@ -171,3 +171,72 @@ After all nodes successfully deployed, we can accessing the web UI using browser
 * `secret` as password (taken from `admin_pw` value when we created the cluster earlier)
 
 A successful login will be redirected to oxTrust dashboard.
+
+### Adding Additional Provider
+
+As we have mentioned before, both `gluu-master` and `gluu-consumer` are Providers.
+In the example above, we already have a master provider.
+We may want to add extra consumer providers, for example to have LDAP replication.
+
+In this example, there are pre-requisites:
+
+1. Gluu Server Consumer package is already installed. Refer to [Package](../installation/package.md) documentation for details.
+2. We'll use `gluu2.example.com` as hostname and `128.199.242.75` as IP address from `eth0` interface.
+
+Let's add this new provider:
+
+```
+curl http://localhost:8080/provider \
+    -d hostname=gluu2.example.com \
+    -d docker_base_url='128.199.242.75:2375' \
+    -X POST -i
+```
+
+A successful request will returns a response (with HTTP status code 201) like this:
+
+```
+HTTP/1.0 201 CREATED
+Content-Type: application/json
+Location: http://localhost:8080/provider/249c282f-0490-48f3-8575-c671dfb7b619
+
+{
+    "docker_base_url": "128.199.242.75:2375",
+    "hostname": "gluu2.example.com",
+    "id": "249c282f-0490-48f3-8575-c671dfb7b619"
+}
+```
+
+We'll need the `provider_id` when deploying nodes, so let's keep the reference to `provider_id` as environment variable.
+
+```
+export PROVIDER2_ID=249c282f-0490-48f3-8575-c671dfb7b619
+```
+
+Afterwards, deploy a new LDAP node. This new LDAP node will be replicated since we already have an existing LDAP node.
+
+```
+curl http://localhost:8080/node \
+    -d provider_id=$PROVIDER2_ID \
+    -d cluster_id=$CLUSTER_ID \
+    -d node_type=ldap \
+    -X POST -i
+```
+
+A successful request returns a response (with HTTP status code 202) like this:
+
+```
+HTTP/1.0 202 ACCEPTED
+Content-Type: application/json
+
+{
+    "log": "/tmp/gluuopendj-build-OoQ7TN.log"
+}
+```
+
+Follow the progress of node deployment:
+
+```
+tail -F /tmp/gluuopendj-build-OoQ7TN.log
+```
+
+The log file will inform whether the new LDAP node deployment (including replication process) is succeed or failed.
