@@ -1,11 +1,11 @@
 ## Getting Started
 
-### Pre-requisites
+## Pre-requisites
 
 1. Gluu Server Master packages are already installed. Refer to [Package](../installation/package.md) documentation for details.
 2. In this example, we'll use `gluu.example.com` as hostname and `128.199.242.74` as IP address from `eth0` interface.
 
-### Registering Provider
+## Registering Provider
 
 In Gluu jargon, a "Provider" is server where `docker`, `weave`, and `salt-minion` are hosted.
 Both `gluu-master` and `gluu-consumer` are Providers.
@@ -49,7 +49,7 @@ We'll need the `provider_id` when deploying nodes, so let's keep the reference t
 export PROVIDER_ID=249c282f-0490-48f3-8575-c671dfb7b618
 ```
 
-### Creating Cluster
+## Creating Cluster
 
 A [Cluster][cluster-api] is a set of nodes deployed in one or more [Providers][provider-api]. The cluster
 contains information shared across providers, like hostname. Only create one cluster.
@@ -119,7 +119,7 @@ export CLUSTER_ID=1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
 [cluster-api]: ../../reference/api/cluster.md
 [provider-api]: ../../reference/api/provider.md
 
-### Deploying Nodes
+## Deploying Nodes
 
 Once we had Cluster and Provider entities, we can start deploying nodes. Note, as each nodes is depends on each other, it's recommended to deploy nodes in following order:
 
@@ -163,7 +163,7 @@ The log file will inform whether the node deployment is succeed or failed.
 
 If `ldap` node is successfully deployed, we can continue deploying nodes for `oxauth`, `oxtrust`, `httpd` sequentially. Repeat the `curl` and `tail` command above, but make sure we're using different value for `node_type` parameter.
 
-### Accessing oxTrust Web UI using Browser
+## Accessing oxTrust Web UI using Browser
 
 After all nodes successfully deployed, we can accessing the web UI using browser. Remember the `ox_cluster_hostname` parameter? Since we set `ox.example.com` as its value, open the web browser and type `https://ox.example.com` in address bar. The application will take us to login page. Enter the following values in the form fields:
 
@@ -172,7 +172,7 @@ After all nodes successfully deployed, we can accessing the web UI using browser
 
 A successful login will be redirected to oxTrust dashboard.
 
-### Adding Additional Provider
+## Adding Additional Provider
 
 As we have mentioned before, both `gluu-master` and `gluu-consumer` are Providers.
 In the example above, we already have a master provider.
@@ -240,3 +240,8 @@ tail -F /tmp/gluuopendj-build-OoQ7TN.log
 ```
 
 The log file will inform whether the new LDAP node deployment (including replication process) is succeed or failed.
+
+## Using the Swagger UI
+
+gluu-flask includes Swagger for all API's, and the SwaggerUI to browse and interact with the APIs. 
+The url is [http://127.0.0.1:8080/api/spec.html](http://127.0.0.1:8080/api/spec.html)
