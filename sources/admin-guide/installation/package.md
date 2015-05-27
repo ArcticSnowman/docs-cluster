@@ -39,7 +39,7 @@ apt-get install -y gluu-master
 Download the `postinstall.py` script:
 
 ```
-wget https://github.com/GluuFederation/gluu-cluster-postinstall/raw/master/postinstall.py
+wget https://raw.githubusercontent.com/GluuFederation/gluu-cluster-postinstall/master/postinstall.py
 ```
 
 Before running the script, make sure we already know which IP address we are going to use.
