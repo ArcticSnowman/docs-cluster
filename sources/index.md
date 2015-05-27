@@ -2,7 +2,7 @@
 
 The Gluu Server cluster project is a docker-based recipe for deploying multiple instances of the Gluu Server to achieve an elastic, highly avalable, centralized authentication and authorization infrastructure.
 
-Currently this product is in beta and is free to test. We are still performing cleanup on the packaging. For example, the logs that are currently written to `/tmp` need to be moved to `/var`. Also, there is no startup script for `gluuapi`. So in general, we have some work to do before we are ready to ship the final version of gluu-master and gluu-consumer.
+Currently this product is in beta and is free to test. We still have some work to do before we are ready to ship the final version of gluu-master and gluu-consumer. For example, the logs that are currently written to `/tmp` need to be moved to `/var`. Also, there is no startup script for `gluuapi`. 
 
 Once finished, we anticipate pricing will be $750 USD/year per gluu-consumer. The gluu-master will remain free so that no license is required to evaluate the software. Only when you add servers 2-n will the cluster require a license.
 
