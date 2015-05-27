@@ -101,7 +101,7 @@ apt-get install -y gluu-consumer
 Download the `postinstall.py` script:
 
 ```
-wget https://github.com/GluuFederation/gluu-cluster-postinstall/raw/master/postinstall.py
+wget https://raw.githubusercontent.com/GluuFederation/gluu-cluster-postinstall/master/postinstall.py
 ```
 
 Before running the script, make sure we already know the master's IP address we are going to use.
