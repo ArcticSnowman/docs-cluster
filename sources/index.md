@@ -6,7 +6,7 @@ Currently this product is in beta and is free to test. We are still performing c
 
 Once finished, we anticipate pricing will be $750 USD/year per gluu-consumer. The gluu-master will remain free so that no license is required to evaluate the software. Only when you add servers 2-n will the cluster require a license.
 
-Community support can be enlisted on the [Gluu website](http://support.gluu.org). Please use [Github](http://github.com/GluuFederation) to report a bug or request a feature enhancement. Gluu also offers [VIP support](http://gluu.org/pricing) and can refer your organization to one of our world-class [integration partners](http://gluu.org/current-partners) for any custom development and integration needs. 
+Community support can be enlisted on the [Gluu website](http://support.gluu.org). Please use [Github](http://github.com/GluuFederation) to report bugs or request feature enhancements. Gluu also offers [VIP support](http://gluu.org/pricing) and can refer your organization to one of our world-class [integration partners](http://gluu.org/current-partners) for any custom development and integration needs. 
 
 The main documentation is organized into the following sections:
 
