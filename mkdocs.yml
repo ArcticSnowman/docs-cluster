@@ -34,5 +34,6 @@ pages:
 - ['reference/api/provider.md', '**HIDDEN**']
 - ['reference/api/cluster.md', '**HIDDEN**']
 - ['reference/api/node.md', '**HIDDEN**']
+- ['reference/api/license_credential.md', '**HIDDEN**']
 
 # Articles Sections
