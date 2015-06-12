@@ -29,13 +29,21 @@ __Form parameters:__
     This assumes `docker` daemon has been configured to listen to TCP connection.
     See [configuring docker daemon](../../admin-guide/installation/package.md#docker) for example.
 
+*   `license_id` (required only when creating `consumer` provider)
+
+    ID of [license](./license.md) to use. If omitted, server will create a `master` provider.
+
+#### Master Provider
+
+NOTE: Currently only supports a single `master` provider.
+
 __Request example:__
 
 ```sh
 curl http://localhost:8080/provider \
-    -d hostname=my-host \
-    -d docker_base_url='128.199.198.172:2375' \
-    -X POST -i
+    -X POST -i \
+    -d hostname=master-host \
+    -d docker_base_url='128.199.198.172:2375'
 ```
 
 __Response example:__
@@ -47,8 +55,47 @@ Location: http://localhost:8080/provider/283bfa41-2121-4433-9741-875004518677
 
 {
     "docker_base_url": "128.199.198.172:2375",
-    "hostname": "my-host",
-    "id": "249c282f-0490-48f3-8575-c671dfb7b618"
+    "hostname": "master-host",
+    "id": "283bfa41-2121-4433-9741-875004518677",
+    "license_id": "",
+    "type": "master"
+}
+```
+
+#### Consumer Provider
+
+There are prerequisites before creating a `consumer`:
+
+1. `master` provider must exist.
+2. Must have a non-expired license. See [License Credential API]() and [License API]() for details.
+
+It's worth noting that when license for `consumer` provider is expired,
+server will try to retrieve new license automatically. If succeed, the provider will use new license.
+Otherwise, all `oxauth` nodes deployed on this provider will be disabled from cluster.
+
+__Request example:__
+
+```sh
+curl http://localhost:8080/provider \
+    -X POST -i \
+    -d hostname=consumer-host \
+    -d docker_base_url='128.199.198.173:2375' \
+    -d license_id=1186482d-fafd-4a97-be7f-d4f3b4167e88
+```
+
+__Response example:__
+
+```http
+HTTP/1.0 201 CREATED
+Content-Type: application/json
+Location: http://localhost:8080/provider/283bfa41-2121-4433-9741-875004518678
+
+{
+    "docker_base_url": "128.199.198.173:2375",
+    "hostname": "consumer-host",
+    "id": "283bfa41-2121-4433-9741-875004518678",
+    "license_id": "1186482d-fafd-4a97-be7f-d4f3b4167e88",
+    "type": "consumer"
 }
 ```
 
@@ -56,6 +103,7 @@ __Status Code:__
 
 * `201`: Provider is successfully created.
 * `400`: Bad request. Possibly malformed/incorrect parameter value.
+* `403`: Access denied. Refer to message key in JSON response for details.
 * `500`: The server having errors.
 
 ---
@@ -82,8 +130,10 @@ Content-Type: application/json
 
 {
     "docker_base_url": "128.199.198.172:2375",
-    "hostname": "my-host",
-    "id": "283bfa41-2121-4433-9741-875004518677"
+    "hostname": "master-host",
+    "id": "283bfa41-2121-4433-9741-875004518677",
+    "license_id": "",
+    "type": "master"
 }
 ```
 
@@ -118,8 +168,17 @@ Content-Type: application/json
 [
     {
         "docker_base_url": "128.199.198.172:2375",
-        "hostname": "my-host",
-        "id": "283bfa41-2121-4433-9741-875004518677"
+        "hostname": "master-host",
+        "id": "283bfa41-2121-4433-9741-875004518677",
+        "license_id": "",
+        "type": "master"
+    },
+    {
+        "docker_base_url": "128.199.198.173:2375",
+        "hostname": "consumer-host",
+        "id": "283bfa41-2121-4433-9741-875004518678",
+        "license_id": "1186482d-fafd-4a97-be7f-d4f3b4167e88",
+        "type": "consumer"
     }
 ]
 ```
@@ -144,8 +203,7 @@ __URL:__
 __Request example:__
 
 ```sh
-curl http://localhost:8080/provider/283bfa41-2121-4433-9741-875004518677 \
-    -X DELETE -i
+curl http://localhost:8080/provider/283bfa41-2121-4433-9741-875004518677 -X DELETE -i
 ```
 
 __Response example:__

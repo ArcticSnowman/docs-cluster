@@ -135,6 +135,7 @@ __Status Code:__
 
 * `200`: License is exist.
 * `404`: License is not exist.
+* `422`: Server unable to retrieve signed license from license server.
 * `500`: The server having errors.
 
 ---

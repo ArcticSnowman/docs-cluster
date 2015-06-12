@@ -47,10 +47,10 @@ __Request example:__
 
 ```sh
 curl http://localhost:8080/node \
+    -X POST -i \
     -d provider_id=58848b94-0671-48bc-9c94-04b0351886f0 \
     -d cluster_id=9ea4d520-bbba-46f6-b779-c29ee99d2e9e \
-    -d node_type=ldap \
-    -X POST -i
+    -d node_type=ldap
 ```
 
 __Response example:__
@@ -179,8 +179,7 @@ __URL:__
 __Request example:__
 
 ```sh
-curl http://localhost:8080/node/9d99c95c4043 \
-    -X DELETE -i --max-time 300
+curl http://localhost:8080/node/9d99c95c4043 -X DELETE -i --max-time 300
 ```
 
 __Response example:__
