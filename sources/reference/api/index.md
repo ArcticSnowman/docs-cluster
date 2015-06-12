@@ -4,3 +4,4 @@
 - [Cluster](./cluster.md)
 - [Node](./node.md)
 - [License Credential](./license_credential.md)
+- [License](./license.md)

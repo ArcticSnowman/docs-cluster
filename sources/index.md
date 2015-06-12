@@ -28,3 +28,4 @@ The main documentation is organized into the following sections:
   - [Cluster](./reference/api/cluster.md)
   - [Provider](./reference/api/provider.md)
   - [License Credential](./reference/api/license_credential.md)
+  - [License](./reference/api/license.md)
