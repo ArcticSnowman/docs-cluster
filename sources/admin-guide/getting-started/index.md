@@ -34,19 +34,21 @@ A successful request will returns a response (with HTTP status code 201) like th
 ```
 HTTP/1.0 201 CREATED
 Content-Type: application/json
-Location: http://localhost:8080/provider/249c282f-0490-48f3-8575-c671dfb7b618
+Location: http://localhost:8080/provider/58848b94-0671-48bc-9c94-04b0351886f0
 
 {
     "docker_base_url": "128.199.242.74:2375",
     "hostname": "gluu.example.com",
-    "id": "249c282f-0490-48f3-8575-c671dfb7b618"
+    "id": "58848b94-0671-48bc-9c94-04b0351886f0",
+    "type": "master",
+    "license_id": ""
 }
 ```
 
 We'll need the `provider_id` when deploying nodes, so let's keep the reference to `provider_id` as environment variable.
 
 ```
-export PROVIDER_ID=249c282f-0490-48f3-8575-c671dfb7b618
+export PROVIDER_ID=58848b94-0671-48bc-9c94-04b0351886f0
 ```
 
 ## Creating Cluster
@@ -130,36 +132,46 @@ Once we had Cluster and Provider entities, we can start deploying nodes. Note, a
 
 Let's start deploying `ldap` node first. Type the command below in the shell:
 
-```
-curl http://localhost:8080/node \
-    -d provider_id=$PROVIDER_ID \
-    -d cluster_id=$CLUSTER_ID \
-    -d node_type=ldap \
-    -X POST -i
-```
-
-A successful request returns a response (with HTTP status code 202) like this:
-
-```
+```http
 HTTP/1.0 202 ACCEPTED
 Content-Type: application/json
+Location: http://localhost:8080/node/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988
+X-Deploy-Log: /var/log/gluu/gluuopendj-build-OoQ7TM.log
 
 {
-    "log": "/tmp/gluuopendj-build-OoQ7TM.log"
+    "provider_id": "58848b94-0671-48bc-9c94-04b0351886f0",
+    "name": "gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988",
+    "ldap_port": "1389",
+    "ldap_admin_port": "4444",
+    "ip": "",
+    "ldap_binddn": "cn=directory manager",
+    "ldaps_port": "1636",
+    "cluster_id": "9ea4d520-bbba-46f6-b779-c29ee99d2e9e",
+    "weave_ip": "",
+    "type": "ldap",
+    "id": "",
+    "ldap_jmx_port": "1689",
+    "state": "IN-PROGRESS"
 }
 ```
 
 Since deploying a node may take awhile, it's recommended to follow the progress via its log file.
-Notice the `{"log": "/tmp/gluuopendj-build-OoQ7TM.log"}` in JSON response above?
+Notice the `X-Deploy-Log: /var/log/gluu/gluuopendj-build-OoQ7TM.log` in response header above?
 Now we can use shell command to follow the progress.
 
 Type the command below:
 
 ```
-tail -F /tmp/gluuopendj-build-OoQ7TM.log
+tail -F /var/log/gluu/gluuopendj-build-OoQ7TM.log
 ```
 
 The log file will inform whether the node deployment is succeed or failed.
+
+Another alternative is to make requests periodically to retrieve node resource. Since node can be retrieved by its `id` or `name`, we can use `curl` command:
+
+```
+curl http://localhost:8080/node/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988
+```
 
 If `ldap` node is successfully deployed, we can continue deploying nodes for `oxauth`, `oxtrust`, `httpd` sequentially. Repeat the `curl` and `tail` command above, but make sure we're using different value for `node_type` parameter.
 

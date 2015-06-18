@@ -58,21 +58,44 @@ __Response example:__
 ```http
 HTTP/1.0 202 ACCEPTED
 Content-Type: application/json
+Location: http://localhost:8080/node/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988
+X-Deploy-Log: /var/log/gluu/gluuopendj-build-OoQ7TM.log
 
 {
-    "log": "/tmp/gluuopendj-build-OoQ7TM.log"
+    "provider_id": "58848b94-0671-48bc-9c94-04b0351886f0",
+    "name": "gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988",
+    "ldap_port": "1389",
+    "ldap_admin_port": "4444",
+    "ip": "",
+    "ldap_binddn": "cn=directory manager",
+    "ldaps_port": "1636",
+    "cluster_id": "9ea4d520-bbba-46f6-b779-c29ee99d2e9e",
+    "weave_ip": "",
+    "type": "ldap",
+    "id": "",
+    "ldap_jmx_port": "1689",
+    "state": "IN-PROGRESS"
 }
 ```
 
-Since building a node may take awhile, the build process is running as background job.
-To follow the build process, it is recommended to see the log file as shown
-in response example above. A typical example is by using `tail` shell command,
-for example `tail -F /tmp/gluuopendj-build-OoQ7TM.log`.
+Since deploying a node may take awhile, the build process is running as background job.
+As we can see in example above, the ``state`` is set as `IN-PROGRESS`.
+Also, `id`, `ip`, and `weave_ip` are left blank.
+But they will be populated eventually during the process.
+
+There are several ways to track the deployment progress:
+
+1.  By looking at the log file (the path is set in `X-Deploy-Log` response header above).
+    A typical example is by using `tail` shell command,
+    for example `tail -F /var/log/gluu/gluuopendj-build-OoQ7TM.log`.
+
+2. By making requests periodically to [retrieve node resource](./#get-a-node) (the URL is set in `Location` response header above).
 
 __Status Code:__
 
 * `202`: Request has been accepted.
 * `400`: Bad request. Possibly malformed/incorrect parameter value.
+* `403`: Access denied.
 * `500`: The server having errors.
 
 ---
@@ -89,6 +112,12 @@ __Request example:__
 
 ```sh
 curl http://localhost:8080/node/9d99c95c4043 -i
+```
+
+or
+
+```sh
+curl http://localhost:8080/node/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988 -i
 ```
 
 __Response example:__
@@ -109,9 +138,17 @@ Content-Type: application/json
     "weave_ip": "10.2.1.1",
     "type": "ldap",
     "id": "9d99c95c4043",
-    "ldap_jmx_port": "1689"
+    "ldap_jmx_port": "1689",
+    "state": "SUCCESS"
 }
 ```
+
+There are 4 states we need to know:
+
+1. ``IN-PROGRESS``: node is being deployed
+2. ``SUCCESS``: node is successfully deployed
+3. ``FAILED``: node is failed
+4. ``DISABLED``: node is disabled
 
 __Status Code:__
 
@@ -154,7 +191,8 @@ Content-Type: application/json
         "weave_ip": "10.2.1.1",
         "type": "ldap",
         "id": "9d99c95c4043",
-        "ldap_jmx_port": "1689"
+        "ldap_jmx_port": "1689",
+        "state": "SUCCESS"
     }
 ]
 ```
@@ -180,6 +218,12 @@ __Request example:__
 
 ```sh
 curl http://localhost:8080/node/9d99c95c4043 -X DELETE -i --max-time 300
+```
+
+or
+
+```sh
+curl http://localhost:8080/node/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988 -X DELETE -i --max-time 300
 ```
 
 __Response example:__
