@@ -30,7 +30,7 @@ __Request example:__
 ```sh
 curl http://localhost:8080/license \
     -X POST -i \
-    -d code=3bade490-defe-477d-8146-be0f621940ec
+    -d code=3bade490-defe-477d-8146-be0f621940ec \
     -d credential_id=3bade490-defe-477d-8146-be0f621940ed
 ```
 
