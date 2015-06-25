@@ -34,11 +34,11 @@ __Request example:__
 
 ```sh
 curl http://localhost:8080/license_credential \
-    -X POST -i \
     -d public_key=your-public-key \
     -d public_password=your-public-password \
     -d license_password=your-license-password \
-    -d name=testing
+    -d name=testing \
+    -X POST -i
 ```
 
 __Response example:__
@@ -80,7 +80,7 @@ __URL:__
 __Request example:__
 
 ```sh
-curl -i http://localhost:8080/license_credential/3bade490-defe-477d-8146-be0f621940ed
+curl http://localhost:8080/license_credential/3bade490-defe-477d-8146-be0f621940ed -i
 ```
 
 __Response example:__
@@ -176,11 +176,11 @@ __Request example:__
 
 ```sh
 curl http://localhost:8080/license_credential/3bade490-defe-477d-8146-be0f621940ed \
-    -X PUT -i \
     -d public_key=your-public-key \
     -d public_password=your-public-password \
     -d license_password=your-license-password \
-    -d name=testing-2
+    -d name=testing-2 \
+    -X PUT -i
 ```
 
 __Response example:__

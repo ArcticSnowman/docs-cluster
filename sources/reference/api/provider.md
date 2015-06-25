@@ -41,9 +41,9 @@ __Request example:__
 
 ```sh
 curl http://localhost:8080/provider \
-    -X POST -i \
     -d hostname=master-host \
-    -d docker_base_url='128.199.198.172:2375'
+    -d docker_base_url='128.199.198.172:2375' \
+    -X POST -i
 ```
 
 __Response example:__
@@ -77,10 +77,10 @@ __Request example:__
 
 ```sh
 curl http://localhost:8080/provider \
-    -X POST -i \
     -d hostname=consumer-host \
     -d docker_base_url='128.199.198.173:2375' \
-    -d license_id=1186482d-fafd-4a97-be7f-d4f3b4167e88
+    -d license_id=1186482d-fafd-4a97-be7f-d4f3b4167e88 \
+    -X POST -i
 ```
 
 __Response example:__

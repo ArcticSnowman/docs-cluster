@@ -29,9 +29,9 @@ __Request example:__
 
 ```sh
 curl http://localhost:8080/license \
-    -X POST -i \
     -d code=3bade490-defe-477d-8146-be0f621940ec \
-    -d credential_id=3bade490-defe-477d-8146-be0f621940ed
+    -d credential_id=3bade490-defe-477d-8146-be0f621940ed \
+    -X POST -i
 ```
 
 __Response example:__
@@ -102,7 +102,7 @@ __URL:__
 __Request example:__
 
 ```sh
-curl -i http://localhost:8080/license/1186482d-fafd-4a97-be7f-d4f3b4167e88
+curl http://localhost:8080/license/1186482d-fafd-4a97-be7f-d4f3b4167e88 -i
 ```
 
 __Response example:__
@@ -202,7 +202,7 @@ __URL:__
 __Request example:__
 
 ```sh
-curl -i http://localhost:8080/license/1186482d-fafd-4a97-be7f-d4f3b4167e88 -X DELETE -i
+curl http://localhost:8080/license/1186482d-fafd-4a97-be7f-d4f3b4167e88 -X DELETE -i
 ```
 
 __Response example:__

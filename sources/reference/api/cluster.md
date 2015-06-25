@@ -237,8 +237,7 @@ __URL:__
 __Request example:__
 
 ```sh
-curl http://localhost:8080/cluster/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f \
-    -X DELETE -i
+curl http://localhost:8080/cluster/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f -X DELETE -i
 ```
 
 __Response example:__
