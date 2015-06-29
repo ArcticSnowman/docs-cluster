@@ -5,51 +5,8 @@
 1. Gluu Server Master packages are already installed. Refer to [Package](../installation/package.md) documentation for details.
 2. In this example, we'll use `gluu.example.com` as hostname and `128.199.242.74` as IP address from `eth0` interface.
 
-## Registering Provider
-
-In Gluu jargon, a "Provider" is server where `docker`, `weave`, and `salt-minion` are hosted.
-Both `gluu-master` and `gluu-consumer` are Providers.
-
-When you first deploy a Gluu Cluster, you will start with the `gluu-master` package. After you install the
-packages, you need to "register" Provider. This creates the entity in the gluu-flask json database. You
-need to do this so that the API's know where to deploy your instances.
-
-Note: `gluu-flask` api's should only be run on localhost, and accessed locally, as there is no
+Note: `gluu-flask` API's should only be run on localhost, and accessed locally, as there is no
 api protection in place at this time.
-
-```
-curl http://localhost:8080/provider \
-    -d hostname=gluu.example.com \
-    -d docker_base_url='128.199.242.74:2375' \
-    -X POST -i
-```
-
-Here's a brief explanation of parameters used in the command above:
-
-* `hostname` is the hostname of the server/host.
-* `docker_base_url` is the Docker API URL configured after installing `gluu-master` package.
-
-A successful request will returns a response (with HTTP status code 201) like this:
-
-```
-HTTP/1.0 201 CREATED
-Content-Type: application/json
-Location: http://localhost:8080/provider/58848b94-0671-48bc-9c94-04b0351886f0
-
-{
-    "docker_base_url": "128.199.242.74:2375",
-    "hostname": "gluu.example.com",
-    "id": "58848b94-0671-48bc-9c94-04b0351886f0",
-    "type": "master",
-    "license_id": ""
-}
-```
-
-We'll need the `provider_id` when deploying nodes, so let's keep the reference to `provider_id` as environment variable.
-
-```
-export PROVIDER_ID=58848b94-0671-48bc-9c94-04b0351886f0
-```
 
 ## Creating Cluster
 
@@ -120,6 +77,67 @@ export CLUSTER_ID=1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
 
 [cluster-api]: ../../reference/api/cluster.md
 [provider-api]: ../../reference/api/provider.md
+
+## Registering Provider
+
+In Gluu jargon, a "Provider" is server where `docker`, `weave`, and `salt-minion` are hosted.
+Both `gluu-master` and `gluu-consumer` are Providers.
+
+When you first deploy a Gluu Cluster, you will start with the `gluu-master` package. After you install the
+packages, you need to "register" Provider. This creates the entity in the `gluu-flask` JSON database. You
+need to do this so that the API's know where to deploy your instances. It's worth noting that a cluster
+must be created first before start registering any provider.
+
+As of `v0.2`, it's possible to use a secure `docker` daemon. When we use `postinstall.py` script, TLS certificates
+are generated and saved in `/etc/docker` directory.
+
+Copy the contents of following files for later use:
+
+* `/etc/docker/ca.pem` (CA certificate)
+* `/etc/docker/cert.pem` (TLS certificate)
+* `/etc/docker/key.pem`: (TLS certificate key)
+
+Now we can register a provider:
+
+```
+curl http://localhost:8080/provider \
+    -d hostname=gluu.example.com \
+    -d docker_base_url='https://128.199.242.74:2375' \
+    -d ssl_key='contents of key.pem' \
+    -d ssl_cert='contents of cert.pem' \
+    -d ca_cert='contents of ca.pem' \
+    -X POST -i
+```
+
+Here's a brief explanation of parameters used in the command above:
+
+* `hostname` is the FQDN hostname of the server/host.
+* `docker_base_url` is the Docker API URL configured after installing `gluu-master` package.
+* `ssl_key` is the contents of `key.pem`
+* `ssl_cert` is the contents of `cert.pem`
+* `ca_cert` is the contents of `ca.pem`
+
+A successful request will returns a response (with HTTP status code 201) like this:
+
+```
+HTTP/1.0 201 CREATED
+Content-Type: application/json
+Location: http://localhost:8080/provider/58848b94-0671-48bc-9c94-04b0351886f0
+
+{
+    "docker_base_url": "https://128.199.242.74:2375",
+    "hostname": "gluu.example.com",
+    "id": "58848b94-0671-48bc-9c94-04b0351886f0",
+    "type": "master",
+    "license_id": ""
+}
+```
+
+We'll need the `provider_id` when deploying nodes, so let's keep the reference to `provider_id` as environment variable.
+
+```
+export PROVIDER_ID=58848b94-0671-48bc-9c94-04b0351886f0
+```
 
 ## Deploying Nodes
 
