@@ -129,7 +129,10 @@ Location: http://localhost:8080/provider/58848b94-0671-48bc-9c94-04b0351886f0
     "hostname": "gluu.example.com",
     "id": "58848b94-0671-48bc-9c94-04b0351886f0",
     "type": "master",
-    "license_id": ""
+    "license_id": "",
+    "ssl_key": "contents of key.pem",
+    "ssl_cert": "contents of cert.pem",
+    "ca_cert": "contents of ca.pem"
 }
 ```
 
@@ -149,6 +152,16 @@ Once we had Cluster and Provider entities, we can start deploying nodes. Note, a
 4. `httpd` (Apache node)
 
 Let's start deploying `ldap` node first. Type the command below in the shell:
+
+```sh
+curl http://localhost:8080/node \
+    -d provider_id=$PROVIDER_ID \
+    -d cluster_id=$CLUSTER_ID \
+    -d node_type=ldap \
+    -X POST -i
+```
+
+A successful request will returns a response (with HTTP status code 202):
 
 ```http
 HTTP/1.0 202 ACCEPTED
