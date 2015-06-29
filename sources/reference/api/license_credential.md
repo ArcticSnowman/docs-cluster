@@ -6,11 +6,11 @@ License credential represents an entity to manage credentials for license bought
 
 ### Create New License Credential
 
-`POST /license_credential`
+`POST /license_credentials`
 
 __URL:__
 
-`http://localhost:8080/license_credential`
+`http://localhost:8080/license_credentials`
 
 Form parameters:
 
@@ -33,7 +33,7 @@ Form parameters:
 __Request example:__
 
 ```sh
-curl http://localhost:8080/license_credential \
+curl http://localhost:8080/license_credentials \
     -d public_key=your-public-key \
     -d public_password=your-public-password \
     -d license_password=your-license-password \
@@ -45,7 +45,7 @@ __Response example:__
 
 ```http
 HTTP/1.0 201 CREATED
-Location: http://localhost:8080/license_credential/3bade490-defe-477d-8146-be0f621940ed
+Location: http://localhost:8080/license_credentials/3bade490-defe-477d-8146-be0f621940ed
 Content-Type: application/json
 
 {
@@ -71,16 +71,16 @@ __Status Code:__
 
 ### Get A License Credential
 
-`GET /license_credential/{id}`
+`GET /license_credentials/{id}`
 
 __URL:__
 
-`http://localhost:8080/license_credential/{id}`
+`http://localhost:8080/license_credentials/{id}`
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/license_credential/3bade490-defe-477d-8146-be0f621940ed -i
+curl http://localhost:8080/license_credentials/3bade490-defe-477d-8146-be0f621940ed -i
 ```
 
 __Response example:__
@@ -108,16 +108,16 @@ __Status Code:__
 
 ### List All License Credentials
 
-`GET /license_credential`
+`GET /license_credentials`
 
 __URL:__
 
-`http://localhost:8080/license_credential`
+`http://localhost:8080/license_credentials`
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/license_credential -i
+curl http://localhost:8080/license_credentials -i
 ```
 
 __Response example:__
@@ -148,11 +148,11 @@ __Status Code:__
 
 ### Update A License Credential
 
-`PUT /license_credential/{id}`
+`PUT /license_credentials/{id}`
 
 __URL:__
 
-`http://localhost:8080/license_credential/{id}`
+`http://localhost:8080/license_credentials/{id}`
 
 Form parameters:
 
@@ -175,7 +175,7 @@ Form parameters:
 __Request example:__
 
 ```sh
-curl http://localhost:8080/license_credential/3bade490-defe-477d-8146-be0f621940ed \
+curl http://localhost:8080/license_credentials/3bade490-defe-477d-8146-be0f621940ed \
     -d public_key=your-public-key \
     -d public_password=your-public-password \
     -d license_password=your-license-password \
@@ -210,16 +210,16 @@ __Status Code:__
 
 ### Delete A License Credential
 
-`DELETE /license_credential/{id}`
+`DELETE /license_credentials/{id}`
 
 __URL:__
 
-`http://localhost:8080/license_credential/{id}`
+`http://localhost:8080/license_credentials/{id}`
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/license_credential/3bade490-defe-477d-8146-be0f621940ed -X DELETE -i
+curl http://localhost:8080/license_credentials/3bade490-defe-477d-8146-be0f621940ed -X DELETE -i
 ```
 
 __Response example:__

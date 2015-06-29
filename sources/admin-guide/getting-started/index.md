@@ -15,7 +15,7 @@ contains information shared across providers, like hostname. Only create one clu
 Here is a sample using `curl`:
 
 ```
-curl http://localhost:8080/cluster \
+curl http://localhost:8080/clusters \
     -d name=cluster1 \
     -d org_name=my-org \
     -d org_short_name=my-org \
@@ -42,7 +42,7 @@ A successful request returns a HTTP 201 status code:
 ```
 HTTP/1.0 201 CREATED
 Content-Type: application/json
-Location: http://localhost:8080/cluster/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
+Location: http://localhost:8080/clusters/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
 
 {
     "inum_org": "@!FDF8.652A.6EFF.F5A3!0001!DA7B.9EB2",
@@ -100,7 +100,7 @@ Copy the contents of following files for later use:
 Now we can register a provider:
 
 ```
-curl http://localhost:8080/provider \
+curl http://localhost:8080/providers \
     -d hostname=gluu.example.com \
     -d docker_base_url='https://128.199.242.74:2375' \
     -d ssl_key='contents of key.pem' \
@@ -122,7 +122,7 @@ A successful request will returns a response (with HTTP status code 201) like th
 ```
 HTTP/1.0 201 CREATED
 Content-Type: application/json
-Location: http://localhost:8080/provider/58848b94-0671-48bc-9c94-04b0351886f0
+Location: http://localhost:8080/providers/58848b94-0671-48bc-9c94-04b0351886f0
 
 {
     "docker_base_url": "https://128.199.242.74:2375",
@@ -154,7 +154,7 @@ Once we had Cluster and Provider entities, we can start deploying nodes. Note, a
 Let's start deploying `ldap` node first. Type the command below in the shell:
 
 ```sh
-curl http://localhost:8080/node \
+curl http://localhost:8080/nodes \
     -d provider_id=$PROVIDER_ID \
     -d cluster_id=$CLUSTER_ID \
     -d node_type=ldap \
@@ -166,7 +166,7 @@ A successful request will returns a response (with HTTP status code 202):
 ```http
 HTTP/1.0 202 ACCEPTED
 Content-Type: application/json
-Location: http://localhost:8080/node/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988
+Location: http://localhost:8080/nodes/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988
 X-Deploy-Log: /var/log/gluu/gluuopendj-build-OoQ7TM.log
 
 {

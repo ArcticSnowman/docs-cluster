@@ -6,13 +6,13 @@ Node is an entity represents a `docker` container.
 
 ### Create New Node
 
-`POST /node`
+`POST /nodes`
 
 Note, to create a node, provider and cluster entities must be created first.
 
 __URL:__
 
-`http://localhost:8080/node`
+`http://localhost:8080/nodes`
 
 __Form parameters:__
 
@@ -46,7 +46,7 @@ __Form parameters:__
 __Request example:__
 
 ```sh
-curl http://localhost:8080/node \
+curl http://localhost:8080/nodes \
     -d provider_id=58848b94-0671-48bc-9c94-04b0351886f0 \
     -d cluster_id=9ea4d520-bbba-46f6-b779-c29ee99d2e9e \
     -d node_type=ldap \
@@ -58,7 +58,7 @@ __Response example:__
 ```http
 HTTP/1.0 202 ACCEPTED
 Content-Type: application/json
-Location: http://localhost:8080/node/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988
+Location: http://localhost:8080/nodes/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988
 X-Deploy-Log: /var/log/gluu/gluuopendj-build-OoQ7TM.log
 
 {
@@ -102,22 +102,22 @@ __Status Code:__
 
 ### Get A Node
 
-`GET /node/{id}`
+`GET /nodes/{id}`
 
 __URL:__
 
-`http://localhost:8080/node/{id}`
+`http://localhost:8080/nodes/{id}`
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/node/9d99c95c4043 -i
+curl http://localhost:8080/nodes/9d99c95c4043 -i
 ```
 
 or
 
 ```sh
-curl http://localhost:8080/node/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988 -i
+curl http://localhost:8080/nodes/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988 -i
 ```
 
 __Response example:__
@@ -160,16 +160,16 @@ __Status Code:__
 
 ### List All Nodes
 
-`GET /node`
+`GET /nodes`
 
 __URL:__
 
-`http://localhost:8080/node`
+`http://localhost:8080/nodes`
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/node -i
+curl http://localhost:8080/nodes -i
 ```
 
 __Response example:__
@@ -208,22 +208,22 @@ __Status Code:__
 
 ### Delete A Node
 
-`DELETE /node/{id}`
+`DELETE /nodes/{id}`
 
 __URL:__
 
-`http://localhost:8080/node/{id}`
+`http://localhost:8080/nodes/{id}`
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/node/9d99c95c4043 -X DELETE -i --max-time 300
+curl http://localhost:8080/nodes/9d99c95c4043 -X DELETE -i --max-time 300
 ```
 
 or
 
 ```sh
-curl http://localhost:8080/node/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988 -X DELETE -i --max-time 300
+curl http://localhost:8080/nodes/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988 -X DELETE -i --max-time 300
 ```
 
 __Response example:__

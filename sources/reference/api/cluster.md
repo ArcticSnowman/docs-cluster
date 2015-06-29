@@ -6,13 +6,13 @@ Cluster holds all nodes (`docker` containers) within `weave` network.
 
 ### Create New Cluster
 
-`POST /cluster`
+`POST /clusters`
 
 Note, currently the API only allow 1 cluster. This will change in the future.
 
 __URL:__
 
-`http://localhost:8080/cluster`
+`http://localhost:8080/clusters`
 
 __Form parameters:__
 
@@ -60,7 +60,7 @@ __Form parameters:__
 __Request example:__
 
 ```sh
-curl http://localhost:8080/cluster \
+curl http://localhost:8080/clusters \
     -d name=cluster1 \
     -d org_name=my-org \
     -d org_short_name=my-org \
@@ -79,7 +79,7 @@ __Response example:__
 ```http
 HTTP/1.0 201 CREATED
 Content-Type: application/json
-Location: http://localhost:8080/cluster/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
+Location: http://localhost:8080/clusters/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
 
 {
     "inum_org": "@!FDF8.652A.6EFF.F5A3!0001!DA7B.9EB2",
@@ -117,16 +117,16 @@ __Status Code:__
 
 ### Get A Cluster
 
-`GET /cluster/{id}`
+`GET /clusters/{id}`
 
 __URL:__
 
-`http://localhost:8080/cluster/{id}`
+`http://localhost:8080/clusters/{id}`
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/cluster/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f -i
+curl http://localhost:8080/clusters/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f -i
 ```
 
 __Response example:__
@@ -134,7 +134,7 @@ __Response example:__
 ```http
 HTTP/1.0 200 OK
 Content-Type: application/json
-Location: http://localhost:8080/cluster/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
+Location: http://localhost:8080/clusters/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
 
 {
     "inum_org": "@!FDF8.652A.6EFF.F5A3!0001!DA7B.9EB2",
@@ -171,16 +171,16 @@ __Status Code:__
 
 ### List All Clusters
 
-`GET /cluster`
+`GET /clusters`
 
 __URL:__
 
-`http://localhost:8080/cluster`
+`http://localhost:8080/clusters`
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/cluster -i
+curl http://localhost:8080/clusters -i
 ```
 
 __Response example:__
@@ -188,7 +188,7 @@ __Response example:__
 ```http
 HTTP/1.0 200 OK
 Content-Type: application/json
-Location: http://localhost:8080/cluster/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
+Location: http://localhost:8080/clusters/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
 
 [
     {
@@ -228,16 +228,16 @@ __Status Code:__
 
 ### Delete A Cluster
 
-`DELETE /cluster/{id}`
+`DELETE /clusters/{id}`
 
 __URL:__
 
-`http://localhost:8080/cluster/{id}`
+`http://localhost:8080/clusters/{id}`
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/cluster/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f -X DELETE -i
+curl http://localhost:8080/clusters/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f -X DELETE -i
 ```
 
 __Response example:__

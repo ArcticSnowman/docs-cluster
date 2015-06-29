@@ -6,14 +6,14 @@ License represents an entity to manage signed license retrieved from Gluu Inc. l
 
 ### Create New License
 
-`POST /license`
+`POST /licenses`
 
 Note: to create a license entity, license credential must be created first.
 See [Create New License Credential](../license_credential/#create-new-license-credential) section for details.
 
 __URL:__
 
-`http://localhost:8080/license`
+`http://localhost:8080/licenses`
 
 Form parameters:
 
@@ -28,7 +28,7 @@ Form parameters:
 __Request example:__
 
 ```sh
-curl http://localhost:8080/license \
+curl http://localhost:8080/licenses \
     -d code=3bade490-defe-477d-8146-be0f621940ec \
     -d credential_id=3bade490-defe-477d-8146-be0f621940ed \
     -X POST -i
@@ -38,7 +38,7 @@ __Response example:__
 
 ```http
 HTTP/1.0 201 CREATED
-Location: http://localhost:8080/license/1186482d-fafd-4a97-be7f-d4f3b4167e88
+Location: http://localhost:8080/licenses/1186482d-fafd-4a97-be7f-d4f3b4167e88
 Content-Type: application/json
 
 {
@@ -67,7 +67,7 @@ In other words, if license uses incorrect credentials, the response would have a
 
 ```http
 HTTP/1.0 201 CREATED
-Location: http://localhost:8080/license/1186482d-fafd-4a97-be7f-d4f3b4167e88
+Location: http://localhost:8080/licenses/1186482d-fafd-4a97-be7f-d4f3b4167e88
 Content-Type: application/json
 
 {
@@ -93,16 +93,16 @@ __Status Code:__
 
 ### Get A License
 
-`GET /license/{id}`
+`GET /licenses/{id}`
 
 __URL:__
 
-`http://localhost:8080/license/{id}`
+`http://localhost:8080/licenses/{id}`
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/license/1186482d-fafd-4a97-be7f-d4f3b4167e88 -i
+curl http://localhost:8080/licenses/1186482d-fafd-4a97-be7f-d4f3b4167e88 -i
 ```
 
 __Response example:__
@@ -142,16 +142,16 @@ __Status Code:__
 
 ### List All License
 
-`GET /license`
+`GET /licenses`
 
 __URL:__
 
-`http://localhost:8080/license`
+`http://localhost:8080/licenses`
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/license -i
+curl http://localhost:8080/licenses -i
 ```
 
 __Response example:__
@@ -193,16 +193,16 @@ __Status Code:__
 
 ### Delete A License
 
-`DELETE /license/{id}`
+`DELETE /licenses/{id}`
 
 __URL:__
 
-`http://localhost:8080/{id}`
+`http://localhost:8080/licenses/{id}`
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/license/1186482d-fafd-4a97-be7f-d4f3b4167e88 -X DELETE -i
+curl http://localhost:8080/licenses/1186482d-fafd-4a97-be7f-d4f3b4167e88 -X DELETE -i
 ```
 
 __Response example:__

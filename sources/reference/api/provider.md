@@ -8,14 +8,14 @@ Gluu Cluster Consumer.
 
 ### Create New Provider
 
-`POST /provider`
+`POST /providers`
 
 NOTE: make sure `docker`, `salt-minion`, and `weave` have been [installed and configured](../../admin-guide/installation/package.md). Also, a cluster must be created beforehand.
 
 
 __URL:__
 
-`http://localhost:8080/provider`
+`http://localhost:8080/providers`
 
 __Form parameters:__
 
@@ -53,7 +53,7 @@ NOTE: Currently only supports a single `master` provider.
 __Request example:__
 
 ```sh
-curl http://localhost:8080/provider \
+curl http://localhost:8080/providers \
     -d hostname=master-host \
     -d docker_base_url='https://128.199.198.172:2375' \
     -d ssl_key='contents of key.pem' \
@@ -67,7 +67,7 @@ __Response example:__
 ```http
 HTTP/1.0 201 CREATED
 Content-Type: application/json
-Location: http://localhost:8080/provider/283bfa41-2121-4433-9741-875004518677
+Location: http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518677
 
 {
     "docker_base_url": "128.199.198.172:2375",
@@ -95,7 +95,7 @@ Otherwise, all `oxauth` nodes deployed on this provider will be disabled from cl
 __Request example:__
 
 ```sh
-curl http://localhost:8080/provider \
+curl http://localhost:8080/providers \
     -d hostname=consumer-host \
     -d docker_base_url='128.199.198.173:2375' \
     -d license_id=1186482d-fafd-4a97-be7f-d4f3b4167e88 \
@@ -110,7 +110,7 @@ __Response example:__
 ```http
 HTTP/1.0 201 CREATED
 Content-Type: application/json
-Location: http://localhost:8080/provider/283bfa41-2121-4433-9741-875004518678
+Location: http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518678
 
 {
     "docker_base_url": "128.199.198.173:2375",
@@ -135,16 +135,16 @@ __Status Code:__
 
 ### Get A Provider
 
-`GET /provider/{id}`
+`GET /providers/{id}`
 
 __URL:__
 
-`http://localhost:8080/provider/{id}`
+`http://localhost:8080/providers/{id}`
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/provider/283bfa41-2121-4433-9741-875004518677 -i
+curl http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518677 -i
 ```
 
 __Response example:__
@@ -172,11 +172,11 @@ __Status Code:__
 
 ### List All Providers
 
-`GET /provider`
+`GET /providers`
 
 __URL:__
 
-`http://localhost:8080/provider`
+`http://localhost:8080/providers`
 
 __Request example:__
 
@@ -219,16 +219,16 @@ __Status Code:__
 
 ### Delete A Provider
 
-`DELETE /provider/{id}`
+`DELETE /providers/{id}`
 
 __URL:__
 
-`http://localhost:8080/provider/{id}`
+`http://localhost:8080/providers/{id}`
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/provider/283bfa41-2121-4433-9741-875004518677 -X DELETE -i
+curl http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518677 -X DELETE -i
 ```
 
 __Response example:__
@@ -249,11 +249,11 @@ __Status Code:__
 
 ### Update A Provider
 
-`PUT /provider/{id}`
+`PUT /providers/{id}`
 
 __URL:__
 
-`http://localhost:8080/provider/{id}`
+`http://localhost:8080/providers/{id}`
 
 __Form parameters:__
 
@@ -289,7 +289,7 @@ __Form parameters:__
 __Request example:__
 
 ```sh
-curl http://localhost:8080/provider/283bfa41-2121-4433-9741-875004518677 \
+curl http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518677 \
     -d hostname=master-host \
     -d docker_base_url='https://128.199.198.172:2375' \
     -d ssl_key='contents of key.pem' \
@@ -321,7 +321,7 @@ Content-Type: application/json
 __Request example:__
 
 ```sh
-curl http://localhost:8080/provider/283bfa41-2121-4433-9741-875004518678 \
+curl http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518678 \
     -d hostname=consumer-host \
     -d docker_base_url='128.199.198.173:2375' \
     -d license_id=1186482d-fafd-4a97-be7f-d4f3b4167e88 \
