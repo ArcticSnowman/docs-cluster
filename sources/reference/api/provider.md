@@ -25,8 +25,9 @@ __Form parameters:__
 
 *   `docker_base_url` (required)
 
-    Docker remote API URL. Supported format is `$IP:$PORT`, e.g. `128.199.198.172:2375`.
-    This assumes `docker` daemon has been configured to listen to TCP connection.
+    Docker remote API URL. Supported format is `unix` socket (e.g. `unix:///var/run/docker.sock`) or
+    `https://$IP:$PORT`, e.g. `https://128.199.198.172:2375`.
+    The latter format assumes `docker` daemon has been configured to listen to TCP connection.
     See [configuring docker daemon](../../admin-guide/installation/package.md#docker) for example.
 
 *   `license_id` (required only when creating `consumer` provider)
@@ -262,13 +263,14 @@ __Form parameters:__
 
 *   `docker_base_url` (required)
 
-    Docker remote API URL. Supported format is `$IP:$PORT`, e.g. `128.199.198.172:2375`.
-    This assumes `docker` daemon has been configured to listen to TCP connection.
+    Docker remote API URL. Supported format is `unix` socket (e.g. `unix:///var/run/docker.sock`) or
+    `https://$IP:$PORT`, e.g. `https://128.199.198.172:2375`.
+    The latter format assumes `docker` daemon has been configured to listen to TCP connection.
     See [configuring docker daemon](../../admin-guide/installation/package.md#docker) for example.
 
 *   `license_id` (required only when creating `consumer` provider)
 
-    ID of [license](./license.md) to use. If omitted, server will create a `master` provider.
+    ID of [license](./license.md) to use.
 
 *   `ssl_key` (required only when `docker_base_url` uses HTTPS)
 
