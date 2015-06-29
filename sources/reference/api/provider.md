@@ -243,3 +243,114 @@ __Status Code:__
 * `403`: Access denied. Refer to `message` key in JSON response for details.
 * `404`: Provider is not exist.
 * `500`: The server having errors.
+
+---
+
+### Update A Provider
+
+`PUT /provider/{id}`
+
+__URL:__
+
+`http://localhost:8080/provider/{id}`
+
+__Form parameters:__
+
+*   `hostname` (required)
+
+    Host name of the machine. When in doubt, use `hostname --long` shell command to get the name.
+
+*   `docker_base_url` (required)
+
+    Docker remote API URL. Supported format is `$IP:$PORT`, e.g. `128.199.198.172:2375`.
+    This assumes `docker` daemon has been configured to listen to TCP connection.
+    See [configuring docker daemon](../../admin-guide/installation/package.md#docker) for example.
+
+*   `license_id` (required only when creating `consumer` provider)
+
+    ID of [license](./license.md) to use. If omitted, server will create a `master` provider.
+
+*   `ssl_key` (required only when `docker_base_url` uses HTTPS)
+
+    The contents of `/etc/docker/key.pem` located in provider host.
+
+*   `ssl_cert` (required only when `docker_base_url` uses HTTPS)
+
+    The contents of `/etc/docker/cert.pem` located in provider host.
+
+*   `ca_cert` (required only when `docker_base_url` uses HTTPS)
+
+    The contents of `/etc/docker/ca.pem` located in provider host.
+
+#### Master Provider
+
+__Request example:__
+
+```sh
+curl http://localhost:8080/provider/283bfa41-2121-4433-9741-875004518677 \
+    -d hostname=master-host \
+    -d docker_base_url='https://128.199.198.172:2375' \
+    -d ssl_key='contents of key.pem' \
+    -d ssl_cert='contents of cert.pem' \
+    -d ca_cert='contents of ca.pem' \
+    -X PUT -i
+```
+
+__Response example:__
+
+```http
+HTTP/1.0 200 OK
+Content-Type: application/json
+
+{
+    "docker_base_url": "128.199.198.172:2375",
+    "hostname": "master-host",
+    "id": "283bfa41-2121-4433-9741-875004518677",
+    "license_id": "",
+    "ssl_key": "contents of TLS certificate key",
+    "ssl_cert": "contents of TLS certificate",
+    "ca_cert": "contents of CA certificate",
+    "type": "master"
+}
+```
+
+#### Consumer Provider
+
+__Request example:__
+
+```sh
+curl http://localhost:8080/provider/283bfa41-2121-4433-9741-875004518678 \
+    -d hostname=consumer-host \
+    -d docker_base_url='128.199.198.173:2375' \
+    -d license_id=1186482d-fafd-4a97-be7f-d4f3b4167e88 \
+    -d ssl_key='contents of key.pem' \
+    -d ssl_cert='contents of cert.pem' \
+    -d ca_cert='contents of ca.pem' \
+    -X PUT -i
+```
+
+__Response example:__
+
+```http
+HTTP/1.0 200 OK
+Content-Type: application/json
+
+{
+    "docker_base_url": "128.199.198.173:2375",
+    "hostname": "consumer-host",
+    "id": "283bfa41-2121-4433-9741-875004518678",
+    "license_id": "1186482d-fafd-4a97-be7f-d4f3b4167e88",
+    "ssl_key": "contents of TLS certificate key",
+    "ssl_cert": "contents of TLS certificate",
+    "ca_cert": "contents of CA certificate",
+    "type": "consumer"
+}
+```
+
+__Status Code:__
+
+* `200`: Request succeed.
+* `400`: Bad request. Possibly malformed/incorrect parameter value.
+* `403`: Access denied. Refer to message key in JSON response for details.
+* `404`: Provider not found.
+* `500`: The server having errors.
