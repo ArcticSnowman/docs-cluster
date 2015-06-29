@@ -55,6 +55,9 @@ Here's an example of script's prompt:
 root@gluu-master:~# python postinstall.py
 Enter host type (ex. master or consumer) : master
 Enter MASTER_IPADDR (ex xxx.xxx.xxx.xxx) : 128.199.242.74
+IP address of this server: 128.199.242.74
+Password for TLS certificate:
+Re-type password for TLS certificate:
 ```
 
 Press enter to continue the process.
@@ -67,13 +70,14 @@ In master host, install `gluu-flask` package:
 apt-get install -y gluu-flask
 ```
 
-This will install an executable called `gluuapi`.
+This will install a daemon and it's automatically started by init script.
 
-Run `gluuapi`:
+Available commands:
 
-```
-API_ENV=prod SALT_MASTER_IPADDR=128.199.242.74 nohup gluuapi &
-```
+* `service gluu-flask start`
+* `service gluu-flask restart`
+* `service gluu-flask stop`
+* `service gluu-flask status`
 
 ### Gluu Cluster Consumer
 
@@ -117,6 +121,9 @@ Here's an example of script's prompt:
 root@gluu-master:~# python postinstall.py
 Enter host type (ex. master or consumer) : consumer
 Enter MASTER_IPADDR (ex xxx.xxx.xxx.xxx) : 128.199.242.74
+IP address of this server: 128.199.242.75
+Password for TLS certificate:
+Re-type password for TLS certificate:
 ```
 
 Press enter to continue the process.
@@ -124,5 +131,3 @@ Press enter to continue the process.
 ### What's Next
 
 Head over to [Getting Started](../getting-started/index.md) page for an example on how to use Gluu Cluster API.
-
-
