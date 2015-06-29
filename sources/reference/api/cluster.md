@@ -134,7 +134,6 @@ __Response example:__
 ```http
 HTTP/1.0 200 OK
 Content-Type: application/json
-Location: http://localhost:8080/clusters/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
 
 {
     "inum_org": "@!FDF8.652A.6EFF.F5A3!0001!DA7B.9EB2",
@@ -188,7 +187,6 @@ __Response example:__
 ```http
 HTTP/1.0 200 OK
 Content-Type: application/json
-Location: http://localhost:8080/clusters/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
 
 [
     {
