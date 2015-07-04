@@ -21,6 +21,7 @@ The main documentation is organized into the following sections:
 - [Monitoring](./admin-guide/monitoring/index.md)
 - [Overview](./admin-guide/overview/index.md)
 - [Components](./admin-guide/components/index.md)
+- [Web Interface](./admin-guide/webui/index.md)
 
 # Reference
 - [API](./reference/api/index.md)

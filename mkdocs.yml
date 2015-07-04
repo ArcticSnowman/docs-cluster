@@ -23,6 +23,7 @@ pages:
 - ['admin-guide/monitoring/index.md', 'Admin Guide', 'Monitoring']
 - ['admin-guide/testing/index.md', 'Admin Guide', 'Testing']
 - ['admin-guide/tuning/index.md', 'Admin Guide', 'Tuning']
+- ['admin-guide/webui/index.md', 'Admin Guide', 'Web Interface']
 
 # Sub Pages of Admin Guide / Installation
 - ['admin-guide/installation/package.md', '**HIDDEN**']
