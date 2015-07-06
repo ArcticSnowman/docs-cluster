@@ -13,29 +13,29 @@ include_search: true
 pages:
 
 # Home Page
-- ['index.md', 'Home']
+- [index.md, Home]
 
 # Admin Guide Sections
-- ['admin-guide/overview/index.md', 'Admin Guide', 'Overview']
-- ['admin-guide/getting-started/index.md', 'Admin Guide', 'Getting Started']
-- ['admin-guide/installation/index.md', 'Admin Guide', 'Installation']
-- ['admin-guide/components/index.md', 'Admin Guide', 'Components']
-- ['admin-guide/monitoring/index.md', 'Admin Guide', 'Monitoring']
-- ['admin-guide/testing/index.md', 'Admin Guide', 'Testing']
-- ['admin-guide/tuning/index.md', 'Admin Guide', 'Tuning']
-- ['admin-guide/webui/index.md', 'Admin Guide', 'Web Interface']
+- [admin-guide/overview/index.md, Admin Guide, Overview]
+- [admin-guide/getting-started/index.md, Admin Guide, Getting Started]
+- [admin-guide/installation/index.md, Admin Guide, Installation]
+- [admin-guide/components/index.md, Admin Guide, Components]
+- [admin-guide/monitoring/index.md, Admin Guide, Monitoring]
+- [admin-guide/testing/index.md, Admin Guide, Testing]
+- [admin-guide/tuning/index.md, Admin Guide, Tuning]
+- [admin-guide/webui/index.md, Admin Guide, Web Interface]
 
 # Sub Pages of Admin Guide / Installation
-- ['admin-guide/installation/package.md', '**HIDDEN**']
+- [admin-guide/installation/package.md,hidden]
 
 # API section
-- ['reference/api/index.md', 'Reference', 'API']
+- [reference/api/index.md, Reference, API]
 
 # Sub Pages of Reference / API
-- ['reference/api/provider.md', '**HIDDEN**']
-- ['reference/api/cluster.md', '**HIDDEN**']
-- ['reference/api/node.md', '**HIDDEN**']
-- ['reference/api/license_credential.md', '**HIDDEN**']
-- ['reference/api/license.md', '**HIDDEN**']
+- [reference/api/provider.md, hidden]
+- [reference/api/cluster.md, hidden]
+- [reference/api/node.md, hidden]
+- [reference/api/license_credential.md, hidden]
+- [reference/api/license.md, hidden]
 
 # Articles Sections
