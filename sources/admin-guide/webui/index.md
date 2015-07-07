@@ -4,11 +4,87 @@ The web interface provides a user friendly way of using the API and managing the
 
 ### Installation
 
+Install all required packages:
+
+```sh
+echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list
+curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add -
+apt-get update
+apt-get install -y gluu-webui apache2 libapache2-mod-wsgi
+```
+
+As `gluu-webui` is configured to run behind Apache HTTPD and `mod_wsgi`, we need to create WSGI script
+to load the application:
+
+```sh
+mkdir -p /var/www/gluuwebui
+echo 'from gluuwebui import app as application' > /var/www/gluuwebui/gluuwebui.wsgi
+```
+
+Note, binding Apache HTTPD to port 80 is discouraged since it may conflict with port used by nodes;
+hence we need to change the default port for Apache HTTPD. Modify the contents of `/etc/apache2/ports.conf` as seen below:
+
+```apache
+# /etc/apache2/ports.conf
+Listen 127.0.0.1:8800
+
+<IfModule ssl_module>
+    Listen 127.0.0.1:8443
+</IfModule>
+
+<IfModule mod_gnutls.c>
+    Listen 127.0.0.1:8443
+</IfModule>
+```
+
+Afterwards, create a virtualhost and save to `/etc/apache2/sites-available/gluuwebui_apache.conf`:
+
+```apache
+# /etc/apache2/sites-available/gluuwebui_apache.conf
+<VirtualHost 127.0.0.1:8800>
+    ServerAdmin admin@example.com
+    ServerName gluuwebui.example.com
+
+    WSGIDaemonProcess gluuwebui threads=5 display-name=%{GROUP}
+    WSGIProcessGroup gluuwebui
+
+    WSGIScriptAlias / /var/www/gluuwebui/gluuwebui.wsgi
+
+    <Directory /var/www/gluu-webui>
+        Order allow,deny
+        Allow from all
+    </Directory>
+</VirtualHost>
+```
+
+Note, the virtualhost above running in 127.0.0.1 (localhost) as currently there's no protection mechanism for `gluuwebui` application yet.
+
+After all settings have been configured, we need to restart the Apache HTTPD service:
+
+```sh
+# disable default Apache HTTPD virtualhost
+a2dissite 000-default
+
+# enable gluuwebui
+a2ensite gluuwebui_apache
+
+# restart the service
+service apache2 restart
+```
+
 ### Accessing the Interface
+
+As `gluuwebui` is running in localhost, one possible way to access the interface is by using SSH tunneling:
+
+```sh
+ssh -L 8800:localhost:8800 root@gluuwebui.example.com
+```
+
+After the connection to gluuwebui.example.com:8800 is established, visit `http://localhost:8800` in web browser.
 
 ### Using the Interface
 
-The interface provides access to managing the resources of the cluster with a list of items on the left side. Clicking on a reource type takes you to the overview page of that particular resource. 
+The interface provides access to managing the resources of the cluster with a list of items on the left side. Clicking on a reource type takes you to the overview page of that particular resource.
 
 #### The overview page
 
