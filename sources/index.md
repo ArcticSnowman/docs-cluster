@@ -1,12 +1,26 @@
 # Gluu Cluster Documentation
 
-The Gluu Server cluster project is a docker-based recipe for deploying multiple instances of the Gluu Server to achieve an elastic, highly avalable, centralized authentication and authorization infrastructure.
+If you want to deploy multiple replicated Gluu Servers to enable a highly available access management service, 
+you're in the right place!
 
-Currently this product is in beta and is free to test. We still have some work to do before we are ready to ship the final version of gluu-master and gluu-consumer. For example, the logs that are currently written to `/tmp` need to be moved to `/var`. Also, there is no startup script for `gluuapi`.
+The Gluu Server has two distributions: (1) Community Edition--where all Gluu services are deployed in one `chroot` 
+container; (2) Cluster Edition--where each service is deployed in its own `docker` container. 
 
-Once finished, we anticipate pricing will be $750 USD/year per gluu-consumer. The gluu-master will remain free so that no license is required to evaluate the software. Only when you add servers 2-n will the cluster require a license.
+`Note`: currently the cluster edition only supports oxAuth, oxTrust and LDAP--not the Shibboleth SAML IDP (yet!).
 
-Community support can be enlisted on the [Gluu website](http://support.gluu.org). Please use [Github](http://github.com/GluuFederation) to report bugs or request feature enhancements. Gluu also offers [VIP support](http://gluu.org/pricing) and can refer your organization to one of our world-class [integration partners](http://gluu.org/current-partners) for any custom development and integration needs.
+While the Gluu Server Community Edition will always be free, an important part of our business model is charge a fee
+to organizations who need highly available deployments. In the Gluu Cluster, a "Provider" is a VM which is hosting a 
+number of docker containers.  If you use the Gluu Server cluster packages, you'll need to buy a license for each 
+"Provider"--after the first. This means that you can test the cluster packages for free.
+
+These license fees enable Gluu to continue to focus on product innovation, making the best possible software access 
+management software available to you. It also funds the free Community Edition, which benefits many smaller 
+organizations.
+
+Community support can be enlisted on the [Gluu website](http://support.gluu.org). Please use 
+[Github](http://github.com/GluuFederation) to report bugs or request feature enhancements. Gluu also offers 
+[VIP support](http://gluu.org/pricing) and can refer your organization to one of our world-class 
+[integration partners](http://gluu.org/current-partners) for any custom development and integration needs.
 
 The main documentation is organized into the following sections:
 
