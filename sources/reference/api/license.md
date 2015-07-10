@@ -8,8 +8,8 @@ License represents an entity to manage signed license retrieved from Gluu Inc. l
 
 `POST /licenses`
 
-Note: to create a license entity, license credential must be created first.
-See [Create New License Credential](../license_credential/#create-new-license-credential) section for details.
+Note: to create a license entity, license key must be created first.
+See [Create New License Key](../license_key/#create-new-license-key) section for details.
 
 __URL:__
 
@@ -17,20 +17,15 @@ __URL:__
 
 Form parameters:
 
-*   `code` (required)
+*   `license_key_id` (required)
 
-    License code.
-
-*   `credential_id` (required)
-
-    ID of license credential.
+    ID of license key.
 
 __Request example:__
 
 ```sh
 curl http://localhost:8080/licenses \
-    -d code=3bade490-defe-477d-8146-be0f621940ec \
-    -d credential_id=3bade490-defe-477d-8146-be0f621940ed \
+    -d license_key_id=3bade490-defe-477d-8146-be0f621940ed \
     -X POST -i
 ```
 
@@ -43,7 +38,7 @@ Content-Type: application/json
 
 {
     "code": "3bade490-defe-477d-8146-be0f621940ec",
-    "credential_id": "3bade490-defe-477d-8146-be0f621940ed",
+    "license_key_id": "3bade490-defe-477d-8146-be0f621940ed",
     "expired": false,
     "id": "1186482d-fafd-4a97-be7f-d4f3b4167e88",
     "metadata": {
@@ -61,9 +56,8 @@ Content-Type: application/json
 }
 ```
 
-`metadata` and `valid` key pairs are generated based on license credentials,
-only when those credentials are correct.
-In other words, if license uses incorrect credentials, the response would have a different result.
+`metadata` and `valid` key pairs are generated based on license key.
+If license uses incorrect license key, the response would have a different result.
 
 ```http
 HTTP/1.0 201 CREATED
@@ -72,7 +66,7 @@ Content-Type: application/json
 
 {
     "code": "3bade490-defe-477d-8146-be0f621940ec",
-    "credential_id": "3bade490-defe-477d-8146-be0f621940ed",
+    "license_key_id": "3bade490-defe-477d-8146-be0f621940ed",
     "expired": true,
     "id": "1186482d-fafd-4a97-be7f-d4f3b4167e88",
     "metadata": {},
@@ -80,8 +74,8 @@ Content-Type: application/json
 }
 ```
 
-To fix this problem, update the related license credential.
-See [Update A License Credential](../license_credential/#update-a-license-credential) section for details.
+To fix this problem, update the related license key.
+See [Update A License Key](../license_key/#update-a-license-key) section for details.
 
 __Status Code:__
 
@@ -113,7 +107,7 @@ Content-Type: application/json
 
 {
     "code": "3bade490-defe-477d-8146-be0f621940ec",
-    "credential_id": "3bade490-defe-477d-8146-be0f621940ed",
+    "license_key_id": "3bade490-defe-477d-8146-be0f621940ed",
     "expired": false,
     "id": "1186482d-fafd-4a97-be7f-d4f3b4167e88",
     "metadata": {
@@ -163,7 +157,7 @@ Content-Type: application/json
 [
     {
         "code": "3bade490-defe-477d-8146-be0f621940ec",
-        "credential_id": "3bade490-defe-477d-8146-be0f621940ed",
+        "license_key_id": "3bade490-defe-477d-8146-be0f621940ed",
         "expired": false,
         "id": "1186482d-fafd-4a97-be7f-d4f3b4167e88",
         "metadata": {

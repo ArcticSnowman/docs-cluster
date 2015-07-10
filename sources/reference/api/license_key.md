@@ -1,16 +1,16 @@
-## License Credential API
+## License Key API
 
-License credential represents an entity to manage credentials for license bought from Gluu Inc. These credentials are required to generate metadata from signed license retrieved from Gluu Inc. license server.
+License key represents an entity to manage keys for license bought from Gluu Inc. These keys are required to generate metadata from signed license retrieved from Gluu Inc. license server.
 
 ---
 
-### Create New License Credential
+### Create New License Key
 
-`POST /license_credentials`
+`POST /license_keys`
 
 __URL:__
 
-`http://localhost:8080/license_credentials`
+`http://localhost:8080/license_keys`
 
 Form parameters:
 
@@ -28,16 +28,21 @@ Form parameters:
 
 *   `name` (required)
 
-    Short and descriptive credential name.
+    Short and descriptive key name.
+
+*   `code` (required)
+
+    License code.
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/license_credentials \
+curl http://localhost:8080/license_keys \
     -d public_key=your-public-key \
     -d public_password=your-public-password \
     -d license_password=your-license-password \
     -d name=testing \
+    -d code=your-code \
     -X POST -i
 ```
 
@@ -45,10 +50,11 @@ __Response example:__
 
 ```http
 HTTP/1.0 201 CREATED
-Location: http://localhost:8080/license_credentials/3bade490-defe-477d-8146-be0f621940ed
+Location: http://localhost:8080/license_keys/3bade490-defe-477d-8146-be0f621940ed
 Content-Type: application/json
 
 {
+    "code": "your-code",
     "id": "3bade490-defe-477d-8146-be0f621940ed",
     "license_password": "your-license-password",
     "name": "testing",
@@ -57,30 +63,31 @@ Content-Type: application/json
 }
 ```
 
-Note: the API doesn't check whether the credentials passed as request parameters are the same credentials given by license server.
-Bad credentials will affect signed license's metadata.
-Fortunately, there's an API to update the credentials. See [Update A License Credential](./#update-a-license-credential) below.
+Note: the API doesn't check whether the keys passed as request parameters are the same keys given by license server.
+Bad keys will affect signed license's metadata.
+Fortunately, there's an API to update the keys. See [Update A License key](./#update-a-license-key) below.
 
 __Status Code:__
 
-* `201`: License credential has been created.
+* `201`: License key has been created.
 * `400`: Bad request. Possibly malformed/incorrect parameter value.
+* `403`: Access denied.
 * `500`: The server having errors.
 
 ---
 
-### Get A License Credential
+### Get A License key
 
-`GET /license_credentials/{id}`
+`GET /license_keys/{id}`
 
 __URL:__
 
-`http://localhost:8080/license_credentials/{id}`
+`http://localhost:8080/license_keys/{id}`
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/license_credentials/3bade490-defe-477d-8146-be0f621940ed -i
+curl http://localhost:8080/license_keys/3bade490-defe-477d-8146-be0f621940ed -i
 ```
 
 __Response example:__
@@ -90,6 +97,7 @@ HTTP/1.0 200 OK
 Content-Type: application/json
 
 {
+    "code": "your-code",
     "id": "3bade490-defe-477d-8146-be0f621940ed",
     "license_password": "your-license-password",
     "name": "testing",
@@ -100,24 +108,24 @@ Content-Type: application/json
 
 __Status Code:__
 
-* `200`: License credential is exist.
-* `404`: License credential is not exist.
+* `200`: License key is exist.
+* `404`: License key is not exist.
 * `500`: The server having errors.
 
 ---
 
-### List All License Credentials
+### List All License Keys
 
-`GET /license_credentials`
+`GET /license_keys`
 
 __URL:__
 
-`http://localhost:8080/license_credentials`
+`http://localhost:8080/license_keys`
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/license_credentials -i
+curl http://localhost:8080/license_keys -i
 ```
 
 __Response example:__
@@ -128,6 +136,7 @@ Content-Type: application/json
 
 [
     {
+        "code": "your-code",
         "id": "3bade490-defe-477d-8146-be0f621940ed",
         "license_password": "your-license-password",
         "name": "testing",
@@ -137,7 +146,7 @@ Content-Type: application/json
 ]
 ```
 
-Note, if there's no license credential, the response body will return empty list.
+Note, if there's no license key, the response body will return empty list.
 
 __Status Code:__
 
@@ -146,13 +155,13 @@ __Status Code:__
 
 ---
 
-### Update A License Credential
+### Update A License Key
 
-`PUT /license_credentials/{id}`
+`PUT /license_keys/{id}`
 
 __URL:__
 
-`http://localhost:8080/license_credentials/{id}`
+`http://localhost:8080/license_keys/{id}`
 
 Form parameters:
 
@@ -170,16 +179,21 @@ Form parameters:
 
 *   `name` (required)
 
-    Short and descriptive credential name.
+    Short and descriptive key name.
+
+*   `code` (required)
+
+    License code.
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/license_credentials/3bade490-defe-477d-8146-be0f621940ed \
+curl http://localhost:8080/license_keys/3bade490-defe-477d-8146-be0f621940ed \
     -d public_key=your-public-key \
     -d public_password=your-public-password \
     -d license_password=your-license-password \
     -d name=testing-2 \
+    -d code=your-code \
     -X PUT -i
 ```
 
@@ -190,6 +204,7 @@ HTTP/1.0 200 OK
 Content-Type: application/json
 
 {
+    "code": "your-code",
     "id": "3bade490-defe-477d-8146-be0f621940ed",
     "license_password": "your-license-password",
     "name": "testing-2",
@@ -198,28 +213,28 @@ Content-Type: application/json
 }
 ```
 
-If license credential successfully updated, all related signed licenses' metadata will be regenerated.
+If license key successfully updated, all related signed licenses' metadata will be regenerated.
 
 __Status Code:__
 
-* `200`: License credential has been updated.
+* `200`: License key has been updated.
 * `400`: Bad request. Possibly malformed/incorrect parameter value.
 * `500`: The server having errors.
 
 ---
 
-### Delete A License Credential
+### Delete A License Key
 
-`DELETE /license_credentials/{id}`
+`DELETE /license_keys/{id}`
 
 __URL:__
 
-`http://localhost:8080/license_credentials/{id}`
+`http://localhost:8080/license_keys/{id}`
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/license_credentials/3bade490-defe-477d-8146-be0f621940ed -X DELETE -i
+curl http://localhost:8080/license_keys/3bade490-defe-477d-8146-be0f621940ed -X DELETE -i
 ```
 
 __Response example:__
@@ -231,6 +246,6 @@ Content-Type: application/json
 
 __Status Code:__
 
-* `204`: License credential has been deleted.
-* `404`: License credential is not exist.
+* `204`: License key has been deleted.
+* `404`: License key is not exist.
 * `500`: The server having errors.

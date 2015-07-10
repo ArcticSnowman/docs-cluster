@@ -3,5 +3,5 @@
 - [Provider](./provider.md)
 - [Cluster](./cluster.md)
 - [Node](./node.md)
-- [License Credential](./license_credential.md)
+- [License Key](./license_key.md)
 - [License](./license.md)
