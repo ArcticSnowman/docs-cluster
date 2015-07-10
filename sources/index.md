@@ -4,18 +4,10 @@ If you want to deploy multiple replicated Gluu Servers to enable a highly availa
 you're in the right place!
 
 The Gluu Server has two distributions: (1) Community Edition--where all Gluu services are deployed in one `chroot`
-container; (2) Cluster Edition--where each service is deployed in its own `docker` container.
+container; (2) HA Edition--where each service is deployed in its own `docker` container. The HA edition has a "master" 
+package and a "consumer" package. Licenses are required for each consumer. 
 
-`Note`: currently the cluster edition only supports oxAuth, oxTrust and LDAP--not the Shibboleth SAML IDP (yet!).
-
-While the Gluu Server Community Edition will always be free, an important part of our business model is charge a fee
-to organizations who need highly available deployments. In the Gluu Cluster, a "Provider" is a VM which is hosting a
-number of docker containers.  If you use the Gluu Server cluster packages, you'll need to buy a license for each
-"Provider"--after the first. This means that you can test the cluster packages for free.
-
-These license fees enable Gluu to continue to focus on product innovation, making the best possible software access
-management software available to you. It also funds the free Community Edition, which benefits many smaller
-organizations.
+`Note`: currently the HA Edition only supports oxAuth, oxTrust and LDAP--not the Shibboleth SAML IDP (yet!).
 
 Community support can be enlisted on the [Gluu website](http://support.gluu.org). Please use
 [Github](http://github.com/GluuFederation) to report bugs or request feature enhancements. Gluu also offers
