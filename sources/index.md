@@ -4,12 +4,12 @@ If you want to deploy multiple replicated Gluu Servers to enable a highly availa
 you're in the right place!
 
 The Gluu Server has two distributions: (1) Community Edition--where all Gluu services are deployed in one `chroot`
-container; (2) Cluster Edition--where each service is deployed in its own `docker` container. The Cluster Edition has a 
-"master" package and a "consumer" package. The master package is free, and the consumer package requires a commercial 
+container; (2) Cluster Edition--where each service is deployed in its own `docker` container. The Cluster Edition has a
+"master" package and a "consumer" package. The master package is free, and the consumer package requires a commercial
 license.
 
-`Note`: currently the Cluster Edition only supports oxAuth, oxTrust and LDAP. Support for Shibboleth IDP version 3 
-is planed for release 0.4 of the Gluu Clusters packages. 
+`Note`: currently the Cluster Edition only supports oxAuth, oxTrust and LDAP. Support for Shibboleth IDP version 3
+is planed for release 0.4 of the Gluu Clusters packages.
 
 Community support can be enlisted on the [Gluu website](http://support.gluu.org). Please use
 [Github](http://github.com/GluuFederation) to report bugs or request feature enhancements. Gluu also offers
@@ -36,4 +36,3 @@ The main documentation is organized into the following sections:
   - [Cluster](./reference/api/cluster.md)
   - [Provider](./reference/api/provider.md)
   - [License Key](./reference/api/license_key.md)
-  - [License](./reference/api/license.md)

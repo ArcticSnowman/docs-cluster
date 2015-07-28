@@ -59,13 +59,18 @@ Content-Type: application/json
     "license_password": "your-license-password",
     "name": "testing",
     "public_key": "your-public-key",
-    "public_password": "your-public-password"
+    "public_password": "your-public-password",
+    "valid": false,
+    "metadata": {}
 }
 ```
 
-Note: the API doesn't check whether the keys passed as request parameters are the same keys given by license server.
+Note: there's limitation where API doesn't check whether the keys passed as request parameters are the same keys given by license server.
 Bad keys will affect signed license's metadata.
 Fortunately, there's an API to update the keys. See [Update A License key](./#update-a-license-key) below.
+Also, `valid` and `metadata` by default uses predefined values, `false` and empty `{}`.
+These 2 key values will be updated during consumer provider registration.
+Refer to [Get A License Key](./#get-a-license-key) below to see an example of updated `valid` and `metadata` values.
 
 __Status Code:__
 
@@ -102,7 +107,19 @@ Content-Type: application/json
     "license_password": "your-license-password",
     "name": "testing",
     "public_key": "your-public-key",
-    "public_password": "your-public-password"
+    "public_password": "your-public-password",
+    "metadata": {
+        "expiration_date": null,
+        "license_count_limit": 20,
+        "license_features": [
+            "gluu_server"
+        ],
+        "license_name": "testing-license",
+        "license_type": null,
+        "multi_server": true,
+        "thread_count": 3
+    },
+    "valid": true
 }
 ```
 
@@ -141,7 +158,19 @@ Content-Type: application/json
         "license_password": "your-license-password",
         "name": "testing",
         "public_key": "your-public-key",
-        "public_password": "your-public-password"
+        "public_password": "your-public-password",
+        "metadata": {
+            "expiration_date": null,
+            "license_count_limit": 20,
+            "license_features": [
+                "gluu_server"
+            ],
+            "license_name": "testing-license",
+            "license_type": null,
+            "multi_server": true,
+            "thread_count": 3
+        },
+        "valid": true
     }
 ]
 ```
@@ -209,7 +238,19 @@ Content-Type: application/json
     "license_password": "your-license-password",
     "name": "testing-2",
     "public_key": "your-public-key",
-    "public_password": "your-public-password"
+    "public_password": "your-public-password",
+    "metadata": {
+        "expiration_date": null,
+        "license_count_limit": 20,
+        "license_features": [
+            "gluu_server"
+        ],
+        "license_name": "testing-license",
+        "license_type": null,
+        "multi_server": true,
+        "thread_count": 3
+    },
+    "valid": true
 }
 ```
 

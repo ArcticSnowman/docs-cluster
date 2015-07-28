@@ -103,9 +103,10 @@ Now we can register a provider:
 curl http://localhost:8080/providers \
     -d hostname=gluu.example.com \
     -d docker_base_url='https://128.199.242.74:2375' \
-    -d ssl_key='contents of key.pem' \
-    -d ssl_cert='contents of cert.pem' \
-    -d ca_cert='contents of ca.pem' \
+    -d ssl_key='multi-line contents of key.pem' \
+    -d ssl_cert='multi-line contents of cert.pem' \
+    -d ca_cert='multi-line contents of ca.pem' \
+    -d type='master' \
     -X POST -i
 ```
 
@@ -116,6 +117,7 @@ Here's a brief explanation of parameters used in the command above:
 * `ssl_key` is the contents of `key.pem`
 * `ssl_cert` is the contents of `cert.pem`
 * `ca_cert` is the contents of `ca.pem`
+* `type` is the provider type (either `master` or `consumer`)
 
 A successful request will returns a response (with HTTP status code 201) like this:
 
@@ -129,10 +131,10 @@ Location: http://localhost:8080/providers/58848b94-0671-48bc-9c94-04b0351886f0
     "hostname": "gluu.example.com",
     "id": "58848b94-0671-48bc-9c94-04b0351886f0",
     "type": "master",
-    "license_id": "",
-    "ssl_key": "contents of key.pem",
-    "ssl_cert": "contents of cert.pem",
-    "ca_cert": "contents of ca.pem"
+    "ssl_key": "multi-line contents of key.pem",
+    "ssl_cert": "multi-line contents of cert.pem",
+    "ca_cert": "multi-line contents of ca.pem",
+    "type": "master"
 }
 ```
 

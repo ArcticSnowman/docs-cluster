@@ -30,9 +30,9 @@ __Form parameters:__
     The latter format assumes `docker` daemon has been configured to listen to TCP connection.
     See [configuring docker daemon](../../admin-guide/installation/package.md#docker) for example.
 
-*   `license_id` (required only when creating `consumer` provider)
+*   `type` (required)
 
-    ID of [license](./license.md) to use. If omitted, server will create a `master` provider.
+    Provider type, must be one of `master` or `consumer`.
 
 *   `ssl_key` (required only when `docker_base_url` uses HTTPS)
 
@@ -56,9 +56,10 @@ __Request example:__
 curl http://localhost:8080/providers \
     -d hostname=master-host \
     -d docker_base_url='https://128.199.198.172:2375' \
-    -d ssl_key='contents of key.pem' \
-    -d ssl_cert='contents of cert.pem' \
-    -d ca_cert='contents of ca.pem' \
+    -d ssl_key='multi-line contents of key.pem' \
+    -d ssl_cert='multi-line contents of cert.pem' \
+    -d ca_cert='multi-line contents of ca.pem' \
+    -d type='master' \
     -X POST -i
 ```
 
@@ -73,10 +74,9 @@ Location: http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518677
     "docker_base_url": "128.199.198.172:2375",
     "hostname": "master-host",
     "id": "283bfa41-2121-4433-9741-875004518677",
-    "license_id": "",
-    "ssl_key": "contents of TLS certificate key",
-    "ssl_cert": "contents of TLS certificate",
-    "ca_cert": "contents of CA certificate",
+    "ssl_key": "multi-line contents of TLS certificate key",
+    "ssl_cert": "multi-line contents of TLS certificate",
+    "ca_cert": "multi-line contents of CA certificate",
     "type": "master"
 }
 ```
@@ -86,7 +86,7 @@ Location: http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518677
 There are prerequisites before creating a `consumer`:
 
 1. `master` provider must exist.
-2. Must have a non-expired license. See [License Credential API]() and [License API]() for details.
+2. Must have a license key. See [License Key API](./license_key.md) for details.
 
 It's worth noting that when license for `consumer` provider is expired,
 server will try to retrieve new license automatically. If succeed, the provider will use new license.
@@ -98,10 +98,9 @@ __Request example:__
 curl http://localhost:8080/providers \
     -d hostname=consumer-host \
     -d docker_base_url='128.199.198.173:2375' \
-    -d license_id=1186482d-fafd-4a97-be7f-d4f3b4167e88 \
-    -d ssl_key='contents of key.pem' \
-    -d ssl_cert='contents of cert.pem' \
-    -d ca_cert='contents of ca.pem' \
+    -d ssl_key='multi-line contents of key.pem' \
+    -d ssl_cert='multi-line contents of cert.pem' \
+    -d ca_cert='multi-line contents of ca.pem' \
     -X POST -i
 ```
 
@@ -116,10 +115,9 @@ Location: http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518678
     "docker_base_url": "128.199.198.173:2375",
     "hostname": "consumer-host",
     "id": "283bfa41-2121-4433-9741-875004518678",
-    "license_id": "1186482d-fafd-4a97-be7f-d4f3b4167e88",
-    "ssl_key": "contents of TLS certificate key",
-    "ssl_cert": "contents of TLS certificate",
-    "ca_cert": "contents of CA certificate",
+    "ssl_key": "multi-line contents of TLS certificate key",
+    "ssl_cert": "multi-line contents of TLS certificate",
+    "ca_cert": "multi-line contents of CA certificate",
     "type": "consumer"
 }
 ```
@@ -129,6 +127,7 @@ __Status Code:__
 * `201`: Provider is successfully created.
 * `400`: Bad request. Possibly malformed/incorrect parameter value.
 * `403`: Access denied. Refer to message key in JSON response for details.
+* `422`: Unprocessable entity. Possibly unable to retrieve license from license server.
 * `500`: The server having errors.
 
 ---
@@ -157,8 +156,10 @@ Content-Type: application/json
     "docker_base_url": "128.199.198.172:2375",
     "hostname": "master-host",
     "id": "283bfa41-2121-4433-9741-875004518677",
-    "license_id": "",
     "type": "master"
+    "ssl_key": "multi-line contents of TLS certificate key",
+    "ssl_cert": "multi-line contents of TLS certificate",
+    "ca_cert": "multi-line contents of CA certificate"
 }
 ```
 
@@ -195,15 +196,19 @@ Content-Type: application/json
         "docker_base_url": "128.199.198.172:2375",
         "hostname": "master-host",
         "id": "283bfa41-2121-4433-9741-875004518677",
-        "license_id": "",
         "type": "master"
+        "ssl_key": "multi-line contents of TLS certificate key",
+        "ssl_cert": "multi-line contents of TLS certificate",
+        "ca_cert": "multi-line contents of CA certificate"
     },
     {
         "docker_base_url": "128.199.198.173:2375",
         "hostname": "consumer-host",
         "id": "283bfa41-2121-4433-9741-875004518678",
-        "license_id": "1186482d-fafd-4a97-be7f-d4f3b4167e88",
         "type": "consumer"
+        "ssl_key": "multi-line contents of TLS certificate key",
+        "ssl_cert": "multi-line contents of TLS certificate",
+        "ca_cert": "multi-line contents of CA certificate"
     }
 ]
 ```
@@ -268,10 +273,6 @@ __Form parameters:__
     The latter format assumes `docker` daemon has been configured to listen to TCP connection.
     See [configuring docker daemon](../../admin-guide/installation/package.md#docker) for example.
 
-*   `license_id` (required only when creating `consumer` provider)
-
-    ID of [license](./license.md) to use.
-
 *   `ssl_key` (required only when `docker_base_url` uses HTTPS)
 
     The contents of `/etc/docker/key.pem` located in provider host.
@@ -292,9 +293,9 @@ __Request example:__
 curl http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518677 \
     -d hostname=master-host \
     -d docker_base_url='https://128.199.198.172:2375' \
-    -d ssl_key='contents of key.pem' \
-    -d ssl_cert='contents of cert.pem' \
-    -d ca_cert='contents of ca.pem' \
+    -d ssl_key='multi-line contents of key.pem' \
+    -d ssl_cert='multi-line contents of cert.pem' \
+    -d ca_cert='multi-line contents of ca.pem' \
     -X PUT -i
 ```
 
@@ -308,10 +309,9 @@ Content-Type: application/json
     "docker_base_url": "128.199.198.172:2375",
     "hostname": "master-host",
     "id": "283bfa41-2121-4433-9741-875004518677",
-    "license_id": "",
-    "ssl_key": "contents of TLS certificate key",
-    "ssl_cert": "contents of TLS certificate",
-    "ca_cert": "contents of CA certificate",
+    "ssl_key": "multi-line contents of TLS certificate key",
+    "ssl_cert": "multi-line contents of TLS certificate",
+    "ca_cert": "multi-line contents of CA certificate",
     "type": "master"
 }
 ```
@@ -324,10 +324,9 @@ __Request example:__
 curl http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518678 \
     -d hostname=consumer-host \
     -d docker_base_url='128.199.198.173:2375' \
-    -d license_id=1186482d-fafd-4a97-be7f-d4f3b4167e88 \
-    -d ssl_key='contents of key.pem' \
-    -d ssl_cert='contents of cert.pem' \
-    -d ca_cert='contents of ca.pem' \
+    -d ssl_key='multi-line contents of key.pem' \
+    -d ssl_cert='multi-line contents of cert.pem' \
+    -d ca_cert='multi-line contents of ca.pem' \
     -X PUT -i
 ```
 
@@ -341,10 +340,9 @@ Content-Type: application/json
     "docker_base_url": "128.199.198.173:2375",
     "hostname": "consumer-host",
     "id": "283bfa41-2121-4433-9741-875004518678",
-    "license_id": "1186482d-fafd-4a97-be7f-d4f3b4167e88",
-    "ssl_key": "contents of TLS certificate key",
-    "ssl_cert": "contents of TLS certificate",
-    "ca_cert": "contents of CA certificate",
+    "ssl_key": "multi-line contents of TLS certificate key",
+    "ssl_cert": "multi-line contents of TLS certificate",
+    "ca_cert": "multi-line contents of CA certificate",
     "type": "consumer"
 }
 ```
