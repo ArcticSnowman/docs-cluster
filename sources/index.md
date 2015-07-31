@@ -30,6 +30,7 @@ The main documentation is organized into the following sections:
 - [Components](./admin-guide/components/index.md)
 - [Web Interface](./admin-guide/webui/index.md)
 - [Troubleshooting](./admin-guide/troubleshooting/index.md)
+- [Recovery](./admin-guide/recovery/index.md)
 
 # Reference
 - [API](./reference/api/index.md)
