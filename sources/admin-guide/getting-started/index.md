@@ -23,7 +23,7 @@ curl http://localhost:8080/clusters \
     -d state=TX \
     -d country_code=US \
     -d admin_email='info@example.com' \
-    -d ox_cluster_hostname=ox.example.com \
+    -d ox_cluster_hostname=gluu.example.com \
     -d weave_ip_network=10.2.1.0/24 \
     -d admin_pw=secret \
     -X POST -i
@@ -56,7 +56,7 @@ Location: http://localhost:8080/clusters/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
     "inum_org_fn": "FDF8652A6EFFF5A30001DA7B9EB2",
     "weave_ip_network": "10.2.1.0/24",
     "ldaps_port": "1636",
-    "ox_cluster_hostname": "ox.example.com",
+    "ox_cluster_hostname": "gluu.example.com",
     "state": "TX",
     "country_code": "US",
     "ldap_nodes": [],
@@ -130,7 +130,6 @@ Location: http://localhost:8080/providers/58848b94-0671-48bc-9c94-04b0351886f0
     "docker_base_url": "https://128.199.242.74:2375",
     "hostname": "gluu.example.com",
     "id": "58848b94-0671-48bc-9c94-04b0351886f0",
-    "type": "master",
     "ssl_key": "multi-line contents of key.pem",
     "ssl_cert": "multi-line contents of cert.pem",
     "ca_cert": "multi-line contents of ca.pem",
@@ -141,8 +140,53 @@ Location: http://localhost:8080/providers/58848b94-0671-48bc-9c94-04b0351886f0
 We'll need the `provider_id` when deploying nodes, so let's keep the reference to `provider_id` as environment variable.
 
 ```
-export PROVIDER_ID=58848b94-0671-48bc-9c94-04b0351886f0
+export MASTER_PROVIDER_ID=58848b94-0671-48bc-9c94-04b0351886f0
 ```
+
+After provider successfully created, a background job takes place to setup internal routing through `weave`.
+It may takes approximately 25 seconds to finish the setup.
+
+To check whether internal routing is ready, we can use `weave ps` command in the shell:
+
+```sh
+weave ps
+```
+
+If routing is ready, the output will look like the snippet below:
+
+```
+weave:expose ca:68:e4:e8:ed:26 10.2.1.254/24
+e5d1dd8d9ad4 32:7b:97:97:02:c5
+```
+
+To check whether `weave` in master provider ready to accept connection from other providers,
+we can use `weave status` command in the shell:
+
+```
+$ weave status
+```
+
+```sh
+$ weave status
+weave router 0.10.0
+Encryption on
+Our name is 42:8d:28:15:14:eb(gluu.example.com)
+Sniffing traffic on &{300 65535 ethwe ee:89:e5:75:54:2c up|broadcast|multicast}
+MACs:
+Peers:
+42:8d:28:15:14:eb(gluu.example.com) (v6) (UID 5470999222361683535)
+Routes:
+unicast:
+42:8d:28:15:14:eb -> 00:00:00:00:00:00
+broadcast:
+42:8d:28:15:14:eb -> []
+Reconnects:
+
+```
+
+Notice that there's `gluu.example.com` peer? Since we don't have other providers,
+Peers only lists our own master provider. We will add additional (consumer) providers
+in the next section, but before that, let's start deploying nodes in master provider.
 
 ## Deploying Nodes
 
@@ -157,7 +201,7 @@ Let's start deploying `ldap` node first. Type the command below in the shell:
 
 ```sh
 curl http://localhost:8080/nodes \
-    -d provider_id=$PROVIDER_ID \
+    -d provider_id=$MASTER_PROVIDER_ID \
     -d cluster_id=$CLUSTER_ID \
     -d node_type=ldap \
     -X POST -i
@@ -210,7 +254,7 @@ If `ldap` node is successfully deployed, we can continue deploying nodes for `ox
 
 ## Accessing oxTrust Web UI using Browser
 
-After all nodes successfully deployed, we can accessing the web UI using browser. Remember the `ox_cluster_hostname` parameter? Since we set `ox.example.com` as its value, open the web browser and type `https://ox.example.com` in address bar. The application will take us to login page. Enter the following values in the form fields:
+After all nodes successfully deployed, we can accessing the web UI using browser. Remember the `ox_cluster_hostname` parameter? Since we set `gluu.example.com` as its value, open the web browser and type `https://gluu.example.com` in address bar. The application will take us to login page. Enter the following values in the form fields:
 
 * `admin` as username
 * `secret` as password (taken from `admin_pw` value when we created the cluster earlier)
@@ -219,4 +263,182 @@ A successful login will be redirected to oxTrust dashboard.
 
 ## Adding Additional Provider
 
-Note: we are still working on `gluu-consumer` provider feature that integrates with our license system.
+We may want to add one or more consumer providers to achieve highly-available setup.
+
+### Adding License Key
+
+Before start adding one or more consumer providers, a license key must exist. Please contact support@gluu.org about license key.
+
+```sh
+curl http://localhost:8080/license_keys \
+    -d public_key='my-public-key' \
+    -d public_password='my-public-password' \
+    -d license_password='my-license-password' \
+    -d name=my-gluu-license \
+    -d code=my-license-code \
+    -X POST -i
+```
+
+A successful request will returns a response (with HTTP status code 201) like this:
+
+```http
+HTTP/1.0 201 CREATED
+Location: http://localhost:8080/license_keys/3bade490-defe-477d-8146-be0f621940ed
+Content-Type: application/json
+
+{
+    "code": "my-license-code",
+    "id": "3bade490-defe-477d-8146-be0f621940ed",
+    "license_password": "my-license-password",
+    "name": "my-gluu-license",
+    "public_key": "my-public-key",
+    "public_password": "my-public-password",
+    "valid": false,
+    "metadata": {}
+}
+```
+
+NOTE: there's a known limitation with initial `valid` and `metadata` values. See [Create New License Key](../../reference/api/license_key#create-new-license-key) section in License Key API.
+
+### Registering Consumer Provider
+
+After we have master provider and license key, we can add one or more consumer providers. The maximum number of how many consumer providers we can register is based on license key we have created earlier.
+
+```
+curl http://localhost:8080/providers \
+    -d hostname=gluu.consumer.example.com \
+    -d docker_base_url='https://128.199.242.75:2375' \
+    -d ssl_key='multi-line contents of consumer key.pem' \
+    -d ssl_cert='multi-line contents of consumer cert.pem' \
+    -d ca_cert='multi-line contents of consumer ca.pem' \
+    -d type='consumer' \
+    -X POST -i
+```
+
+A successful request will returns a response (with HTTP status code 201) like this:
+
+```
+HTTP/1.0 201 CREATED
+Content-Type: application/json
+Location: http://localhost:8080/providers/58848b94-0671-48bc-9c94-04b0351886f1
+
+{
+    "docker_base_url": "https://128.199.242.75:2375",
+    "hostname": "gluu.consumer.example.com",
+    "id": "58848b94-0671-48bc-9c94-04b0351886f1",
+    "ssl_key": "multi-line contents of key.pem",
+    "ssl_cert": "multi-line contents of cert.pem",
+    "ca_cert": "multi-line contents of ca.pem",
+    "type": "consumer",
+}
+```
+
+We'll need the `provider_id` when deploying nodes, so let's keep the reference to `provider_id` as environment variable.
+
+```
+export CONSUMER_PROVIDER_ID=58848b94-0671-48bc-9c94-04b0351886f1
+```
+
+After provider successfully created, a background job takes place to setup internal routing through `weave`.
+It may takes approximately 25 seconds to finish the setup.
+
+To check whether internal routing is ready, we can use `weave ps` command in the shell:
+
+```sh
+weave ps
+```
+
+If routing is ready, the output will look like the snippet below:
+
+```
+weave:expose ca:68:e4:e8:ed:45 10.2.1.254/24
+e5d1dd8d9ad4 32:7b:97:97:02:c5
+```
+
+To check whether `weave` in consumer provider connected to master provider,
+we can use `weave status` command in the shell:
+
+```
+$ weave status
+weave router 0.10.0
+Encryption on
+Our name is ca:68:e4:e8:ed:45(gluu.consumer.example.com)
+Sniffing traffic on &{46 65535 ethwe 32:7b:97:97:02:c5 up|broadcast|multicast}
+MACs:
+Peers:
+42:8d:28:15:14:eb(gluu.example.com) (v5) (UID 5470999222361683535)
+    -> ca:68:e4:e8:ed:26(gluu.consumer.example.com) [128.199.242.75:46124]
+ca:68:e4:e8:ed:45(gluu.consumer.example.com) (v2) (UID 3882689006152107332)
+    -> 42:8d:28:15:14:eb(gluu.example.com) [128.199.242.74:6783]
+Routes:
+unicast:
+ca:68:e4:e8:ed:26 -> 00:00:00:00:00:00
+42:8d:28:15:14:eb -> 42:8d:28:15:14:eb
+broadcast:
+ca:68:e4:e8:ed:26 -> [42:8d:28:15:14:eb]
+42:8d:28:15:14:eb -> []
+Reconnects:
+
+```
+
+As we can see, Peers lists `gluu.example.com` (our master provider) and `gluu.consumer.example.com` (consumer).
+That means the connection between master and consumer provider has been established.
+Now we can start deploying nodes in consumer provider.
+
+### Deploying Nodes to Consumer Provider
+
+There's no major difference between deploying nodes to master nor consumer provider.
+We only need to pass the `provider_id` value pointed either master or consumer.
+
+```sh
+curl http://localhost:8080/nodes \
+    -d provider_id=$CONSUMER_PROVIDER_ID \
+    -d cluster_id=$CLUSTER_ID \
+    -d node_type=ldap \
+    -X POST -i
+```
+
+A successful request will returns a response (with HTTP status code 202):
+
+```http
+HTTP/1.0 202 ACCEPTED
+Content-Type: application/json
+Location: http://localhost:8080/nodes/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_100
+X-Deploy-Log: /var/log/gluu/gluuopendj-build-OoQ7TN.log
+
+{
+    "provider_id": "58848b94-0671-48bc-9c94-04b0351886f1",
+    "name": "gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_100",
+    "ldap_port": "1389",
+    "ldap_admin_port": "4444",
+    "ip": "",
+    "ldap_binddn": "cn=directory manager",
+    "ldaps_port": "1636",
+    "cluster_id": "9ea4d520-bbba-46f6-b779-c29ee99d2e9e",
+    "weave_ip": "",
+    "type": "ldap",
+    "id": "",
+    "ldap_jmx_port": "1689",
+    "state": "IN-PROGRESS"
+}
+```
+
+Since deploying a node may take awhile, it's recommended to follow the progress via its log file.
+Notice the `X-Deploy-Log: /var/log/gluu/gluuopendj-build-OoQ7TN.log` in response header above?
+Now we can use shell command to follow the progress.
+
+Type the command below:
+
+```
+tail -F /var/log/gluu/gluuopendj-build-OoQ7TN.log
+```
+
+The log file will inform whether the node deployment is succeed or failed.
+
+Another alternative is to make requests periodically to retrieve node resource. Since node can be retrieved by its `id` or `name`, we can use `curl` command:
+
+```
+curl http://localhost:8080/node/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_100
+```
+
+If `ldap` node is successfully deployed, we can continue deploying nodes for `oxauth`, `oxtrust`, `httpd` sequentially. Repeat the `curl` and `tail` command above, but make sure we're using different value for `node_type` parameter.
