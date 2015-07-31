@@ -16,7 +16,7 @@ Form parameters:
 
 *   `public_key` (required)
 
-    Public key given when buying a license code.
+    Public key given when buying a license code. This must use a oneliner (without any space) string.
 
 *   `public_password` (required)
 
@@ -196,7 +196,7 @@ Form parameters:
 
 *   `public_key` (required)
 
-    Public key given when buying a license code.
+    Public key given when buying a license code. This must use a oneliner (without any space) string.
 
 *   `public_password` (required)
 
