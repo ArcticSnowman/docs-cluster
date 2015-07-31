@@ -351,6 +351,5 @@ __Status Code:__
 
 * `200`: Request succeed.
 * `400`: Bad request. Possibly malformed/incorrect parameter value.
-* `403`: Access denied. Refer to message key in JSON response for details.
 * `404`: Provider not found.
 * `500`: The server having errors.

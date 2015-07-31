@@ -8,7 +8,7 @@ Cluster holds all nodes (`docker` containers) within `weave` network.
 
 `POST /clusters`
 
-Note, currently the API only allow 1 cluster. This will change in the future.
+Note, currently the API only allow 1 cluster. This may change in the future.
 
 __URL:__
 
@@ -55,7 +55,7 @@ __Form parameters:__
 
 *   `admin_pw` (required)
 
-    Default password for default Admin account.
+    Default password for default Admin account. Minimum password length is 6 characters.
 
 __Request example:__
 
@@ -110,7 +110,7 @@ __Status Code:__
 
 * `201`: Cluster is successfully created.
 * `400`: Bad request. Possibly malformed/incorrect parameter value.
-* `403`: Access denide. Possibly unable to create more cluster.
+* `403`: Access denied. Possibly unable to create more cluster.
 * `500`: The server having errors.
 
 ---
@@ -248,5 +248,6 @@ Content-Type: application/json
 __Status Code:__
 
 * `204`: Cluster has been deleted.
+* `403`: Access denied.
 * `404`: Cluster is not exist.
 * `500`: The server having errors.
