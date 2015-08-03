@@ -218,6 +218,9 @@ __Status Code:__
 
 `DELETE /nodes/{id}`
 
+Note, node with `IN_PROGRESS` state cannot be deleted.
+Any attempt to delete node with `IN_PROGRESS` state will raise status code 403.
+
 __URL:__
 
 `http://localhost:8080/nodes/{id}`
@@ -244,5 +247,6 @@ Content-Type: application/json
 __Status Code:__
 
 * `204`: Node has been deleted.
+* `403`: Access denied.
 * `404`: Node is not exist.
 * `500`: The server having errors.
