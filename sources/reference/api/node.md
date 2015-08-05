@@ -66,12 +66,12 @@ __Response example:__
 ```http
 HTTP/1.0 202 ACCEPTED
 Content-Type: application/json
-Location: http://localhost:8080/nodes/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988
-X-Deploy-Log: /var/log/gluu/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988-setup.log
+Location: http://localhost:8080/nodes/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043
+X-Deploy-Log: /var/log/gluu/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043-setup.log
 
 {
     "provider_id": "58848b94-0671-48bc-9c94-04b0351886f0",
-    "name": "gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988",
+    "name": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
     "ldap_port": "1389",
     "ldap_admin_port": "4444",
     "ip": "",
@@ -95,7 +95,7 @@ There are several ways to track the deployment progress:
 
 1.  By looking at the log file (the path is set in `X-Deploy-Log` response header above).
     A typical example is by using `tail` shell command,
-    for example `tail -F /var/log/gluu/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988-setup.log`
+    for example `tail -F /var/log/gluu/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043-setup.log`.
 
 2.  By making requests periodically to [retrieve node resource](./#get-a-node) (the URL is set in `Location` response header above).
 
@@ -125,7 +125,7 @@ curl http://localhost:8080/nodes/9d99c95c4043 -i
 or
 
 ```sh
-curl http://localhost:8080/nodes/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988 -i
+curl http://localhost:8080/nodes/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043 -i
 ```
 
 __Response example:__
@@ -136,7 +136,7 @@ Content-Type: application/json
 
 {
     "provider_id": "58848b94-0671-48bc-9c94-04b0351886f0",
-    "name": "gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988",
+    "name": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
     "ldap_port": "1389",
     "ldap_admin_port":
     "4444", "ip": "172.17.0.9",
@@ -189,7 +189,7 @@ Content-Type: application/json
 [
     {
         "provider_id": "58848b94-0671-48bc-9c94-04b0351886f0",
-        "name": "gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988",
+        "name": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
         "ldap_port": "1389",
         "ldap_admin_port":
         "4444", "ip": "172.17.0.9",
@@ -234,7 +234,7 @@ curl http://localhost:8080/nodes/9d99c95c4043 -X DELETE -i --max-time 300
 or
 
 ```sh
-curl http://localhost:8080/nodes/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988 -X DELETE -i --max-time 300
+curl http://localhost:8080/nodes/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043 -X DELETE -i --max-time 300
 ```
 
 __Response example:__

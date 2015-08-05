@@ -212,12 +212,12 @@ A successful request will returns a response (with HTTP status code 202):
 ```http
 HTTP/1.0 202 ACCEPTED
 Content-Type: application/json
-Location: http://localhost:8080/nodes/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988
-X-Deploy-Log: /var/log/gluu/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988-setup.log
+Location: http://localhost:8080/nodes/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59042
+X-Deploy-Log: /var/log/gluu/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59042-setup.log
 
 {
     "provider_id": "58848b94-0671-48bc-9c94-04b0351886f0",
-    "name": "gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988",
+    "name": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59042",
     "ldap_port": "1389",
     "ldap_admin_port": "4444",
     "ip": "",
@@ -233,14 +233,14 @@ X-Deploy-Log: /var/log/gluu/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988-
 ```
 
 Since deploying a node may take awhile, it's recommended to follow the progress via its log file.
-Notice the `X-Deploy-Log: /var/log/gluu/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988-setup.log`,
+Notice the `X-Deploy-Log: /var/log/gluu/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59042-setup.log`,
 in response header above?
 Now we can use shell command to follow the progress.
 
 Type the command below:
 
 ```
-tail -F /var/log/gluu/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988-setup.log
+tail -F /var/log/gluu/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59042-setup.log
 ```
 
 The log file will inform whether the node deployment is succeed or failed.
@@ -248,7 +248,7 @@ The log file will inform whether the node deployment is succeed or failed.
 Another alternative is to make requests periodically to retrieve node resource. Since node can be retrieved by its `id` or `name`, we can use `curl` command:
 
 ```
-curl http://localhost:8080/node/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988
+curl http://localhost:8080/nodes/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59042
 ```
 
 If `ldap` node is successfully deployed, we can continue deploying nodes for `oxauth`, `oxtrust`, `httpd` sequentially. Repeat the `curl` and `tail` command above, but make sure we're using different value for `node_type` parameter.
@@ -404,12 +404,12 @@ A successful request will returns a response (with HTTP status code 202):
 ```http
 HTTP/1.0 202 ACCEPTED
 Content-Type: application/json
-Location: http://localhost:8080/nodes/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_100
-X-Deploy-Log: /var/log/gluu/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_100-setup.log
+Location: http://localhost:8080/nodes/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043
+X-Deploy-Log: /var/log/gluu/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043-setup.log
 
 {
     "provider_id": "58848b94-0671-48bc-9c94-04b0351886f1",
-    "name": "gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_100",
+    "name": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
     "ldap_port": "1389",
     "ldap_admin_port": "4444",
     "ip": "",
@@ -425,14 +425,14 @@ X-Deploy-Log: /var/log/gluu/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_100-
 ```
 
 Since deploying a node may take awhile, it's recommended to follow the progress via its log file.
-Notice the `X-Deploy-Log: /var/log/gluu/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_100-setup.log`
+Notice the `X-Deploy-Log: /var/log/gluu/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043-setup.log`
 in response header above?
 Now we can use shell command to follow the progress.
 
 Type the command below:
 
 ```
-tail -F /var/log/gluu/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_100-setup.log
+tail -F /var/log/gluu/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043-setup.log
 ```
 
 The log file will inform whether the node deployment is succeed or failed.
@@ -440,7 +440,7 @@ The log file will inform whether the node deployment is succeed or failed.
 Another alternative is to make requests periodically to retrieve node resource. Since node can be retrieved by its `id` or `name`, we can use `curl` command:
 
 ```
-curl http://localhost:8080/node/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_100
+curl http://localhost:8080/node/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043
 ```
 
 If `ldap` node is successfully deployed, we can continue deploying nodes for `oxauth`, `oxtrust`, `httpd` sequentially. Repeat the `curl` and `tail` command above, but make sure we're using different value for `node_type` parameter.
