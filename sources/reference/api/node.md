@@ -67,7 +67,7 @@ __Response example:__
 HTTP/1.0 202 ACCEPTED
 Content-Type: application/json
 Location: http://localhost:8080/nodes/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988
-X-Deploy-Log: /var/log/gluu/gluuopendj-build-OoQ7TM.log
+X-Deploy-Log: /var/log/gluu/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988-setup.log
 
 {
     "provider_id": "58848b94-0671-48bc-9c94-04b0351886f0",
@@ -95,9 +95,9 @@ There are several ways to track the deployment progress:
 
 1.  By looking at the log file (the path is set in `X-Deploy-Log` response header above).
     A typical example is by using `tail` shell command,
-    for example `tail -F /var/log/gluu/gluuopendj-build-OoQ7TM.log`.
+    for example `tail -F /var/log/gluu/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988-setup.log`
 
-2. By making requests periodically to [retrieve node resource](./#get-a-node) (the URL is set in `Location` response header above).
+2.  By making requests periodically to [retrieve node resource](./#get-a-node) (the URL is set in `Location` response header above).
 
 __Status Code:__
 

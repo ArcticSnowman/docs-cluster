@@ -213,7 +213,7 @@ A successful request will returns a response (with HTTP status code 202):
 HTTP/1.0 202 ACCEPTED
 Content-Type: application/json
 Location: http://localhost:8080/nodes/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988
-X-Deploy-Log: /var/log/gluu/gluuopendj-build-OoQ7TM.log
+X-Deploy-Log: /var/log/gluu/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988-setup.log
 
 {
     "provider_id": "58848b94-0671-48bc-9c94-04b0351886f0",
@@ -233,13 +233,14 @@ X-Deploy-Log: /var/log/gluu/gluuopendj-build-OoQ7TM.log
 ```
 
 Since deploying a node may take awhile, it's recommended to follow the progress via its log file.
-Notice the `X-Deploy-Log: /var/log/gluu/gluuopendj-build-OoQ7TM.log` in response header above?
+Notice the `X-Deploy-Log: /var/log/gluu/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988-setup.log`,
+in response header above?
 Now we can use shell command to follow the progress.
 
 Type the command below:
 
 ```
-tail -F /var/log/gluu/gluuopendj-build-OoQ7TM.log
+tail -F /var/log/gluu/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_988-setup.log
 ```
 
 The log file will inform whether the node deployment is succeed or failed.
@@ -404,7 +405,7 @@ A successful request will returns a response (with HTTP status code 202):
 HTTP/1.0 202 ACCEPTED
 Content-Type: application/json
 Location: http://localhost:8080/nodes/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_100
-X-Deploy-Log: /var/log/gluu/gluuopendj-build-OoQ7TN.log
+X-Deploy-Log: /var/log/gluu/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_100-setup.log
 
 {
     "provider_id": "58848b94-0671-48bc-9c94-04b0351886f1",
@@ -424,13 +425,14 @@ X-Deploy-Log: /var/log/gluu/gluuopendj-build-OoQ7TN.log
 ```
 
 Since deploying a node may take awhile, it's recommended to follow the progress via its log file.
-Notice the `X-Deploy-Log: /var/log/gluu/gluuopendj-build-OoQ7TN.log` in response header above?
+Notice the `X-Deploy-Log: /var/log/gluu/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_100-setup.log`
+in response header above?
 Now we can use shell command to follow the progress.
 
 Type the command below:
 
 ```
-tail -F /var/log/gluu/gluuopendj-build-OoQ7TN.log
+tail -F /var/log/gluu/gluuopendj_9ea4d520-bbba-46f6-b779-c29ee99d2e9e_100-setup.log
 ```
 
 The log file will inform whether the node deployment is succeed or failed.
