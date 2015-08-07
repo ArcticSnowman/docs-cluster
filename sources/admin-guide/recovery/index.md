@@ -78,4 +78,14 @@ As we have gathered all required data about our provider, let's try to recover t
 
     API_ENV=prod SALT_MASTER_IPADDR=$MASTER_IPADDR gluuapi recover $PROVIDER_ID
 
-The process may take a while depends on how many nodes were deployed on the provider.
+The process may take a while, depends on how many nodes were deployed on the provider.
+
+By default, `gluu-flask` will have to wait for 30 seconds for each stopped node to ensure
+inter-node communication is established.
+That means, if we have 4 stopped nodes, the recovery process may take 120 seconds to finish.
+We can adjust the delay time (in seconds) by passing the `--exec-delay` with our desired value.
+
+    API_ENV=prod SALT_MASTER_IPADDR=$MASTER_IPADDR gluuapi recover $PROVIDER_ID --exec-delay 20
+
+There's no exact formula of how long the delay time should be set. Hence experimenting with different
+values is our best approach.
