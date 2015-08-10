@@ -19,6 +19,11 @@ __Form parameters:__
 *   `name` (required)
 
     The name of the cluster.
+    Rules:
+
+    * Minimum 3 characters.
+    * Accepts alphanumeric (case-insensitive), dash, underscore, and dot characters.
+    * Cannot use dash, underscore, or dot as leading or traling character.
 
 *   `description` (optional)
 *   `org_name` (required)
