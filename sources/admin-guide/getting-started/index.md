@@ -33,7 +33,7 @@ Here's a brief explanation of parameters used in command above:
 
 * `name` is cluster name and currently it doesn't mean anything other than labeling.
 * `org_name`, `org_short_name`, `city`, `state`, `country_code`, and `admin_email` will be used for X509 certificate.
-* `ox_cluster_hostname` is a URL for web UI; make sure the name is reachable from browser.
+* `ox_cluster_hostname` is a URL for the appliance; make sure the name is reachable from browser.
 * `weave_ip_network` is IP address network used for inter-container communication; Make we use unique IP address per cluster.
 * `admin_pw` is used for LDAP password, LDAP replication password, and oxTrust admin password.
 
@@ -255,12 +255,26 @@ If `ldap` node is successfully deployed, we can continue deploying nodes for `ox
 
 ## Accessing oxTrust Web UI using Browser
 
-After all nodes successfully deployed, we can accessing the web UI using browser. Remember the `ox_cluster_hostname` parameter? Since we set `gluu.example.com` as its value, open the web browser and type `https://gluu.example.com` in address bar. The application will take us to login page. Enter the following values in the form fields:
+After all nodes successfully deployed, we can accessing the oxTrust web UI using browser.
+For security reason, oxTrust is never exposed for public. It's always run at `https://localhost:8443`.
+To access the oxTrust UI, we need to do SSH tunneling. From example above, we already know
+that oxTrust has been deployed to master provider (IP address is 128.199.242.74),
+hence we can type the following command in our shell:
+
+```
+ssh -L 8443:localhost:8443 root@128.199.242.74
+```
+
+After the connection to 128.199.242.74:8443 is established, visit https://localhost:8443 in web browser.
+The application will take us to login page. Enter the following values in the form fields:
 
 * `admin` as username
 * `secret` as password (taken from `admin_pw` value when we created the cluster earlier)
 
 A successful login will be redirected to oxTrust dashboard.
+
+Remember, as we can deploy oxTrust node to any provider (not just the master provider),
+we can pick any oxTrust node in the cluster and do the SSH tunneling.
 
 ## Adding Additional Provider
 

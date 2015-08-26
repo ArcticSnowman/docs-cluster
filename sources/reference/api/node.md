@@ -47,10 +47,6 @@ __Form parameters:__
 
     Unique oxAuth node ID within the same provider. Note, this parameter only required if `node_type` value is set to `httpd`.
 
-*   `oxtrust_node_id` (optional)
-
-    Unique oxTrust node ID within the same provider. Note, this parameter only required if `node_type` value is set to `httpd`.
-
 __Request example:__
 
 ```sh
