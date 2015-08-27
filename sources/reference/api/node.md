@@ -221,6 +221,17 @@ __URL:__
 
 `http://localhost:8080/nodes/{id}`
 
+__Query string parameters:__
+
+*   `force` (optional)
+
+    A boolean to delete the node regardless of its state. By default is set to `false`.
+
+    * Truthy values: `1`, `True`, `true`, or `t`
+    * Falsy values: `0`, `False`, `false`, or `f`
+
+    Unknown value will be ignored.
+
 __Request example:__
 
 ```sh
