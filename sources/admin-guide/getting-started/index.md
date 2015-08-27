@@ -262,8 +262,12 @@ It's always run at `https://localhost:8443`.
 To migrate to v0.3.1-14 and above, we need to do the following steps:
 
 1. Remove all oxtrust nodes via API.
-2. Delete `gluuoxtrust` image: `docker rmi gluuoxtrust`.
-3. Re-deploy oxtrust node via API. This may take a while as the API will rebuild the oxtrust image and pull the updates.
+2. Remove all httpd nodes via API.
+3. Remove all ldap nodes via API.
+4. Delete `gluuoxtrust` image: `docker rmi gluuoxtrust`.
+5. Re-deploy ldap node. We need to do this as oxTrust redirect URI is changed.
+6. Re-deploy oxtrust node via API. This may take a while as the API will rebuild the oxtrust image and pull the updates.
+7. Re-deploy httpd node.
 
 To access the oxTrust UI, we need to do SSH tunneling. From example above, we already know
 that oxTrust has been deployed to master provider (IP address is 128.199.242.74),
