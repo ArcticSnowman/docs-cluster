@@ -259,6 +259,12 @@ After all nodes successfully deployed, we can accessing the oxTrust web UI using
 Starting from v0.3.1-14, for security reason, oxTrust is never exposed for public.
 It's always run at `https://localhost:8443`.
 
+To migrate to v0.3.1-14 and above, we need to do the following steps:
+
+1. Remove all oxtrust nodes via API.
+2. Delete `gluuoxtrust` image: `docker rmi gluuoxtrust`.
+3. Re-deploy oxtrust node via API. This may take a while as the API will rebuild the oxtrust image and pull the updates.
+
 To access the oxTrust UI, we need to do SSH tunneling. From example above, we already know
 that oxTrust has been deployed to master provider (IP address is 128.199.242.74),
 hence we can type the following command in our shell:
