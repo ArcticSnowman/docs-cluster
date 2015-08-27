@@ -256,7 +256,9 @@ If `ldap` node is successfully deployed, we can continue deploying nodes for `ox
 ## Accessing oxTrust Web UI using Browser
 
 After all nodes successfully deployed, we can accessing the oxTrust web UI using browser.
-For security reason, oxTrust is never exposed for public. It's always run at `https://localhost:8443`.
+Starting from v0.3.1-14, for security reason, oxTrust is never exposed for public.
+It's always run at `https://localhost:8443`.
+
 To access the oxTrust UI, we need to do SSH tunneling. From example above, we already know
 that oxTrust has been deployed to master provider (IP address is 128.199.242.74),
 hence we can type the following command in our shell:
