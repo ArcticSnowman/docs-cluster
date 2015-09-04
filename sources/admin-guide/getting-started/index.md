@@ -257,7 +257,7 @@ If `ldap` node is successfully deployed, we can continue deploying nodes for `ox
 
 After all nodes successfully deployed, we can accessing the oxTrust web UI using browser.
 Starting from v0.3.1-14, for security reason, oxTrust is never exposed for public.
-It's always run at `https://localhost:8443`.
+It's always run at `https://localhost:8443` in master provider.
 
 To migrate to v0.3.1-14 and above, we need to do the following steps:
 
@@ -284,9 +284,6 @@ The application will take us to login page. Enter the following values in the fo
 * `secret` as password (taken from `admin_pw` value when we created the cluster earlier)
 
 A successful login will be redirected to oxTrust dashboard.
-
-Remember, as we can deploy oxTrust node to any provider (not just the master provider),
-we can pick any oxTrust node in the cluster and do the SSH tunneling.
 
 ## Adding Additional Provider
 
