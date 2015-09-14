@@ -12,6 +12,7 @@ The Gluu Cluster has two principle compoents that are interdependent, the master
 The master package must be installed for the cluster to be functional, and without the master package, the consumer will not work.
 The installation instructions are available in the [Installation Docs](http://www.gluu.org/docs-cluster/admin-guide/getting-started/).
 
+
 ## Functionalities
 
 The core functionalities of the Gluu Server is available in the cluster design with a few additional features such as cluster monitoring, DDOS protection and a fail-safe system.

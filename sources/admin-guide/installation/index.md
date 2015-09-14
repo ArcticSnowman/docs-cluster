@@ -1,7 +1,86 @@
 # Installation
+[TOC]
 
-Gluu cluster only supports Ubuntu for now.
+The Gluu Cluster is suported for Ubuntu for now. There are three packages that completes the cluster; the master, the consumer and the cluster API. The master package and the cluster API must be installed in the same host. The consumer package is not necessary for a single server installation.
 
-## Ubuntu 14.04
+## Gluu Cluster Master
 
-- [Package](./package.md)
+There are various components that make the cluster possible. The components are listed in the [components](http://www.gluu.org/docs-cluster/admin-guide/components/) page. The components are packaged into a single `deb` package to minimize the complexity of the situation. The package is named `gluu-master`.
+
+### Installing gluu-master
+
+Run the following commands to install the gluu-master package:
+
+```
+echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list
+curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add -
+apt-get update
+apt-get install -y gluu-master
+```
+
+### Configuring gluu-master
+
+A script called the `postinstall.py` should be downloaded and run to configure the gluu-master package.
+python postinstall.pyRun the following command to download the `postinstall.py` script:
+
+	wget https://raw.githubusercontent.com/GluuFederation/gluu-cluster-postinstall/master/postinstall.py
+
+Make a note of the IP address of the master package as it will be used in the script.
+Run the `postinstall.py` script using the following command:
+
+	python postinstall.py
+
+Enter the values asked by the prompt when the script is run, and press enter to continue.
+
+An example of the script's pormpt is given below:
+```
+root@gluu-master:~# python postinstall.py
+Enter host type (ex. master or consumer) : master
+Enter MASTER_IPADDR (ex xxx.xxx.xxx.xxx) : 128.199.242.74
+IP address of this server: 128.199.242.74
+Password for TLS certificate:
+Re-type password for TLS certificate:
+```
+
+## Installing Cluster API
+
+The cluster API, `gluu-flask` must be installed in the same host as gluu-master.
+Run the following command to install gluu-flask:
+
+	apt-get install -y gluu-flask
+
+The command will install a daemon which is automatically started by init script. There are a few commands that are available for gluu-flask. The available commands are
+
+	service gluu-flask start
+	service gluu-flask restart
+	service gluu-flask stop
+	service gluu-flask status
+
+## Gluu Cluster Consumer
+
+The consumer package consists of various componenents listed in the [components page](http://www.gluu.org/docs-cluster/admin-guide/components/). The components are packaged into a single `deb` package called gluu-consumer.
+
+### Installign gluu-consumer
+Run the following commands to install gluu-consumer:
+	echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list
+	curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add -
+	apt-get update
+	apt-get install -y gluu-consumer
+
+### Configuring gluu-consumer
+A script called the `postinstall.py` should be downloaded and run to configure the gluu-consumer package.
+Run the following command to download the `postinstall.py` script:
+	wget https://raw.githubusercontent.com/GluuFederation/gluu-cluster-postinstall/master/postinstall.py
+
+Make a note of the IP address of the gluu-master before running the script. Run the `postinstall.py` script using the following command:
+	python postinstall.py
+
+Enter the values asked by the prompt when the script is run, and press enter to continue.
+
+An example of the script's prompt is given below:
+	root@gluu-master:~# python postinstall.py
+	Enter host type (ex. master or consumer) : consumer
+	Enter MASTER_IPADDR (ex xxx.xxx.xxx.xxx) : 128.199.242.74
+	IP address of this server: 128.199.242.75
+	Password for TLS certificate:
+	Re-type password for TLS certificate:
