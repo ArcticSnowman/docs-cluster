@@ -10,7 +10,7 @@ Gluu Cluster Consumer.
 
 `POST /providers`
 
-NOTE: make sure `docker`, `salt-minion`, and `weave` have been [installed and configured](../../admin-guide/installation/package.md). Also, a cluster must be created beforehand.
+NOTE: make sure `docker`, `salt-minion`, and `weave` have been [installed and configured](../../admin-guide/installation/index.md). Also, a cluster must be created beforehand.
 
 
 __URL:__
@@ -28,7 +28,7 @@ __Form parameters:__
     Docker remote API URL. Supported format is `unix` socket (e.g. `unix:///var/run/docker.sock`) or
     `https://$IP:$PORT`, e.g. `https://128.199.198.172:2375`.
     The latter format assumes `docker` daemon has been configured to listen to TCP connection.
-    See [configuring docker daemon](../../admin-guide/installation/package.md#docker) for example.
+    See [configuring docker daemon](../../admin-guide/installation/index.md) for example.
 
 *   `type` (required)
 
@@ -271,7 +271,7 @@ __Form parameters:__
     Docker remote API URL. Supported format is `unix` socket (e.g. `unix:///var/run/docker.sock`) or
     `https://$IP:$PORT`, e.g. `https://128.199.198.172:2375`.
     The latter format assumes `docker` daemon has been configured to listen to TCP connection.
-    See [configuring docker daemon](../../admin-guide/installation/package.md#docker) for example.
+    See [configuring docker daemon](../../admin-guide/installation/index.md#docker) for example.
 
 *   `ssl_key` (required only when `docker_base_url` uses HTTPS)
 

@@ -1,5 +1,7 @@
 # Overview
 
+[TOC]
+
 Gluu Cluster promises scalability, reliability and fail-over mechanism through its brilliant design implemented using [Docker](https://www.docker.com/).
 The cluster server also comes with [DOSarrest](http://www.dosarrest.com/), enabling protection from distrubuted denial of service attacks.
 The cluster server deploys the Gluu IdP, the identity management suite, capable of authenticating and authorizing using both SAML and OpenID Connect protocol.
@@ -18,6 +20,11 @@ The installation instructions are available in the [Installation Docs](http://ww
 The core functionalities of the Gluu Server is available in the cluster design with a few additional features such as cluster monitoring, DDOS protection and a fail-safe system.
 The Cluster monitoring system uses Promethius for alerts and reports on the nodes in real-time.
 The cluster administrator can use the dashboard to check on the health and activity, view logs and other Gluu Server administration tasks. The Gluu Server Administration Guide is available [here](http://www.gluu.org/docs/admin-guide/introduction/).
+
+## Components
+
+The Gluu Cluster takes advantage of the latest free, open-source, components which work togather to provide a hickup-free cluster environment.
+The components are listed in the [components page](http://127.0.0.1:8000/admin-guide/components/#components).
 
 ## License
 There are 3 available licenses for Gluu Cluster deployment:
