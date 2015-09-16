@@ -5,7 +5,7 @@ The Gluu Cluster is suported for Ubuntu for now. There are three packages that c
 
 ## Gluu Cluster Master
 
-There are various components that make the cluster possible. The components are listed in the [components](http://www.gluu.org/docs-cluster/admin-guide/components/) page. The components are packaged into a single `deb` package to minimize the complexity of the situation. The package is named `gluu-master`.
+There are various components that make the cluster possible. The components are listed in the [components](../components/) page. The components are packaged into a single `deb` package to minimize the complexity of the situation. The package is named `gluu-master`.
 
 ### Installing gluu-master
 
@@ -55,7 +55,7 @@ The command will install a daemon which is automatically started by init script.
 
 ## Gluu Cluster Consumer
 
-The consumer package consists of various componenents listed in the [components page](http://www.gluu.org/docs-cluster/admin-guide/components/). The components are packaged into a single `deb` package called gluu-consumer.
+The consumer package consists of various componenents listed in the [components page](../components/). The components are packaged into a single `deb` package called gluu-consumer.
 
 ### Installing gluu-consumer
 Run the following commands to install gluu-consumer:

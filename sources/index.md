@@ -16,9 +16,10 @@ Community support can be enlisted on the [Gluu website](http://support.gluu.org)
 
 
 # Admin Guide
+- [Overview](./admin-guide/overview/index.md)
 - [Getting Started](./admin-guide/getting-started/index.md)
 - [Installation](./admin-guide/installation/index.md)
-- [Testing](./admin-guide/testing/index.md)
+- [Cluster Management](./admin-guide/cluster-management/index.md)
 - [Tuning](./admin-guide/tuning/index.md)
 - [Overview](./admin-guide/overview/index.md)
 - [Components](./admin-guide/components/index.md)

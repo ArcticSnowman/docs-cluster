@@ -12,8 +12,7 @@ The overview of the Gluu Server is available [here](http://www.gluu.org/docs/adm
 
 The Gluu Cluster has two principle compoents that are interdependent, the master and the consumer.
 The master package must be installed for the cluster to be functional, and without the master package, the consumer will not work.
-The installation instructions are available in the [Installation Docs](http://www.gluu.org/docs-cluster/admin-guide/getting-started/).
-
+The installation instructions are available in the [Installation Docs](../getting-started/).
 
 ## Functionalities
 
@@ -24,7 +23,7 @@ The cluster administrator can use the dashboard to check on the health and activ
 ## Components
 
 The Gluu Cluster takes advantage of the latest free, open-source, components which work togather to provide a hickup-free cluster environment.
-The components are listed in the [components page](http://127.0.0.1:8000/admin-guide/components/#components).
+The components are listed in the [components page](../components/#components).
 
 ## License
 There are 3 available licenses for Gluu Cluster deployment:

@@ -8,7 +8,7 @@ This document will show you how to get up and running with the Gluu Cluster Serv
 
 The Gluu Cluster is divided into three separate packages, the master package,the consumer package and the cluster API.
 The consumer package and the cluster API is dependent on the master package to function, therefore the master package must be installed first.
-The deployment section will cover some basics of installation; for a detailed installation guide plese see the [Installation Doc](http://www.gluu.org/docs-cluster/admin-guide/installation/)
+The deployment section will cover some basics of installation; for a detailed installation guide plese see the [Installation Doc](../installation/)
 
 ## Deployment
 
@@ -24,7 +24,7 @@ apt-get update
 apt-get install -y gluu-master
 ```
 
-For a detailed configuration instructions, please see the [Installation Doc](http://www.gluu.org/docs-cluster/admin-guide/installation/).
+For a detailed configuration instructions, please see the [Installation Doc](../installation/).
 ### Cluster API
 
 The Gluu Cluster API is contained in the `gluu-flask` package. This package will not work without the master package and these two packages must be installed in the same host.
