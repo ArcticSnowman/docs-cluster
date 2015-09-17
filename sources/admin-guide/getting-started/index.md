@@ -8,7 +8,7 @@ This document will show you how to get up and running with the Gluu Cluster Serv
 
 The Gluu Cluster is divided into three separate packages, the master package,the consumer package and the cluster API.
 The consumer package and the cluster API is dependent on the master package to function, therefore the master package must be installed first.
-The deployment section will cover some basics of installation; for a detailed installation guide plese see the [Installation Doc](../installation/)
+The deployment section will cover some basics of installation; for a detailed installation guide please see the [Installation Doc](../installation/)
 
 ## Deployment
 
@@ -18,7 +18,7 @@ The master package is the primary package for cluster services, but it is not st
 Run the following commands to install the master package:
 
 ```
-echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list
+echo "deb HTTP://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list
 curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add -
 apt-get update
 apt-get install -y gluu-master

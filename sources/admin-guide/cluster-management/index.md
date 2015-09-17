@@ -58,15 +58,15 @@ Location: http://localhost:8080/providers/58848b94-0671-48bc-9c94-04b0351886f0
 }
 ```
 
-The `provider_id` is required to deploy nodes, so it is best to keep the referece as an environment variable.
-The successful creation of provider follows a background job to setup internal routing through `weave`. It may take upto 25 seconds to finish routing. 
+The `provider_id` is required to deploy nodes, so it is best to keep the reference as an environment variable.
+The successful creation of provider follows a background job to setup internal routing through `weave`. It may take up-to 25 seconds to finish routing. 
 
 Run the following command to check if routing is ready:
 
 ```sh
 weave ps
 ```
-If the routing is ready then the output will be simial to the following:
+If the routing is ready then the output will be similar to the following:
 ```
 weave:expose ca:68:e4:e8:ed:26 10.2.1.254/24
 e5d1dd8d9ad4 32:7b:97:97:02:c5
@@ -161,6 +161,129 @@ We'll need the `cluster_id` when deploying nodes, so let's keep the reference to
 export CLUSTER_ID=1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
 ```
 
-### Deploying Nodes 
-## Cluster Management with Web Interface
-Gluu Cluster comes with a `gluu-webui` package to manage the cluster resources using a web interface. Please see the [Web UI](../webui/) page for more details.
+### Deploying Nodes
+The deployment of nodes can be done after the creation of Cluster and Provider entities. The nodes are interdependent, it's recommended to deploy them in the following order
+
+1. `ldap` LDAP Node
+
+2. `oxauth` oxAuth Node
+
+3. `oxtrust` oxTrust Node
+
+4. `httpd` Apache Node
+
+#### LDAP Node
+
+Run the following command to deploy the ldap node:
+
+```sh
+curl http://localhost:8080/nodes \
+    -d provider_id=$MASTER_PROVIDER_ID \
+    -d cluster_id=$CLUSTER_ID \
+    -d node_type=ldap \
+    -X POST -i
+```
+
+A successful request returns a HTTP 201 status code. Note the node name from the code.
+The progress of deployment can be followed by tailing the log.
+Run the following command to tail the log file:
+
+```
+tail -F /var/log/gluu/<node-name>-setup.log
+```
+
+Alternatively, the following command can be used periodically to check the deployment of the node:
+
+```
+curl http://localhost:8080/nodes/<node-name>
+```
+
+#### oxAuth Node
+Run the following command to deploy oxAuth node:
+
+```sh
+curl http://localhost:8080/nodes \
+    -d provider_id=$MASTER_PROVIDER_ID \
+    -d cluster_id=$CLUSTER_ID \
+    -d node_type=oxauth \
+    -X POST -i
+```
+
+A successful request returns a HTTP 201 status code. Note the node name from the code.
+The progress of deployment can be followed by tailing the log.
+Run the following command to tail the log file:
+
+```
+tail -F /var/log/gluu/<node-name>-setup.log
+```
+
+Alternatively, the following command can be used periodically to check the deployment of the node:
+
+```
+curl http://localhost:8080/nodes/<node-name>
+```
+
+#### oxTrust Node
+Run the following command to deploy oxTrust node:
+
+```sh
+curl http://localhost:8080/nodes \
+    -d provider_id=$MASTER_PROVIDER_ID \
+    -d cluster_id=$CLUSTER_ID \
+    -d node_type=oxtrust \
+    -X POST -i
+```
+A successful request returns a HTTP 201 status code. Note the node name from the code.
+The progress of deployment can be followed by tailing the log.
+Run the following command to tail the log file:
+
+```
+tail -F /var/log/gluu/<node-name>-setup.log
+```
+
+Alternatively, the following command can be used periodically to check the deployment of the node:
+
+```
+curl http://localhost:8080/nodes/<node-name>
+```
+
+#### Apache Node
+Run the following command to deploy the httpd node:
+
+```sh
+curl http://localhost:8080/nodes \
+    -d provider_id=$MASTER_PROVIDER_ID \
+    -d cluster_id=$CLUSTER_ID \
+    -d node_type=httpd \
+    -X POST -i
+```
+
+A successful request returns a HTTP 201 status code. Note the node name from the code.
+The progress of deployment can be followed by tailing the log.
+Run the following command to tail the log file:
+
+```
+tail -F /var/log/gluu/<node-name>-setup.log
+```
+
+Alternatively, the following command can be used periodically to check the deployment of the node:
+
+```
+curl http://localhost:8080/nodes/<node-name>
+```
+
+### Access oxTrust Web Interface
+
+The Gluu Server web interface can be accessed after the deployment of the nodes are complete. The oxTrust UI is run at `https://localhost:8443` in the master provider. To access the UI, `ssh` tunneling must be used. The exaple will use `128.199.242.74` as an example IP address of the master provider.
+
+```
+ssh -L 8443:localhost:8443 root@128.199.242.74
+```
+
+After the connection to 128.199.242.74:8443 is established, visit `https://localhost:8443` in the web browser.
+The oxTrust login page will load asking for a username and a password.
+
+* username: `admin`
+* password: `admin_pw` value from the LDAP node
+
+If the credentials are supplied correctly, the page will be redirected to the oxTrust dashboard.
