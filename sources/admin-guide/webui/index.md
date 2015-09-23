@@ -19,6 +19,9 @@ Point your browser to the following address to access the webui:
 
 `http://localhost:<port-name`
 
+When you access the web interface, the following screen will appear.
+![overview](https://raw.githubusercontent.com/GluuFederation/docs-cluster/master/sources/img/webui_overview.png)
+
 ## Using the Web Interface
 ### The overview page
 
