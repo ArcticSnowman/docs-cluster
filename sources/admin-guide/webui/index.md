@@ -1,92 +1,26 @@
-## Cluster Management using Web Interface
+[TOC]
+# Cluster Management using Web Interface
 
 The web interface provides a user friendly way of using the API and managing the various resources of the cluster.
 
-### Installation
+## Installation
+The installation of the web interface is covered in the Installation Section.
 
-Install all required packages:
+* [Install Web Interface Package](http://www.gluu.org/docs-cluster/admin-guide/installation/#gluu-cluster-web-interface)
 
-```sh
-echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list
-curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add -
-apt-get update
-apt-get install -y gluu-webui apache2 libapache2-mod-wsgi
-```
+## Accessing the Interface
+To log into the web interface, it is necessary to ssh into the master provider, as the interface is run locally and it is not facing the internet for security reasons.
 
-As `gluu-webui` is configured to run behind Apache HTTPD and `mod_wsgi`, we need to create WSGI script
-to load the application:
+Run the following command to SSH for accessing the web interface:
 
-```sh
-mkdir -p /var/www/gluuwebui
-echo 'from gluuwebui import app as application' > /var/www/gluuwebui/gluuwebui.wsgi
-```
+`ssh -L <port-name>:localhost:8800 -i <cluster-name> ubuntu@<cluster-domain>`
 
-Note, binding Apache HTTPD to port 80 is discouraged since it may conflict with port used by nodes;
-hence we need to change the default port for Apache HTTPD. Modify the contents of `/etc/apache2/ports.conf` as seen below:
+Point your browser to the following address to access the webui:
 
-```apache
-# /etc/apache2/ports.conf
-Listen 127.0.0.1:8800
+`http://localhost:<port-name`
 
-<IfModule ssl_module>
-    Listen 127.0.0.1:8443
-</IfModule>
-
-<IfModule mod_gnutls.c>
-    Listen 127.0.0.1:8443
-</IfModule>
-```
-
-Afterwards, create a virtualhost and save to `/etc/apache2/sites-available/gluuwebui_apache.conf`:
-
-```apache
-# /etc/apache2/sites-available/gluuwebui_apache.conf
-<VirtualHost 127.0.0.1:8800>
-    ServerAdmin admin@example.com
-    ServerName gluuwebui.example.com
-
-    WSGIDaemonProcess gluuwebui threads=5 display-name=%{GROUP}
-    WSGIProcessGroup gluuwebui
-
-    WSGIScriptAlias / /var/www/gluuwebui/gluuwebui.wsgi
-
-    <Directory /var/www/gluu-webui>
-        Order allow,deny
-        Allow from all
-    </Directory>
-</VirtualHost>
-```
-
-Note, the virtualhost above running in 127.0.0.1 (localhost) as currently there's no protection mechanism for `gluuwebui` application yet.
-
-After all settings have been configured, we need to restart the Apache HTTPD service:
-
-```sh
-# disable default Apache HTTPD virtualhost
-a2dissite 000-default
-
-# enable gluuwebui
-a2ensite gluuwebui_apache
-
-# restart the service
-service apache2 restart
-```
-
-### Accessing the Interface
-
-As `gluuwebui` is running in localhost, one possible way to access the interface is by using SSH tunneling:
-
-```sh
-ssh -L 8800:localhost:8800 root@gluuwebui.example.com
-```
-
-After the connection to gluuwebui.example.com:8800 is established, visit `http://localhost:8800` in web browser.
-
-### Using the Interface
-
-The interface provides access to managing the resources of the cluster with a list of items on the left side. Clicking on a reource type takes you to the overview page of that particular resource.
-
-#### The overview page
+## Using the Web Interface
+### The overview page
 
 The overview page consists of a table which lists all the entities of that particular resource type, with their most important details and their associated actions if any. If the API provides only POST and DELETE actions then the interface provides a 'New RESOURCE' button on top and a 'DELETE' button for each resource in the table.
 
@@ -101,7 +35,7 @@ The overview table allows you to see the complete details by clicking on its nam
 
 ![Detail view](../../img/webui_cluster_details.png)
 
-#### Adding/Editing Resources
+### Adding/Editing Resources
 
 New resources can be added by clicking the 'New RESOURCE' buttons in the overview pages. This takes you to the form where all the values required for that particular resource can put entered. Submitting the form requests the API for action. If the resource creation is successful, you are taken back to the overview page and you can see the new resource listed in the overview table.
 

@@ -1,4 +1,5 @@
 # Recovery Overview
+[TOC]
 
 A provider may crashes due to various reasons (i.e. power outage).
 When it crashes, all containers (weave, prometheus, and nodes) will crash as well.
@@ -8,7 +9,7 @@ This script will check all stopped containers used by Cluster and try to re-run 
 
 What we need to know before running recovery script:
 
-### Ensure API is Up and Running
+## Ensure API is Up and Running
 
 ```
 $ curl -i -X HEAD http://localhost:8080/clusters
@@ -21,9 +22,9 @@ curl: (18) transfer closed with 854 bytes remaining to read
 
 If we get status code 200, then we're good to go to next step.
 
-###  Get `salt-master` IP address
+##  Get `salt-master` IP address
 
-Typically this will be the IP used by eth0 interface.
+Typically this will be the IP used by eth0 interface of the VM where Gluu-master is installed.
 
 ```
 $ ifconfig eth0
@@ -37,7 +38,11 @@ On the example above, the IP address is set to `192.168.1.3`.
 export MASTER_IPADDR=192.168.1.3
 ```
 
-### Get the Provider ID
+## Get the Provider ID
+There are two methods of getting the provider ID. There is the option of using `curl` command or using the web interface.
+
+### Provider ID using curl 
+The `curl` method to get the provider ID:
 
 ```
 $ curl http://localhost:8080/providers
@@ -72,7 +77,19 @@ We will try to recover consumer provider with ID `283bfa41-2121-4433-9741-875004
 export PROVIDER_ID=283bfa41-2121-4433-9741-875004518678
 ```
 
-### Run the Recovery Script
+### Provider ID using web interface
+[Log into the web interface](http://www.gluu.org/docs-cluster/admin-guide/webui/#accessing-the-interface) for the cluster.
+
+Click on `providers`.
+![Provider](https://raw.githubusercontent.com/GluuFederation/docs-cluster/master/sources/img/webui_provider_menu.png)
+
+This will bring up the following screen where from click on the specific provider for `provider ID`.
+![webui_provider](https://raw.githubusercontent.com/GluuFederation/docs-cluster/master/sources/img/webui_provider.png)
+
+Clicking on the provider will bring up its information from which the provider ID can be easily noted.
+![webui_provider-id](https://raw.githubusercontent.com/GluuFederation/docs-cluster/master/sources/img/webui_provider-id.png)
+
+## Run the Recovery Script
 
 As we have gathered all required data about our provider, let's try to recover the provider.
 

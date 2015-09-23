@@ -1,20 +1,6 @@
 # Troubleshooting
 [TOC]
 
-## Loggin In Web Interface
-To log into the web interface, it is necessary to ssh into the master provider, as the interface is run locally and it is not facing the internet for security reasons.
-
-Run the following command to SSH for accessing the web interface:
-
-```
-ssh -L <port-name>:localhost:8800 -i <cluster-name> ubuntu@<cluster-domain>
-```
-
-Point your browser to the following address to access the webui:
-
-`http://localhost:<port-name>`
-
-Note: use the same portname for both the commands.
 ## Testing the Cluster
 This section will be added soon.
 
@@ -26,17 +12,15 @@ The setup logs for the cluster nodes are available `/var/log/gluu/` of the maste
 
 ## Recovering Cluster
 There are instances when the cluster server may be rebooted, or for some unavoidable circumstances, the cluster server was shutdown and booted again. The following shows how to recover the master and consumer cluster after such an incident.
-It is necessaty to log into the web interface or into the master container before the cluster can be recovered. Follow the instructions given above to log into the web interface, and then procced with the following sections.
+It is necessaty to log into the web interface or into the master container before the cluster can be recovered.
 
+The following provides a simple recovery method. However, gluu cluster is also shipped with a recovery script. 
+
+* [Cluster recovery with recovery script](http://www.gluu.org/docs-cluster/admin-guide/recovery/)
 ### Recovering Provider ID
-It is a must that the master provider/web interface is logged into before continuting any further. Please see the instuctions aove to log into the web interface. The provider ID is necessary to recover gluu-master and gluu-consumer. The following instructions outline the methods to get the provider id:
-Run the following command to SSH for accessing the web interface:
-```
- ssh -L <port-name>:localhost:8800 -i <cluster-name> ubuntu@<cluster-domain>
-```
-From here there are two ways to find the provider ID:
-1. Point your browser to the following address to access the webui and click on provider:
-`http://localhost:<port-name>`
+It is a must that the master provider/web interface is logged into before continuting any further. Please see the instuctions aove to log into the web interface. The provider ID is necessary to recover gluu-master and gluu-consumer. There are two ways to get the provider ID.
+
+1. [Log into the web interface](http://www.gluu.org/docs-cluster/admin-guide/webui/) and click on provider.
 
 2. Use curl command:
 ```
@@ -56,3 +40,6 @@ To recover the gluu consumer, run the following command:
 
 `API_ENV=prod SALT_MASTER_IPADDR=$master_ip_address gluuapi recover $consumer_provider_id`
 
+### More Info
+
+For a detailed step by step cluster recovery see the [Recovery Page](http://www.gluu.org/docs-cluster/admin-guide/recovery/).
