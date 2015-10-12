@@ -9,13 +9,6 @@ The Gluu Server Cluster is divided into two packages identified as "master" and 
 **Note:** currently the Cluster Edition only supports oxAuth, oxTrust and LDAP. Support for the Shibboleth IDP
 is planed for release 0.4 of the Gluu Clusters packages.
 
-
-Community support can be enlisted on the [Gluu website](http://support.gluu.org). Please use
-[Github](http://github.com/GluuFederation) to report bugs or request feature enhancements. Gluu also offers
-[VIP support](http://gluu.org/pricing) and can refer your organization to one of our world-class
-[integration partners](http://gluu.org/current-partners) for any custom development and integration needs.
-
-
 # Admin Guide
 - [Overview](./admin-guide/overview/index.md)
 - [Getting Started](./admin-guide/getting-started/index.md)
