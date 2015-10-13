@@ -2,11 +2,10 @@
 
 [TOC]
 
-Gluu Cluster promises scalability, reliability and fail-over mechanism through its innovative design implemented using [Docker](https://www.docker.com/).
-The cluster server also comes with [DOSarrest](http://www.dosarrest.com/), enabling protection from distrubuted denial of service attacks.
-The cluster server deploys the Gluu IdP, the identity management suite, capable of authenticating and authorizing using both SAML and OpenID Connect protocol.
-The single deployment of Gluu Server is recommended to try before the Cluster as it requires a commercial license to deploy a cluster in multiple locations. 
-The overview of the Gluu Server is available [here](http://www.gluu.org/docs/admin-guide/getting-started/).
+Gluu Cluster promises scalability, reliability and a fail-over mechanism through its innovative design implemented using [Docker](https://www.docker.com/). The cluster server can also call a DOS service, like [DOSarrest](http://www.dosarrest.com/), enabling protection from distributed denial of service attacks.
+The cluster package deploys the Gluu Server access management suite, which is capable of authenticating and authorizing users with both the SAML and OpenID Connect protocols. We recommended trying a single Gluu Server deployment first for testing as the Cluster packages require a commercial license. 
+
+An overview of the Gluu Server is available [here](http://www.gluu.org/docs/admin-guide/getting-started/).
 
 ## Design
 
