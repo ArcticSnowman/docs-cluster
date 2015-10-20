@@ -18,7 +18,7 @@ The master package is the primary package for cluster services, but it is not st
 Run the following commands to install the master package:
 
 ```
-echo "deb HTTP://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list
+echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list
 curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add -
 apt-get update
 apt-get install -y gluu-master
