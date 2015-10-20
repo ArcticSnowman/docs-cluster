@@ -98,7 +98,7 @@ curl http://localhost:8080/providers \
 The parameters of the command are explained below:
 
 * `hostname` is the FQDN hostname of the server/host.
-* `docker_base_url` is the Docker API URL configured after installing `gluu-master` package.
+* `docker_base_url` is the Docker API URL configured after installing `gluu-master` package. It is recommended to use `https` scheme.
 * `ssl_key` is the contents of `key.pem`
 * `ssl_cert` is the contents of `cert.pem`
 * `ca_cert` is the contents of `ca.pem`
@@ -123,7 +123,7 @@ Location: http://localhost:8080/providers/58848b94-0671-48bc-9c94-04b0351886f0
 ```
 
 The `provider_id` is required to deploy nodes, so it is best to keep the reference as an environment variable.
-The successful creation of provider follows a background job to setup internal routing through `weave`. It may take up-to 25 seconds to finish routing. 
+The successful creation of provider follows a background job to setup internal routing through `weave`. It may take up-to 25 seconds to finish routing.
 
 Run the following command to check if routing is ready:
 
