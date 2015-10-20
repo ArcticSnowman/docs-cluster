@@ -11,35 +11,62 @@ The setup logs for the cluster nodes are available `/var/log/gluu/` of the maste
 `/var/log/gluu/<node-name>-setup.log`
 
 ## Recovering Cluster
-There are instances when the cluster server may be rebooted, or for some unavoidable circumstances, the cluster server was shutdown and booted again. The following shows how to recover the master and consumer cluster after such an incident.
-It is necessaty to log into the web interface or into the master container before the cluster can be recovered.
+There are instances when the cluster server may be rebooted, or for some unavoidable circumstances, the cluster server was shutdown and booted again.
 
-The following provides a simple recovery method. However, gluu cluster is also shipped with a recovery script. 
+Starting from v0.3.3-12, recovery script is moved to a package called Gluu Agent. For a detailed step by step cluster recovery see the [Recovery Page](../recovery/).
 
-* [Cluster recovery with recovery script](http://www.gluu.org/docs-cluster/admin-guide/recovery/)
-### Recovering Provider ID
-It is a must that the master provider/web interface is logged into before continuting any further. Please see the instuctions aove to log into the web interface. The provider ID is necessary to recover gluu-master and gluu-consumer. There are two ways to get the provider ID.
+## Slow oxAuth or oxTrust Startup
 
-1. [Log into the web interface](http://www.gluu.org/docs-cluster/admin-guide/webui/) and click on provider.
+In some virtual machines hosted at cloud providers, oxAuth/oxTrust may have a slow start due to insufficient entropy. To check whether oxAuth or oxTrust in our cluster is affected by this issue, we can do the following steps:
 
-2. Use curl command:
-```
-curl -i http://localhost:8080/providers
-```
+1.  After deploying oxAuth/oxTrust, login to the container:
 
-The response will contain the provider id in the string like this:
-` "type": "consumer", "id": "0b42af6b-ac61-4c50-92bd-28553db48e7c`
+        docker exec -ti $node_id bash
 
-### Recovering Master
-To recover the gluu master, run the command:
+2.  Check if port 8005 is listening.
 
-`API_ENV=prod SALT_MASTER_IPADDR=$master_ip_address gluuapi recover $master_provider_id`
+        netstat -napt | grep 8005
 
-### Recovering Consumer
-To recover the gluu consumer, run the following command:
+    If the command returns empty output, wait for 5 minutes,
+    then repeat the command above.
+    If the port is not ready after 5 minutes, we can check Tomcat log:
 
-`API_ENV=prod SALT_MASTER_IPADDR=$master_ip_address gluuapi recover $consumer_provider_id`
+        cat /opt/tomcat/logs/localhost.*.log
 
-### More Info
+    If log file is empty, probably we have issue with insufficient entropy. Now we need to check something in provider itself. We can safely
+    logout from container.
 
-For a detailed step by step cluster recovery see the [Recovery Page](http://www.gluu.org/docs-cluster/admin-guide/recovery/).
+3.  Check the available entropy:
+
+        cat /proc/sys/kernel/random/entropy_avail
+
+    If the number returned from the command above is below 3000,
+    we need to feed the entropy with other tools.
+
+    One of tool we can use is `rng-tools`. It's available from Ubuntu
+    repository:
+
+        apt-get install rng-tools
+
+    rng-tools will run as a service. After the package is already installed, we can check the available entropy again.
+
+        cat /proc/sys/kernel/random/entropy_avail
+
+    The number returned from the command above is around 3000.
+    From this point, we can say that we have enough entropy required
+    by oxAuth/oxTrust to start properly.
+
+4.  Restart oxAuth or oxTrust:
+
+        docker stop $node_id
+
+    Note, we need to use Gluu Agent to bring back the node properly.
+    Make sure we have installed Gluu Agent. If we don't have the package yet, it's simply install the package from the repositories.
+
+        apt-get install gluu-agent
+
+    Afterwards, run the recovery command manually:
+
+        service gluu-agent recover
+
+    To check whether we have fixed the slow startup issue, repeat step 1-2.
