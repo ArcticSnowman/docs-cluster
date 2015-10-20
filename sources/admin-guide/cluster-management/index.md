@@ -287,3 +287,26 @@ The oxTrust login page will load asking for a username and a password.
 * password: `admin_pw` value from the LDAP node
 
 If the credentials are supplied correctly, the page will be redirected to the oxTrust dashboard.
+
+### Registering License Key
+
+Registering license key is required before registering any consumer provider.
+Refer to [License](../overview/#license) section to see available license types.
+
+To register license key, we need to obtain code, public password, public key, and license password
+from Gluu. Afterwards, we can store them as Gluu Cluster's license key.
+
+The following command will create a new license key.
+
+```sh
+curl http://localhost:8080/license_keys \
+    -d public_key="unique-public-key" \
+    -d public_password="unique-public-password" \
+    -d license_password="unique-license-password" \
+    -d name=testing \
+    -d code=code \
+    -X POST -i
+```
+
+Note, `public_key`, `public_password`, and `license_password` must use one-liner values.
+For details on how to register a license key, refer to [License Key API](../../reference/api/license_key/) page.
