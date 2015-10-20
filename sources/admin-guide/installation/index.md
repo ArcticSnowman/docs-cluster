@@ -1,7 +1,7 @@
 # Installation
 [TOC]
 
-The Gluu Cluster is suported for Ubuntu for now. There are three packages that completes the cluster; the master, the consumer and the cluster API. The master package and the cluster API must be installed in the same host. The consumer package is not necessary for a single server installation. There is one additional package, gluu-webui, that provides a user friendly way of using the API and managing the cluster. 
+The Gluu Cluster is suported for Ubuntu for now. There are three packages that completes the cluster; the master, the consumer and the cluster API. The master package and the cluster API must be installed in the same host. The consumer package is not necessary for a single server installation. There is one additional package, gluu-webui, that provides a user friendly way of using the API and managing the cluster.
 
 ## Gluu Cluster Master
 
@@ -18,7 +18,7 @@ apt-get install -y gluu-master
 ```
 ### Configuring gluu-master
 
-A script called the `postinstall.py` should be downloaded and run to configure the gluu-master package. 
+A script called the `postinstall.py` should be downloaded and run to configure the gluu-master package.
 
 Run the following command to download the script:
 
@@ -53,6 +53,18 @@ The command will install a daemon which is automatically started by init script.
 	service gluu-flask stop
 	service gluu-flask status
 
+## Installing Gluu Agent on Master Provider
+
+Gluu Agent is a tool that lives on each provider. To install Gluu Agent,
+type the following command:
+
+    apt-get install -y gluu-agent
+
+The package will start a service called `gluu-agent`.
+
+One of Gluu Agent jobs is to recover nodes automatically after provider is rebooted.
+Refer to [recovery](../recovery/index.md) page for details.
+
 ## Gluu Cluster Consumer
 
 The consumer package consists of various componenents listed in the [components page](../components/). The components are packaged into a single `deb` package called gluu-consumer.
@@ -73,7 +85,7 @@ Run the following command to download the script:
 `wget https://raw.githubusercontent.com/GluuFederation/gluu-cluster-postinstall/master/postinstall.py`
 
 Make a note of the IP address of the gluu-master before running the script. Run the script using the following command:
-	
+
 `python postinstall.py`
 
 Enter the values asked by the prompt when the script is run, and press enter to continue. An example of the script's prompt is given below:
@@ -85,6 +97,19 @@ IP address of this server: 128.199.242.75
 Password for TLS certificate:
 Re-type password for TLS certificate:
 ```
+
+## Installing Gluu Agent on Consumer Provider
+
+Gluu Agent is a tool that lives on each provider. To install Gluu Agent,
+type the following command:
+
+    apt-get install -y gluu-agent
+
+The package will start a service called `gluu-agent`.
+
+One of Gluu Agent jobs is to recover nodes automatically after provider is rebooted.
+Refer to [recovery](../recovery/index.md) page for details.
+
 ## Gluu Cluster Web Interface
 
 The Cluster Web Interface package, gluu-webui, offers a user interface accessible via web to manage the cluster using the cluster API.
@@ -126,7 +151,7 @@ Listen 127.0.0.1:8800
 
 Afterwards, create a virtualhost and save to `/etc/apache2/sites-available/gluuwebui_apache.conf`:
 
-```apache 
+```apache
 # /etc/apache2/sites-available/gluuwebui_apache.conf
 <VirtualHost 127.0.0.1:8800>
     ServerAdmin admin@example.com
@@ -158,4 +183,3 @@ a2ensite gluuwebui_apache
 # restart the service
 service apache2 restart
 ```
-
