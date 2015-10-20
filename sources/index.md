@@ -19,6 +19,7 @@ is planed for release 0.4 of the Gluu Clusters packages.
 - [Web Interface](./admin-guide/webui/index.md)
 - [Troubleshooting](./admin-guide/troubleshooting/index.md)
 - [Recovery](./admin-guide/recovery/index.md)
+- [Migration](./admin-guide/migration/index.md)
 
 # Reference
 - [API](./reference/api/index.md)
