@@ -1,10 +1,15 @@
 # Components
 
-The Gluu Cluster takes advantage of some of the latest and greatest free open source components to provide a hassle-free management of the cluster system. The following components make Gluu Cluster an easy solution for the enterprise. 
+The Gluu Cluster takes advantage of some of the latest and greatest free open source components to provide a hassle-free management of the cluster system. The following components make Gluu Cluster an easy solution for the enterprise.
 
 ## Gluu Flask
 
-Gluu-flask is a is a [flask](http://flask.pocoo.org/) application that publishes API's and it is combined with the Crochet project. It is  also capable of handling asynchronous events. 
+Gluu-flask is a [flask](http://flask.pocoo.org/) application that publishes API's and it is combined with the Crochet project. It is  also capable of handling asynchronous events.
+
+## Gluu Agent
+
+Gluu Agent is a Python library consists of various commands to ensure provider is reachable within cluster. One of its notable features
+is self-recovery that automatically executed after server reboot.
 
 ## Docker
 
@@ -12,7 +17,7 @@ Gluu-flask is a is a [flask](http://flask.pocoo.org/) application that publishes
 [1]:http://www.linux.com/news/enterprise/cloud-computing/731454-docker-a-shipping-container-for-linux-code
 
 ## Salt
-Salt is a configuration management system that can make sure that a set of packages are installed and running. 
+Salt is a configuration management system that can make sure that a set of packages are installed and running.
 Salt is used to execute commands on the remote system and to copy files to docker instances. There is a salt-master and salt-minion.
 To learn more about salt, please visit the [saltstack website](http://saltstack.com/)
 ### Salt master
@@ -27,9 +32,8 @@ Please visit the [Prometheus Website](http://prometheus.io/) for more informatio
 
 ### node-exporter
 
-Node-exporter is used machine metric collection from the docker host. It is a third-party exporter maintained by Prometheus. 
+Node-exporter is used machine metric collection from the docker host. It is a third-party exporter maintained by Prometheus.
 
 ## Weave
 
 Weave is used to connect the docker containers through a virtual network. Weave is chosen because it provides mobility in the creation of nodes as the container can be scattered across multiple hosts/cloud providers and yet the cluster will be functional. Please visit the [Weave Website](http://weave.works/) for more information.
-
