@@ -26,14 +26,15 @@ __Form parameters:__
 
 *   `node_type` (required)
 
-    Node type (currently only supports `ldap`, `oxauth`, `oxtrust`, and `httpd`).
+    Node type (currently only supports `ldap`, `oxauth`, `oxtrust`, `httpd`, and `saml`).
     Note, to create a clustered nodes successfully, the nodes must be created
     in following order:
 
     1. `ldap`
     2. `oxauth`
-    3. `oxtrust`
+    3. `saml` (optional; required if we want to use SAML)
     4. `httpd`
+    5. `oxtrust`
 
 *   `connect_delay` (optional)
 
@@ -46,6 +47,11 @@ __Form parameters:__
 *   `oxauth_node_id` (optional)
 
     Unique oxAuth node ID within the same provider. Note, this parameter only required if `node_type` value is set to `httpd`.
+
+*   `saml_node_id` (optional)
+
+    Unique SAML node ID within the same provider. Note, this parameter only required if `node_type` value is set to `httpd`.
+
 
 __Request example:__
 
@@ -78,7 +84,8 @@ X-Deploy-Log: /var/log/gluu/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043-setu
     "type": "ldap",
     "id": "",
     "ldap_jmx_port": "1689",
-    "state": "IN-PROGRESS"
+    "state": "IN-PROGRESS",
+    "domain_name": ""
 }
 ```
 
@@ -134,8 +141,8 @@ Content-Type: application/json
     "provider_id": "58848b94-0671-48bc-9c94-04b0351886f0",
     "name": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
     "ldap_port": "1389",
-    "ldap_admin_port":
-    "4444", "ip": "172.17.0.9",
+    "ldap_admin_port": "4444",
+    "ip": "172.17.0.9",
     "ldap_binddn": "cn=directory manager",
     "ldaps_port": "1636",
     "cluster_id": "9ea4d520-bbba-46f6-b779-c29ee99d2e9e",
@@ -143,7 +150,8 @@ Content-Type: application/json
     "type": "ldap",
     "id": "9d99c95c4043",
     "ldap_jmx_port": "1689",
-    "state": "SUCCESS"
+    "state": "SUCCESS",
+    "domain_name": "9d99c95c4043.ldap.gluu.local"
 }
 ```
 
@@ -196,7 +204,8 @@ Content-Type: application/json
         "type": "ldap",
         "id": "9d99c95c4043",
         "ldap_jmx_port": "1689",
-        "state": "SUCCESS"
+        "state": "SUCCESS",
+        "domain_name": "9d99c95c4043.ldap.gluu.local"
     }
 ]
 ```
@@ -223,7 +232,7 @@ __URL:__
 
 __Query string parameters:__
 
-*   `force` (optional)
+*   `force_rm` (optional)
 
     A boolean to delete the node regardless of its state. By default is set to `false`.
 

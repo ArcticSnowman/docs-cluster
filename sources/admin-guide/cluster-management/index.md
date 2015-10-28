@@ -133,6 +133,7 @@ weave ps
 If the routing is ready then the output will be similar to the following:
 ```
 weave:expose ca:68:e4:e8:ed:26 10.2.1.254/24
+1d34079275fc aa:d3:17:16:52:40 10.2.1.253/24
 e5d1dd8d9ad4 32:7b:97:97:02:c5
 ```
 Please use the following command to check whether `weave` in master provider ready to accept connections from other providers:
@@ -145,19 +146,27 @@ The command will provide a similar output as below:
 
 ```sh
 $ weave status
-weave router 0.10.0
-Encryption on
-Our name is 42:8d:28:15:14:eb(gluu.example.com)
-Sniffing traffic on &{300 65535 ethwe ee:89:e5:75:54:2c up|broadcast|multicast}
-MACs:
-Peers:
-42:8d:28:15:14:eb(gluu.example.com) (v6) (UID 5470999222361683535)
-Routes:
-unicast:
-42:8d:28:15:14:eb -> 00:00:00:00:00:00
-broadcast:
-42:8d:28:15:14:eb -> []
-Reconnects:
+
+       Version: v1.1.0
+
+       Service: router
+      Protocol: weave 1..2
+          Name: d6:5f:eb:ea:b7:03(gluu.example.com)
+    Encryption: enabled
+ PeerDiscovery: enabled
+       Targets: 0
+   Connections: 0
+         Peers: 1
+
+       Service: ipam
+     Consensus: achieved
+         Range: [10.2.1.0-10.2.2.0)
+ DefaultSubnet: 10.2.1.0/24
+
+       Service: dns
+        Domain: gluu.local.
+           TTL: 1
+       Entries: 0
 
 ```
 
@@ -168,9 +177,11 @@ The deployment of nodes can be done after the creation of Cluster and Provider e
 
 2. `oxauth` oxAuth Node
 
-3. `oxtrust` oxTrust Node
+3. optional `saml` oxIDP Node
 
 4. `httpd` Apache Node
+
+5. `oxtrust` oxTrust Node
 
 #### LDAP Node
 
@@ -223,6 +234,58 @@ Alternatively, the following command can be used periodically to check the deplo
 curl http://localhost:8080/nodes/<node-name>
 ```
 
+#### SAML Node (optional)
+Run the following command to deploy SAML node:
+
+```sh
+curl http://localhost:8080/nodes \
+    -d provider_id=$MASTER_PROVIDER_ID \
+    -d cluster_id=$CLUSTER_ID \
+    -d node_type=saml \
+    -X POST -i
+```
+
+A successful request returns a HTTP 201 status code. Note the node name from the code.
+The progress of deployment can be followed by tailing the log.
+Run the following command to tail the log file:
+
+```
+tail -F /var/log/gluu/<node-name>-setup.log
+```
+
+Alternatively, the following command can be used periodically to check the deployment of the node:
+
+```
+curl http://localhost:8080/nodes/<node-name>
+```
+
+#### Apache Node
+Run the following command to deploy the httpd node:
+
+```sh
+curl http://localhost:8080/nodes \
+    -d provider_id=$MASTER_PROVIDER_ID \
+    -d cluster_id=$CLUSTER_ID \
+    -d node_type=httpd \
+    -d oxauth_node_id=$OXAUTH_NODE_ID \
+    -d saml_node_id=$SAML_NODE_ID \
+    -X POST -i
+```
+
+A successful request returns a HTTP 201 status code. Note the node name from the code.
+The progress of deployment can be followed by tailing the log.
+Run the following command to tail the log file:
+
+```
+tail -F /var/log/gluu/<node-name>-setup.log
+```
+
+Alternatively, the following command can be used periodically to check the deployment of the node:
+
+```
+curl http://localhost:8080/nodes/<node-name>
+```
+
 #### oxTrust Node
 Run the following command to deploy oxTrust node:
 
@@ -247,32 +310,7 @@ Alternatively, the following command can be used periodically to check the deplo
 curl http://localhost:8080/nodes/<node-name>
 ```
 
-#### Apache Node
-Run the following command to deploy the httpd node:
-
-```sh
-curl http://localhost:8080/nodes \
-    -d provider_id=$MASTER_PROVIDER_ID \
-    -d cluster_id=$CLUSTER_ID \
-    -d node_type=httpd \
-    -X POST -i
-```
-
-A successful request returns a HTTP 201 status code. Note the node name from the code.
-The progress of deployment can be followed by tailing the log.
-Run the following command to tail the log file:
-
-```
-tail -F /var/log/gluu/<node-name>-setup.log
-```
-
-Alternatively, the following command can be used periodically to check the deployment of the node:
-
-```
-curl http://localhost:8080/nodes/<node-name>
-```
-
-### Access oxTrust Web Interface
+### Accessing oxTrust Web Interface
 
 The Gluu Server web interface can be accessed after the deployment of the nodes are complete. The oxTrust UI is run at `https://localhost:8443` in the master provider. To access the UI, `ssh` tunneling must be used. The exaple will use `128.199.242.74` as an example IP address of the master provider.
 

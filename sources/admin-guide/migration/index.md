@@ -2,21 +2,42 @@
 
 [TOC]
 
-## Migrating to v0.3.3-12
+## Version 0.4.0-1
 
-What's new in v0.3.3-12:
+Steps to migrate to Gluu Cluster v0.4.0:
 
-*   oxAuth v2.3.4
-*   oxTrust v2.3.4
-*   Each node entrypoint is running under supervisor.
+1.  Update `gluu-flask` and `weave` packages:
 
-Removed in v0.3.3-12:
+        apt-get update && apt-get install -y gluu-flask weave
 
-*   Built-in recovery command is no longer available and replaced by gluu-agent.
+2.  Remove old weave container:
+
+        docker rm -f weave
+
+3.  Update weave image:
+
+        weave setup
+
+4.  Update all providers via web UI or Provider API request directly.
+
+5.  Remove existing ldap, oxauth, httpd and oxtrust nodes (containers).
+
+6.  Remove gluuoxtrust image:
+
+        docker rmi gluuoxtrust
+
+7.  Re-deploy ldap, oxauth, saml (optional), httpd, and oxtrust nodes.
+
+Changelog for v0.4.0 is available [here](https://github.com/GluuFederation/gluu-flask/blob/master/CHANGES.md#version-040).
+
+## Version 0.3.3-12
 
 Steps to migrate to Gluu Cluster v0.3.3-12:
 
-1.  Remove ldap, oxauth, httpd and oxtrust nodes (containers).
-2.  Remove gluuoxauth and gluuoxtrust images via `docker rmi` command.
-3.  Re-deploy ldap, oxauth, httpd, and oxtrust nodes.
-4.  Install gluu-agent: `apt-get update && apt-get install gluu-agent`.
+1.  Update `gluu-flask` via `apt-get update && apt-get install -y gluu-flask`.
+2.  Remove ldap, oxauth, httpd and oxtrust nodes (containers).
+3.  Remove gluuoxauth and gluuoxtrust images via `docker rmi` command.
+4.  Re-deploy ldap, oxauth, httpd, and oxtrust nodes.
+5.  Install gluu-agent: `apt-get update && apt-get install gluu-agent`.
+
+Changelog for v0.3.3 is available [here](https://github.com/GluuFederation/gluu-flask/blob/master/CHANGES.md#version-033).
