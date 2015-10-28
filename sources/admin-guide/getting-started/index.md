@@ -21,7 +21,7 @@ Run the following commands to install the master package:
 echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list
 curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add -
 apt-get update
-apt-get install -y gluu-master
+apt-get install -y gluu-master gluu-agent
 ```
 
 For a detailed configuration instructions, please see the [Installation Doc](../installation/).
@@ -44,7 +44,5 @@ Run the following commands to install the consumer package:
 echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list
 curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add -
 apt-get update
-apt-get install -y gluu-consumer
+apt-get install -y gluu-consumer gluu-agent
 ```
-
-
