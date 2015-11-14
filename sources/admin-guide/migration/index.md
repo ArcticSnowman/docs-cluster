@@ -2,7 +2,7 @@
 
 [TOC]
 
-## Version 0.4.0-1
+## Version 0.4.0
 
 Steps to migrate to Gluu Cluster v0.4.0:
 
