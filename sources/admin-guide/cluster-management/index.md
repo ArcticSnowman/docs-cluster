@@ -56,12 +56,13 @@ Location: http://localhost:8080/clusters/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
     "state": "TX",
     "country_code": "US",
     "ldap_nodes": [],
-    "httpd_nodes": [],
+    "nginx_nodes": [],
     "org_short_name": "my-org",
     "org_name": "my-org",
     "id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
     "oxtrust_nodes": [],
-    "name": "cluster1"
+    "name": "cluster1",
+    "oxidp_nodes": []
 }
 ```
 
@@ -177,9 +178,9 @@ The deployment of nodes can be done after the creation of Cluster and Provider e
 
 2. `oxauth` oxAuth Node
 
-3. optional `saml` oxIDP Node
+3. optional `oxidp` oxIDP Node
 
-4. `httpd` Apache Node
+4. `nginx` nginx Node
 
 5. `oxtrust` oxTrust Node
 
@@ -234,14 +235,14 @@ Alternatively, the following command can be used periodically to check the deplo
 curl http://localhost:8080/nodes/<node-name>
 ```
 
-#### SAML Node (optional)
-Run the following command to deploy SAML node:
+#### oxIdp Node (optional)
+Run the following command to deploy oxIdp node:
 
 ```sh
 curl http://localhost:8080/nodes \
     -d provider_id=$MASTER_PROVIDER_ID \
     -d cluster_id=$CLUSTER_ID \
-    -d node_type=saml \
+    -d node_type=oxidp \
     -X POST -i
 ```
 
@@ -259,16 +260,14 @@ Alternatively, the following command can be used periodically to check the deplo
 curl http://localhost:8080/nodes/<node-name>
 ```
 
-#### Apache Node
-Run the following command to deploy the httpd node:
+#### nginx Node
+Run the following command to deploy the nginx node:
 
 ```sh
 curl http://localhost:8080/nodes \
     -d provider_id=$MASTER_PROVIDER_ID \
     -d cluster_id=$CLUSTER_ID \
-    -d node_type=httpd \
-    -d oxauth_node_id=$OXAUTH_NODE_ID \
-    -d saml_node_id=$SAML_NODE_ID \
+    -d node_type=nginx \
     -X POST -i
 ```
 

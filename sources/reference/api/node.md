@@ -8,7 +8,7 @@ Node is an entity represents a `docker` container.
 
 `POST /nodes`
 
-Note, to create a node, provider and cluster entities must be created first.
+To create a node, provider and cluster entities must be created first.
 
 __URL:__
 
@@ -26,15 +26,17 @@ __Form parameters:__
 
 *   `node_type` (required)
 
-    Node type (currently only supports `ldap`, `oxauth`, `oxtrust`, `httpd`, and `saml`).
+    Node type (currently only supports `ldap`, `oxauth`, `oxtrust`, `nginx`, and `oxidp`).
     Note, to create a clustered nodes successfully, the nodes must be created
     in following order:
 
     1. `ldap`
     2. `oxauth`
-    3. `saml` (optional; required if we want to use SAML)
-    4. `httpd`
+    3. `oxidp` (optional; required if we want to use SAML)
+    4. `nginx`
     5. `oxtrust`
+
+    Starting from v0.4, `httpd` node is no longer supported.
 
 *   `connect_delay` (optional)
 
@@ -43,15 +45,6 @@ __Form parameters:__
 *   `exec_delay` (optional)
 
     Time to wait (in seconds) before start executing command in node (default to 15 seconds).
-
-*   `oxauth_node_id` (optional)
-
-    Unique oxAuth node ID within the same provider. Note, this parameter only required if `node_type` value is set to `httpd`.
-
-*   `saml_node_id` (optional)
-
-    Unique SAML node ID within the same provider. Note, this parameter only required if `node_type` value is set to `httpd`.
-
 
 __Request example:__
 

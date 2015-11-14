@@ -6,9 +6,9 @@
 
 Steps to migrate to Gluu Cluster v0.4.0:
 
-1.  Update `gluu-flask` and `weave` packages:
+1.  Update `gluu-flask`, `gluu-agent` and `weave` packages:
 
-        apt-get update && apt-get install -y gluu-flask weave
+        apt-get update && apt-get install -y gluu-flask gluu-agent weave
 
 2.  Remove old weave container:
 
@@ -18,15 +18,13 @@ Steps to migrate to Gluu Cluster v0.4.0:
 
         weave setup
 
-4.  Update all providers via web UI or Provider API request directly.
+4.  Remove existing ldap, oxauth, httpd and oxtrust nodes (containers).
 
-5.  Remove existing ldap, oxauth, httpd and oxtrust nodes (containers).
+5.  Remove gluuopendj, gluuoxtrust, and gluuoxauth images:
 
-6.  Remove gluuoxtrust image:
+        docker rmi gluuopendj gluuoxtrust gluuoxauth
 
-        docker rmi gluuoxtrust
-
-7.  Re-deploy ldap, oxauth, saml (optional), httpd, and oxtrust nodes.
+6.  Re-deploy ldap, oxauth, oxidp (optional), nginx, and oxtrust nodes.
 
 Changelog for v0.4.0 is available [here](https://github.com/GluuFederation/gluu-flask/blob/master/CHANGES.md#version-040).
 

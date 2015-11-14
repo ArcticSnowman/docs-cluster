@@ -102,12 +102,13 @@ Location: http://localhost:8080/clusters/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
     "state": "TX",
     "country_code": "US",
     "ldap_nodes": [],
-    "httpd_nodes": [],
+    "nginx_nodes": [],
     "org_short_name": "my-org",
     "org_name": "my-org",
     "id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
     "oxtrust_nodes": [],
-    "name": "cluster1"
+    "name": "cluster1",
+    "oxidp_nodes": []
 }
 ```
 
@@ -156,12 +157,13 @@ Content-Type: application/json
     "state": "TX",
     "country_code": "US",
     "ldap_nodes": [],
-    "httpd_nodes": [],
+    "nginx_nodes": [],
     "org_short_name": "my-org",
     "org_name": "my-org",
     "id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
     "oxtrust_nodes": [],
-    "name": "cluster1"
+    "name": "cluster1",
+    "oxidp_nodes": []
 }
 ```
 
@@ -210,12 +212,13 @@ Content-Type: application/json
         "state": "TX",
         "country_code": "US",
         "ldap_nodes": [],
-        "httpd_nodes": [],
+        "nginx_nodes": [],
         "org_short_name": "my-org",
         "org_name": "my-org",
         "id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
         "oxtrust_nodes": [],
-        "name": "cluster1"
+        "name": "cluster1",
+        "oxidp_nodes": []
     }
 ]
 ```
