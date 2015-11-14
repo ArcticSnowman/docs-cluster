@@ -36,7 +36,7 @@ The installation command will install the `gluu-flask` daemon which is automatic
 
 ### Cluster Consumer Package
 
-The consumer package requires the master package to function and requires a commercial license. Please see the [pricing](gluu.org/pricing) for more details.
+The consumer package requires the master package to function and requires a commercial license. Please see the [pricing](http://gluu.org/pricing) for more details.
 
 Run the following commands to install the consumer package:
 
