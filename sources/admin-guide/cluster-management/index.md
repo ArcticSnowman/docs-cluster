@@ -260,6 +260,8 @@ Alternatively, the following command can be used periodically to check the deplo
 curl http://localhost:8080/nodes/<node-name>
 ```
 
+To generate default IdP and SP metadata, we need to deploy oxtrust node after deploying oxidp node.
+
 #### nginx Node
 Run the following command to deploy the nginx node:
 
