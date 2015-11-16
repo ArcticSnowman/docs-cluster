@@ -48,7 +48,30 @@ In some virtual machines hosted at cloud providers, oxAuth/oxTrust may have a sl
 
         apt-get install rng-tools
 
-    rng-tools will run as a service. After the package is already installed, we can check the available entropy again.
+    We will probably see the following error:
+
+        Starting Hardware RNG entropy gatherer daemon: (failed).
+        invoke-rc.d: initscript rng-tools, action "start" failed.
+
+    We can fix it by modifying HRNGDEVICE in `/etc/default/rng-tools`.
+
+        # Configuration for the rng-tools initscript
+        # $Id: rng-tools.default,v 1.1.2.5 2008-06-10 19:51:37 hmh Exp $
+
+        # This is a POSIX shell fragment
+
+        # Set to the input source for random data, leave undefined
+        # for the initscript to attempt auto-detection.  Set to /dev/null
+        # for the viapadlock driver.
+        #HRNGDEVICE=/dev/hwrng
+        #HRNGDEVICE=/dev/null
+        HRNGDEVICE=/dev/urandom
+
+    Afterwards, restart the rng-tools service:
+
+        service rng-tools restart
+
+    After rng-tools service is running successfully, we can check the available entropy again.
 
         cat /proc/sys/kernel/random/entropy_avail
 
