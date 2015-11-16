@@ -216,8 +216,9 @@ __Status Code:__
 
 `DELETE /nodes/{id}`
 
-Note, node with `IN_PROGRESS` state cannot be deleted.
+By default, node with `IN_PROGRESS` state cannot be deleted.
 Any attempt to delete node with `IN_PROGRESS` state will raise status code 403.
+To force node deletion, add `force_rm` option in the request (see below).
 
 __URL:__
 
