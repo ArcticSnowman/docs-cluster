@@ -210,6 +210,11 @@ Alternatively, the following command can be used periodically to check the deplo
 curl http://localhost:8080/nodes/<node-name>
 ```
 
+Starting from v0.4.0, ldap node has support for custom schema. To deploy custom schema,
+put the desired schema in `.ldif` file under `/var/lib/gluu-cluster/custom/opendj/schema/`.
+For example, we can create `/var/lib/gluu-cluster/custom/opendj/schema/102-customSchema.ldif` for our custom schema.
+This file will be added to ldap node located at `/opt/opendj/config/schema/102-customSchema.ldif`.
+
 #### oxAuth Node
 Run the following command to deploy oxAuth node:
 
