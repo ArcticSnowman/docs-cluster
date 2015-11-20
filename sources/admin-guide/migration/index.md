@@ -2,6 +2,26 @@
 
 [TOC]
 
+## Version 0.4.1
+
+1.  For master provider, update `gluu-master`, `gluu-flask`, and `gluu-agent` packages.
+
+        apt-get update && apt-get install -y gluu-master gluu-flask gluu-agent
+
+    Note: since newer `gluu-master` package introduces docker v1.8.3, existing nodes might be
+    crashed. To recover the nodes, run the recovery command:
+
+        service gluu-agent recover
+
+2.  For consumer provider, update `gluu-consumer` and `gluu-agent` packages.
+
+        apt-get update && apt-get install -y gluu-consumer gluu-agent
+
+    Note: since newer `gluu-consumer` package introduces docker v1.8.3, existing nodes might be
+    crashed. To recover the nodes, run the recovery command:
+
+        service gluu-agent recover
+
 ## Version 0.4.0
 
 Steps to migrate to Gluu Cluster v0.4.0:
