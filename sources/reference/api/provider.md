@@ -37,14 +37,17 @@ __Form parameters:__
 *   `ssl_key` (required only when `docker_base_url` uses HTTPS)
 
     The contents of `/etc/docker/key.pem` located in provider host.
+    Starting from v0.4.1, this parameter is ignored.
 
 *   `ssl_cert` (required only when `docker_base_url` uses HTTPS)
 
     The contents of `/etc/docker/cert.pem` located in provider host.
+    Starting from v0.4.1, this parameter is ignored.
 
 *   `ca_cert` (required only when `docker_base_url` uses HTTPS)
 
     The contents of `/etc/docker/ca.pem` located in provider host.
+    Starting from v0.4.1, this parameter is ignored.
 
 #### Master Provider
 
@@ -74,9 +77,6 @@ Location: http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518677
     "docker_base_url": "128.199.198.172:2375",
     "hostname": "master-host",
     "id": "283bfa41-2121-4433-9741-875004518677",
-    "ssl_key": "multi-line contents of TLS certificate key",
-    "ssl_cert": "multi-line contents of TLS certificate",
-    "ca_cert": "multi-line contents of CA certificate",
     "type": "master"
 }
 ```
@@ -115,9 +115,6 @@ Location: http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518678
     "docker_base_url": "128.199.198.173:2375",
     "hostname": "consumer-host",
     "id": "283bfa41-2121-4433-9741-875004518678",
-    "ssl_key": "multi-line contents of TLS certificate key",
-    "ssl_cert": "multi-line contents of TLS certificate",
-    "ca_cert": "multi-line contents of CA certificate",
     "type": "consumer"
 }
 ```
@@ -157,9 +154,6 @@ Content-Type: application/json
     "hostname": "master-host",
     "id": "283bfa41-2121-4433-9741-875004518677",
     "type": "master"
-    "ssl_key": "multi-line contents of TLS certificate key",
-    "ssl_cert": "multi-line contents of TLS certificate",
-    "ca_cert": "multi-line contents of CA certificate"
 }
 ```
 
@@ -197,18 +191,12 @@ Content-Type: application/json
         "hostname": "master-host",
         "id": "283bfa41-2121-4433-9741-875004518677",
         "type": "master"
-        "ssl_key": "multi-line contents of TLS certificate key",
-        "ssl_cert": "multi-line contents of TLS certificate",
-        "ca_cert": "multi-line contents of CA certificate"
     },
     {
         "docker_base_url": "128.199.198.173:2375",
         "hostname": "consumer-host",
         "id": "283bfa41-2121-4433-9741-875004518678",
         "type": "consumer"
-        "ssl_key": "multi-line contents of TLS certificate key",
-        "ssl_cert": "multi-line contents of TLS certificate",
-        "ca_cert": "multi-line contents of CA certificate"
     }
 ]
 ```
@@ -276,14 +264,17 @@ __Form parameters:__
 *   `ssl_key` (required only when `docker_base_url` uses HTTPS)
 
     The contents of `/etc/docker/key.pem` located in provider host.
+    Starting from v0.4.1, this parameter is ignored.
 
 *   `ssl_cert` (required only when `docker_base_url` uses HTTPS)
 
     The contents of `/etc/docker/cert.pem` located in provider host.
+    Starting from v0.4.1, this parameter is ignored.
 
 *   `ca_cert` (required only when `docker_base_url` uses HTTPS)
 
     The contents of `/etc/docker/ca.pem` located in provider host.
+    Starting from v0.4.1, this parameter is ignored.
 
 #### Master Provider
 
@@ -309,9 +300,6 @@ Content-Type: application/json
     "docker_base_url": "128.199.198.172:2375",
     "hostname": "master-host",
     "id": "283bfa41-2121-4433-9741-875004518677",
-    "ssl_key": "multi-line contents of TLS certificate key",
-    "ssl_cert": "multi-line contents of TLS certificate",
-    "ca_cert": "multi-line contents of CA certificate",
     "type": "master"
 }
 ```
@@ -340,9 +328,6 @@ Content-Type: application/json
     "docker_base_url": "128.199.198.173:2375",
     "hostname": "consumer-host",
     "id": "283bfa41-2121-4433-9741-875004518678",
-    "ssl_key": "multi-line contents of TLS certificate key",
-    "ssl_cert": "multi-line contents of TLS certificate",
-    "ca_cert": "multi-line contents of CA certificate",
     "type": "consumer"
 }
 ```
