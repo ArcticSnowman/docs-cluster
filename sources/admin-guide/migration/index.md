@@ -22,6 +22,8 @@
 
         service gluu-agent recover
 
+Changelog for v0.4.1 is available [here](https://github.com/GluuFederation/gluu-flask/blob/master/CHANGES.md#version-041).
+
 ## Version 0.4.0
 
 Steps to migrate to Gluu Cluster v0.4.0:
