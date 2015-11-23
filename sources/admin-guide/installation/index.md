@@ -1,7 +1,7 @@
 # Installation
 [TOC]
 
-The Gluu Cluster is suported for Ubuntu for now. There are three packages that completes the cluster; the master, the consumer and the cluster API. The master package and the cluster API must be installed in the same host. The consumer package is not necessary for a single server installation. There is one additional package, gluu-webui, that provides a user friendly way of using the API and managing the cluster.
+The Gluu Cluster is supported for Ubuntu for now. There are three packages that completes the cluster; the master, the consumer and the cluster API. The master package and the cluster API must be installed in the same host. The consumer package is not necessary for a single server installation. There is one additional package, gluu-webui, that provides a user friendly way of using the API and managing the cluster.
 
 ## Gluu Cluster Master
 
@@ -28,7 +28,7 @@ Make a note of the IP address of the master package as it will be used in the sc
 
 `python postinstall.py`
 
-3. Enter the values asked by the prompt when the script is run, and press enter to continue. An example of the script's pormpt is given below:
+3. Enter the values asked by the prompt when the script is run, and press enter to continue. An example of the script's prompt is given below:
 
 ```
 root@gluu-master:~# python postinstall.py
@@ -180,4 +180,3 @@ The package will start a service called `gluu-agent`.
 
 One of Gluu Agent jobs is to recover nodes automatically after provider is rebooted.
 Refer to [recovery](../recovery/index.md) page for details.
-
