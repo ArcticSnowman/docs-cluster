@@ -2,6 +2,21 @@
 
 [TOC]
 
+## Version 0.4.1-8
+
+1.  Install latest `gluu-flask` package updates:
+
+        apt-get update && apt-get install -y gluu-flask
+
+2.  Remove existing ldap, oxauth, oxtrust, oxidp nodes.
+3.  Remove gluuopendj, gluuoxtrust, gluuoxidp, and gluuoxauth images:
+
+        docker rmi gluuopendj gluuoxtrust gluuoxidp gluuoxauth
+
+4.  Re-deploy ldap, oxauth, oxidp (optional), and oxtrust nodes.
+
+Changelog for v0.4.1 is available [here](https://github.com/GluuFederation/gluu-flask/blob/master/CHANGES.md#version-041).
+
 ## Version 0.4.1
 
 1.  For master provider, update `gluu-master`, `gluu-flask`, and `gluu-agent` packages.
