@@ -343,11 +343,11 @@ To see all `domain_node`, we can use a shell command:
 
 The following list is an example of output from the command above:
 
-    97b8a9af9463.nginx      10.2.1.8    97b8a9af9463    92:ff:9c:8d:2d:f6
-    baac7896cdfe.oxtrust    10.2.1.3    baac7896cdfe    92:ff:9c:8d:2d:f6
-    c4812882445f.oxauth     10.2.1.1    c4812882445f    92:ff:9c:8d:2d:f6
-    c7dde0b8d4e3.ldap       10.2.1.9    c7dde0b8d4e3    92:ff:9c:8d:2d:f6
-    ea3e185214a4.oxidp      10.2.1.2    ea3e185214a4    92:ff:9c:8d:2d:f6
+    97b8a9af9463.nginx      10.2.1.8    97b8a9af9463    d6:5f:eb:ea:b7:03
+    baac7896cdfe.oxtrust    10.2.1.3    baac7896cdfe    d6:5f:eb:ea:b7:03
+    c4812882445f.oxauth     10.2.1.1    c4812882445f    d6:5f:eb:ea:b7:03
+    c7dde0b8d4e3.ldap       10.2.1.9    c7dde0b8d4e3    d6:5f:eb:ea:b7:03
+    ea3e185214a4.oxidp      10.2.1.2    ea3e185214a4    d6:5f:eb:ea:b7:03
 
 Each line is consists of columns:
 
