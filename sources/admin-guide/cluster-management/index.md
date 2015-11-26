@@ -332,6 +332,57 @@ The oxTrust login page will load asking for a username and a password.
 
 If the credentials are supplied correctly, the page will be redirected to the oxTrust dashboard.
 
+### Local DNS Server
+
+Starting from v0.4.0, Gluu Cluster uses its own local DNS server to provide service discovery between containers (nodes).
+This local DNS server lists `domain_name` for all nodes in the cluster.
+
+To see all `domain_node`, we can use a shell command:
+
+    weave status dns
+
+The following list is an example of output from the command above:
+
+    97b8a9af9463.nginx      10.2.1.8    97b8a9af9463    92:ff:9c:8d:2d:f6
+    baac7896cdfe.oxtrust    10.2.1.3    baac7896cdfe    92:ff:9c:8d:2d:f6
+    c4812882445f.oxauth     10.2.1.1    c4812882445f    92:ff:9c:8d:2d:f6
+    c7dde0b8d4e3.ldap       10.2.1.9    c7dde0b8d4e3    92:ff:9c:8d:2d:f6
+    ea3e185214a4.oxidp      10.2.1.2    ea3e185214a4    92:ff:9c:8d:2d:f6
+
+Each line is consists of columns:
+
+1.  Short format of local `domain_name` of the node. For example, `97b8a9af9463.nginx` is a shorthand of `97b8a9af9463.nginx.gluu.local`.
+
+    It is worth noting that this `domain_name` only resolvable inside the node. We can test connectivity between nginx node (97b8a9af9463)
+    and oxtrust node (baac7896cdfe):
+
+        $ docker exec 97b8a9af9463 ping -c 4 baac7896cdfe.oxtrust.gluu.local
+        PING baac7896cdfe.oxtrust.gluu.local (10.2.1.3) 56(84) bytes of data.
+        64 bytes from baac7896cdfe.oxtrust.gluu.local (10.2.1.3): icmp_seq=1 ttl=64 time=0.030 ms
+        64 bytes from baac7896cdfe.oxtrust.gluu.local (10.2.1.3): icmp_seq=2 ttl=64 time=0.044 ms
+        64 bytes from baac7896cdfe.oxtrust.gluu.local (10.2.1.3): icmp_seq=3 ttl=64 time=0.045 ms
+        64 bytes from baac7896cdfe.oxtrust.gluu.local (10.2.1.3): icmp_seq=4 ttl=64 time=0.045 ms
+
+        --- baac7896cdfe.oxtrust.gluu.local ping statistics ---
+        4 packets transmitted, 4 received, 0% packet loss, time 3001ms
+        rtt min/avg/max/mdev = 0.030/0.041/0.045/0.006 ms
+
+2.  `weave_ip` address of the node. We can ping the node directly from host via `weave_ip` address:
+
+        $ ping -c 4 10.2.1.3
+        PING 10.2.1.3 (10.2.1.3) 56(84) bytes of data.
+        64 bytes from 10.2.1.3: icmp_seq=1 ttl=64 time=0.056 ms
+        64 bytes from 10.2.1.3: icmp_seq=2 ttl=64 time=0.040 ms
+        64 bytes from 10.2.1.3: icmp_seq=3 ttl=64 time=0.038 ms
+        64 bytes from 10.2.1.3: icmp_seq=4 ttl=64 time=0.037 ms
+
+        --- 10.2.1.3 ping statistics ---
+        4 packets transmitted, 4 received, 0% packet loss, time 2999ms
+        rtt min/avg/max/mdev = 0.037/0.042/0.056/0.011 ms
+
+3.  A unique `id` of the node.
+4.  weave peer where the node is deployed.
+
 ### Registering License Key
 
 Registering license key is required before registering any consumer provider.
