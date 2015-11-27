@@ -3,10 +3,20 @@
 
 The cluster packages consisting of gluu-master, gluu-flask and gluu-consumer must be installed before configuring the cluster environment. Please see the [Installation Instructions](http://www.gluu.org/docs-cluster/admin-guide/installation/) for more details.
 
-A [Cluster][cluster-api] is a set of nodes deployed in one or more [Providers][provider-api]. The cluster
-contains information shared across providers, like hostname.
+A [Cluster](../../reference/api/cluster/) is a set of nodes deployed in one or more [Providers](../../reference/api/provider/).
+The cluster contains information shared across providers, like hostname.
 
 ## Cluster Management
+
+To manage cluster, we can use Cluster Web UI or using API directly. To access the web UI we already installed in
+[installation page](../installation/#gluu-cluster-web-interface-package), we need to do tunneling to server where web UI is installed:
+
+    ssh -L 8800:localhost:8800 root@$SERVER_IP
+
+After the tunnel has been established, we can access web UI from web browser via `http://localhost:8800` address.
+
+Note, this page only covers how to manage cluster by using the API directly via `curl` command.
+
 ### Creating Cluster
 
 The following command creates a cluster using `curl`.
