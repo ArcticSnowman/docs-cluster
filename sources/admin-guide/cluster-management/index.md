@@ -1,12 +1,12 @@
 # Cluster Management
 [TOC]
 
-The cluster packages consisting of gluu-master, gluu-flask and gluu-consumer must be installed before configuring the cluster environment. Please see the [Installation Instructions](http://www.gluu.org/docs-cluster/admin-guide/installation/) for more details.
+The cluster packages consisting of `gluu-master`, `gluu-agent`, `gluu-flask` and `gluu-consumer` must be installed before configuring the cluster environment. Please see the [Installation Instructions](http://www.gluu.org/docs-cluster/admin-guide/installation/) for more details.
+
+## Overview
 
 A [Cluster](../../reference/api/cluster/) is a set of nodes deployed in one or more [Providers](../../reference/api/provider/).
 The cluster contains information shared across providers, like hostname.
-
-## Cluster Management
 
 To manage cluster, we can use Cluster Web UI or using API directly. To access the web UI we already installed in
 [installation page](../installation/#gluu-cluster-web-interface-package), we need to do tunneling to server where web UI is installed:
@@ -17,7 +17,7 @@ After the tunnel has been established, we can access web UI from web browser via
 
 Note, this page only covers how to manage cluster by using the API directly via `curl` command.
 
-### Creating Cluster
+## Creating Cluster
 
 The following command creates a cluster using `curl`.
 
@@ -82,6 +82,8 @@ We'll need the `cluster_id` when deploying nodes, so let's keep the reference to
 export CLUSTER_ID=1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
 ```
 
+## Managing Master Provider and Its Nodes
+
 ### Registering Provider
 A provider must be registered after the installation of the cluster packages.
 This creates the entity in the `gluu-flask` JSON database to let the  API's know where to deploy the instances.
@@ -133,7 +135,11 @@ Location: http://localhost:8080/providers/58848b94-0671-48bc-9c94-04b0351886f0
 ```
 
 The `provider_id` is required to deploy nodes, so it is best to keep the reference as an environment variable.
-The successful creation of provider follows a background job to setup internal routing through `weave`. It may take up-to 25 seconds to finish routing.
+
+    export MASTER_PROVIDER_ID=58848b94-0671-48bc-9c94-04b0351886f0
+
+The successful creation of provider follows a background job to setup internal routing through `weave`.
+It may take up-to 25 seconds to finish routing.
 
 Run the following command to check if routing is ready:
 
@@ -205,7 +211,7 @@ curl http://localhost:8080/nodes \
     -X POST -i
 ```
 
-A successful request returns a HTTP 201 status code. Note the node name from the code.
+A successful request returns a HTTP 202 status code. Note the node name from the code.
 The progress of deployment can be followed by tailing the log.
 Run the following command to tail the log file:
 
@@ -235,7 +241,7 @@ curl http://localhost:8080/nodes \
     -X POST -i
 ```
 
-A successful request returns a HTTP 201 status code. Note the node name from the code.
+A successful request returns a HTTP 202 status code. Note the node name from the code.
 The progress of deployment can be followed by tailing the log.
 Run the following command to tail the log file:
 
@@ -260,7 +266,7 @@ curl http://localhost:8080/nodes \
     -X POST -i
 ```
 
-A successful request returns a HTTP 201 status code. Note the node name from the code.
+A successful request returns a HTTP 202 status code. Note the node name from the code.
 The progress of deployment can be followed by tailing the log.
 Run the following command to tail the log file:
 
@@ -287,7 +293,7 @@ curl http://localhost:8080/nodes \
     -X POST -i
 ```
 
-A successful request returns a HTTP 201 status code. Note the node name from the code.
+A successful request returns a HTTP 202 status code. Note the node name from the code.
 The progress of deployment can be followed by tailing the log.
 Run the following command to tail the log file:
 
@@ -311,7 +317,7 @@ curl http://localhost:8080/nodes \
     -d node_type=oxtrust \
     -X POST -i
 ```
-A successful request returns a HTTP 201 status code. Note the node name from the code.
+A successful request returns a HTTP 202 status code. Note the node name from the code.
 The progress of deployment can be followed by tailing the log.
 Run the following command to tail the log file:
 
@@ -341,7 +347,251 @@ The oxTrust login page will load asking for a username and a password.
 
 If the credentials are supplied correctly, the page will be redirected to the oxTrust dashboard.
 
-### Local DNS Server
+## Managing Consumer Provider and Its Nodes
+
+### Registering License Key
+
+Registering license key is required before registering any consumer provider.
+Refer to [License](../overview/#license) section to see available license types.
+
+To register license key, we need to obtain code, public password, public key, and license password
+from Gluu. Afterwards, we can store them as Gluu Cluster's license key.
+
+The following command will create a new license key.
+
+```sh
+curl http://localhost:8080/license_keys \
+    -d public_key="unique-public-key" \
+    -d public_password="unique-public-password" \
+    -d license_password="unique-license-password" \
+    -d name=testing \
+    -d code=code \
+    -X POST -i
+```
+
+Note, `public_key`, `public_password`, and `license_password` must use one-liner values.
+For details on how to register a license key, refer to [License Key API](../../reference/api/license_key/) page.
+
+### Registering Provider
+A consumer provider can be registered after the installation of the cluster and master provider.
+It's worth noting that consumer provider should be hosted in another server (separated from master provider).
+As usual, the `postinstall.py` script generates TLS certificates which are stored in `/etc/docker` directory.
+
+If we are using Gluu Cluster v0.4.0 or below, the contents of the following files should be copied for later use:
+
+* `/etc/docker/ca.pem` (CA certificate)
+* `/etc/docker/cert.pem` (TLS certificate)
+* `/etc/docker/key.pem`: (TLS certificate key)
+
+Starting from v0.4.1, we don't need to know those file contents as the API takes care the certificates and keys behind the scene.
+
+The following command registers a provider using `curl`.
+
+```
+curl http://localhost:8080/providers \
+    -d hostname=gluu2.example.com \
+    -d docker_base_url='https://128.199.242.75:2375' \
+    -d ssl_key='multi-line contents of key.pem' \
+    -d ssl_cert='multi-line contents of cert.pem' \
+    -d ca_cert='multi-line contents of ca.pem' \
+    -d type='consumer' \
+    -X POST -i
+```
+
+The parameters of the command are explained below:
+
+* `hostname` is the FQDN hostname of the server/host.
+* `docker_base_url` is the Docker API URL configured after installing `gluu-master` package. It is recommended to use `https` scheme.
+* `ssl_key` is the contents of `key.pem` (ignored in v0.4.1)
+* `ssl_cert` is the contents of `cert.pem` (ignored in v0.4.1)
+* `ca_cert` is the contents of `ca.pem` (ignored in v0.4.1)
+* `type` is the provider type (either `master` or `consumer`)
+
+A successful request returns a HTTP 201 status code:
+
+```
+HTTP/1.0 201 CREATED
+Content-Type: application/json
+Location: http://localhost:8080/providers/58848b94-0671-48bc-9c94-04b0351886f1
+
+{
+    "docker_base_url": "https://128.199.242.75:2375",
+    "hostname": "gluu2.example.com",
+    "id": "58848b94-0671-48bc-9c94-04b0351886f1",
+    "type": "consumer"
+}
+```
+
+The `provider_id` is required to deploy nodes, so it is best to keep the reference as an environment variable.
+
+    export CONSUMER_PROVIDER_ID=58848b94-0671-48bc-9c94-04b0351886f1
+
+
+The successful creation of provider follows a background job to setup internal routing through `weave`.
+It may take up-to 25 seconds to finish routing.
+
+Run the following command to check if routing is ready:
+
+```sh
+weave ps
+```
+If the routing is ready then the output will be similar to the following:
+```
+1d34079275fc aa:d3:17:16:52:40 10.2.1.253/24
+e5d1dd8d9ad4 32:7b:97:97:02:c5
+```
+Please use the following command to check whether `weave` in master provider ready to accept connections from other providers:
+
+```
+$ weave status
+```
+
+The command will provide a similar output as below:
+
+```sh
+$ weave status
+
+       Version: v1.1.0
+
+       Service: router
+      Protocol: weave 1..2
+          Name: d6:5f:eb:ea:b7:04(gluu2.example.com)
+    Encryption: enabled
+ PeerDiscovery: enabled
+       Targets: 0
+   Connections: 1
+         Peers: 2
+
+       Service: ipam
+     Consensus: achieved
+         Range: [10.2.1.0-10.2.2.0)
+ DefaultSubnet: 10.2.1.0/24
+
+       Service: dns
+        Domain: gluu.local.
+           TTL: 1
+       Entries: 5
+
+```
+
+### Deploying Nodes
+The deployment of nodes can be done after the creation of Cluster and Provider entities. The nodes are interdependent, it's recommended to deploy them in the following order
+
+1. `ldap` LDAP Node
+
+2. `oxauth` oxAuth Node
+
+3. optional `oxidp` oxIDP Node
+
+4. `nginx` nginx Node
+
+#### LDAP Node
+
+Run the following command to deploy the ldap node:
+
+```sh
+curl http://localhost:8080/nodes \
+    -d provider_id=$CONSUMER_PROVIDER_ID \
+    -d cluster_id=$CLUSTER_ID \
+    -d node_type=ldap \
+    -X POST -i
+```
+
+A successful request returns a HTTP 202 status code. Note the node name from the code.
+The progress of deployment can be followed by tailing the log.
+Run the following command to tail the log file:
+
+```
+tail -F /var/log/gluu/<node-name>-setup.log
+```
+
+Alternatively, the following command can be used periodically to check the deployment of the node:
+
+```
+curl http://localhost:8080/nodes/<node-name>
+```
+
+Since we already have another LDAP node in master provider, all LDAP nodes will replicate themselves.
+However we need to check whether replication are created successfully by login to one of LDAP node.
+
+    docker exec -ti <nodename> bash
+    /opt/opendj/bin/dsreplication status
+
+#### oxAuth Node
+Run the following command to deploy oxAuth node:
+
+```sh
+curl http://localhost:8080/nodes \
+    -d provider_id=$CONSUMER_PROVIDER_ID \
+    -d cluster_id=$CLUSTER_ID \
+    -d node_type=oxauth \
+    -X POST -i
+```
+
+A successful request returns a HTTP 202 status code. Note the node name from the code.
+The progress of deployment can be followed by tailing the log.
+Run the following command to tail the log file:
+
+```
+tail -F /var/log/gluu/<node-name>-setup.log
+```
+
+Alternatively, the following command can be used periodically to check the deployment of the node:
+
+```
+curl http://localhost:8080/nodes/<node-name>
+```
+
+#### oxIdp Node (optional)
+Run the following command to deploy oxIdp node:
+
+```sh
+curl http://localhost:8080/nodes \
+    -d provider_id=$CONSUMER_PROVIDER_ID \
+    -d cluster_id=$CLUSTER_ID \
+    -d node_type=oxidp \
+    -X POST -i
+```
+
+A successful request returns a HTTP 202 status code. Note the node name from the code.
+The progress of deployment can be followed by tailing the log.
+Run the following command to tail the log file:
+
+```
+tail -F /var/log/gluu/<node-name>-setup.log
+```
+
+Alternatively, the following command can be used periodically to check the deployment of the node:
+
+```
+curl http://localhost:8080/nodes/<node-name>
+```
+
+#### nginx Node
+Run the following command to deploy the nginx node:
+
+```sh
+curl http://localhost:8080/nodes \
+    -d provider_id=$CONSUMER_PROVIDER_ID \
+    -d cluster_id=$CLUSTER_ID \
+    -d node_type=nginx \
+    -X POST -i
+```
+
+A successful request returns a HTTP 202 status code. Note the node name from the code.
+The progress of deployment can be followed by tailing the log.
+Run the following command to tail the log file:
+
+```
+tail -F /var/log/gluu/<node-name>-setup.log
+```
+
+Alternatively, the following command can be used periodically to check the deployment of the node:
+
+```
+curl http://localhost:8080/nodes/<node-name>
+```
+## Local DNS Server
 
 Starting from v0.4.0, Gluu Cluster uses its own local DNS server to provide service discovery between containers (nodes).
 This local DNS server lists `domain_name` for all nodes in the cluster.
@@ -391,26 +641,3 @@ Each line is consists of columns:
 
 3.  A unique `id` of the node.
 4.  weave peer where the node is deployed.
-
-### Registering License Key
-
-Registering license key is required before registering any consumer provider.
-Refer to [License](../overview/#license) section to see available license types.
-
-To register license key, we need to obtain code, public password, public key, and license password
-from Gluu. Afterwards, we can store them as Gluu Cluster's license key.
-
-The following command will create a new license key.
-
-```sh
-curl http://localhost:8080/license_keys \
-    -d public_key="unique-public-key" \
-    -d public_password="unique-public-password" \
-    -d license_password="unique-license-password" \
-    -d name=testing \
-    -d code=code \
-    -X POST -i
-```
-
-Note, `public_key`, `public_password`, and `license_password` must use one-liner values.
-For details on how to register a license key, refer to [License Key API](../../reference/api/license_key/) page.
