@@ -8,14 +8,9 @@ The cluster packages consisting of `gluu-master`, `gluu-agent`, `gluu-flask` and
 A [Cluster](../../reference/api/cluster/) is a set of nodes deployed in one or more [Providers](../../reference/api/provider/).
 The cluster contains information shared across providers, like hostname.
 
-To manage cluster, we can use Cluster Web UI or using API directly. To access the web UI we already installed in
-[installation page](../installation/#gluu-cluster-web-interface-package), we need to do tunneling to server where web UI is installed:
-
-    ssh -L 8800:localhost:8800 root@$SERVER_IP
-
-After the tunnel has been established, we can access web UI from web browser via `http://localhost:8800` address.
-
+To manage cluster, we can use Cluster Web UI or using API directly.
 Note, this page only covers how to manage cluster by using the API directly via `curl` command.
+To use Web UI, refer to [Web Interface](../webui) page for details.
 
 ## Creating Cluster
 
