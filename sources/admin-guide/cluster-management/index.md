@@ -84,8 +84,8 @@ export CLUSTER_ID=1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
 
 ## Managing Master Provider and Its Nodes
 
-### Registering Provider
-A provider must be registered after the installation of the cluster packages.
+### Registering Master Provider
+A provider must be registered after creating the cluster.
 This creates the entity in the `gluu-flask` JSON database to let the  API's know where to deploy the instances.
 The `postinstall.py` script generates TLS certificates which are stored in `/etc/docker` directory.
 
@@ -349,6 +349,10 @@ If the credentials are supplied correctly, the page will be redirected to the ox
 
 ## Managing Consumer Provider and Its Nodes
 
+One of the purposes of creating consumer provider is to achieve HA setup in the cluster.
+It means when master provider (and its nodes) is unavailable, we still have another provider (and its nodes) to serve requests.
+Although creating consumer is optional step, it's recommended to do so if we want to achieve full-featured Gluu Cluster.
+
 ### Registering License Key
 
 Registering license key is required before registering any consumer provider.
@@ -372,7 +376,7 @@ curl http://localhost:8080/license_keys \
 Note, `public_key`, `public_password`, and `license_password` must use one-liner values.
 For details on how to register a license key, refer to [License Key API](../../reference/api/license_key/) page.
 
-### Registering Provider
+### Registering Consumer Provider
 A consumer provider can be registered after the installation of the cluster and master provider.
 It's worth noting that consumer provider should be hosted in another server (separated from master provider).
 As usual, the `postinstall.py` script generates TLS certificates which are stored in `/etc/docker` directory.
