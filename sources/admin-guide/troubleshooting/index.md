@@ -6,7 +6,7 @@ This section will be added soon.
 
 ## Log Files
 ### Setup Logs
-The setup logs for the cluster nodes are available `/var/log/gluu/` of the master container. The following path shows the exact location of the logs. The term `<node-name>` represents the four nodes that are LDAP, oxAuth, oxTrust and Apache.
+The setup logs for the cluster nodes are available at `/var/log/gluu/` directory of the master provider. The following path shows the exact location of the logs. The term `<node-name>` represents the currently-supported nodes that are LDAP, oxAuth, oxTrust, oxIdp, and nginx.
 
 `/var/log/gluu/<node-name>-setup.log`
 
@@ -185,5 +185,5 @@ If weave container is listed on the output, we have successfully launching weave
 
 ```
 CONTAINER ID        IMAGE                      COMMAND                STATUS              NAMES
-fd4d3cd4bf70        weaveworks/weave:v0.10.0   "/home/weave/weaver    Up About a minute   weave
+fd4d3cd4bf70        weaveworks/weave:v1.1.0   "/home/weave/weaver    Up About a minute   weave
 ```
