@@ -36,7 +36,13 @@ __Form parameters:__
     4. `nginx`
     5. `oxtrust`
 
-    Starting from v0.4, `httpd` node is no longer supported.
+    There are few rules about nodes:
+
+    * `httpd` node is no longer supported since v0.4.0.
+    * Maximum allowed `ldap` nodes are 4 per cluster.
+    * There's no restriction on how many `oxauth` and `oxidp` nodes per provider or cluster.
+    * Only 1 `nginx` node can be deployed in each provider.
+    * Only 1 `oxtrust` node can be deployed in the cluster and it must be deployed in master provider.
 
 *   `connect_delay` (optional)
 
