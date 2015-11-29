@@ -1,6 +1,6 @@
 # Welcome to the Gluu Cluster Documentation
 
-The Gluu Cluster is a high availabiliy and high reliability solution for enterprise authoriztion and authentication.
+The Gluu Cluster is a high availability and high reliability solution for enterprise authoriztion and authentication.
 The advantages of the cluster system includes elasticity, scalability, security, and a simple management procedure.
 The procedure is made simple through the cluster management system, Gluu Flask.
 
