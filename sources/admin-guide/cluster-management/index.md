@@ -1,7 +1,7 @@
 # Cluster Management
 [TOC]
 
-The cluster packages consisting of `gluu-master`, `gluu-agent`, `gluu-flask` and `gluu-consumer` must be installed before configuring the cluster environment. Please see the [Installation Instructions](http://www.gluu.org/docs-cluster/admin-guide/installation/) for more details.
+The cluster packages consisting of `gluu-master`, `gluu-agent`, `gluu-flask` and `gluu-consumer` must be installed before configuring the cluster environment. Please see the [Installation Instructions](../installation/) for more details.
 
 ## Overview
 
@@ -134,7 +134,7 @@ The `provider_id` is required to deploy nodes, so it is best to keep the referen
     export MASTER_PROVIDER_ID=58848b94-0671-48bc-9c94-04b0351886f0
 
 The successful creation of provider follows a background job to setup internal routing through `weave`.
-It may take up-to 25 seconds to finish routing.
+It may take up-to 25 seconds to finish the routing setup.
 
 Run the following command to check if routing is ready:
 
@@ -400,7 +400,7 @@ curl http://localhost:8080/providers \
 The parameters of the command are explained below:
 
 * `hostname` is the FQDN hostname of the server/host.
-* `docker_base_url` is the Docker API URL configured after installing `gluu-master` package. It is recommended to use `https` scheme.
+* `docker_base_url` is the Docker API URL configured after installing `gluu-consumer` package. It is recommended to use `https` scheme.
 * `ssl_key` is the contents of `key.pem` (ignored in v0.4.1)
 * `ssl_cert` is the contents of `cert.pem` (ignored in v0.4.1)
 * `ca_cert` is the contents of `ca.pem` (ignored in v0.4.1)
@@ -427,7 +427,7 @@ The `provider_id` is required to deploy nodes, so it is best to keep the referen
 
 
 The successful creation of provider follows a background job to setup internal routing through `weave`.
-It may take up-to 25 seconds to finish routing.
+It may take up-to 25 seconds to finish the routing setup.
 
 Run the following command to check if routing is ready:
 
