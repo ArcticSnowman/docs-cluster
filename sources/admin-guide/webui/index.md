@@ -6,7 +6,7 @@ The web interface provides a user friendly way of using the API and managing the
 ## Installation
 The installation of the web interface is covered in the Installation Section.
 
-* [Install Web Interface Package](http://www.gluu.org/docs-cluster/admin-guide/installation/#gluu-cluster-web-interface)
+* [Install Web Interface Package](../installation/#gluu-cluster-web-interface-package)
 
 ## Accessing the Interface
 To log into the web interface, it is necessary to ssh into the master provider, as the interface is run locally and it is not facing the internet for security reasons.
@@ -20,7 +20,7 @@ Point your browser to the following address to access the webui:
 `http://localhost:<port-name`
 
 When you access the web interface, the following screen will appear.
-![overview](https://raw.githubusercontent.com/GluuFederation/docs-cluster/master/sources/img/webui_overview.png)
+![overview](../../img/webui_overview.png)
 
 ## Using the Web Interface
 ### The overview page
