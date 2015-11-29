@@ -67,74 +67,21 @@ Refer to [recovery](../recovery/index.md) page for details.
 
 ## Gluu Cluster Web Interface package
 
-The Cluster Web Interface package, gluu-webui, offers a user interface accessible via web to manage the cluster using the cluster API.
+The Cluster Web Interface package, gluu-cluster-webui, offers a user interface accessible via web to manage the cluster using the cluster API.
 
-### Installing gluu-webui
+### Installing gluu-cluster-webui
 
-Run the following commands to install gluu-webui:
+Run the following commands to install gluu-cluster-webui:
 ```
-apt-get install -y gluu-cluster-webui apache2 libapache2-mod-wsgi
-```
-
-### Configuring gluu-webui
-As `gluu-webui` is configured to run behind Apache HTTPD and `mod_wsgi`, a WSGI script must be created
-to load the application:
-
-```sh
-mkdir -p /var/www/gluuwebui
-echo 'from gluuwebui import app as application' > /var/www/gluuwebui/gluuwebui.wsgi
-```
-
-Note: binding Apache HTTPD to port 80 is discouraged since it may conflict with port used by nodes;
-hence we need to change the default port for Apache HTTPD. Modify the contents of `/etc/apache2/ports.conf` as seen below:
-
-```apache
-# /etc/apache2/ports.conf
-Listen 127.0.0.1:8800
-
-<IfModule ssl_module>
-    Listen 127.0.0.1:8443
-</IfModule>
-
-<IfModule mod_gnutls.c>
-    Listen 127.0.0.1:8443
-</IfModule>
-```
-
-Afterwards, create a virtualhost and save to `/etc/apache2/sites-available/gluuwebui_apache.conf`:
-
-```apache
-# /etc/apache2/sites-available/gluuwebui_apache.conf
-<VirtualHost 127.0.0.1:8800>
-    ServerAdmin admin@example.com
-    ServerName gluuwebui.example.com
-
-    WSGIDaemonProcess gluuwebui threads=5 display-name=%{GROUP}
-    WSGIProcessGroup gluuwebui
-
-    WSGIScriptAlias / /var/www/gluuwebui/gluuwebui.wsgi
-
-    <Directory /var/www/gluu-webui>
-        Order allow,deny
-        Allow from all
-    </Directory>
-</VirtualHost>
-```
-
-Note, the virtualhost above running in 127.0.0.1 (localhost) as currently there's no protection mechanism for `gluuwebui` application yet.
-
-After all settings have been configured, we need to restart the Apache HTTPD service:
-
-```sh
-# disable default Apache HTTPD virtualhost
+apt-get install -y gluu-cluster-webui
 a2dissite 000-default
-
-# enable gluuwebui
-a2ensite gluuwebui_apache
-
-# restart the service
 service apache2 restart
 ```
+
+There are few things we need to know about Gluu Cluster Web UI:
+
+1. The application is bind to 127.0.0.1 (localhost) as currently there's no protection mechanism yet.
+2. The application is listening on port 8800 to avoid conflict with port used by nodes.
 
 ## Gluu Cluster Consumer
 
