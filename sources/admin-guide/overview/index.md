@@ -3,7 +3,7 @@
 [TOC]
 
 Gluu Cluster promises scalability, reliability and a fail-over mechanism through its innovative design implemented using [Docker](https://www.docker.com/). The cluster server can also call a DOS service, like [DOSarrest](http://www.dosarrest.com/), enabling protection from distributed denial of service attacks.
-The cluster package deploys the Gluu Server access management suite, which is capable of authenticating and authorizing users with both the SAML and OpenID Connect protocols. We recommended trying a single Gluu Server deployment first for testing as the Cluster packages require a commercial license. 
+The cluster package deploys the Gluu Server access management suite, which is capable of authenticating and authorizing users with both the SAML and OpenID Connect protocols. We recommended trying a single Gluu Server deployment first for testing as the Cluster packages require a commercial license.
 
 An overview of the Gluu Server is available [here](http://www.gluu.org/docs/admin-guide/getting-started/).
 
@@ -11,16 +11,16 @@ An overview of the Gluu Server is available [here](http://www.gluu.org/docs/admi
 
 The Gluu Cluster has two principle compoents that are interdependent, the master and the consumer.
 The master package must be installed for the cluster to be functional, and without the master package, the consumer will not work.
-The installation instructions are available in the [Installation Docs](../getting-started/).
+The installation instructions are available in the [Installation Docs](../installation/).
 
-![image](https://raw.githubusercontent.com/GluuFederation/docs-cluster/master/sources/img/gluu-cluster-overview.png)
+![image](../../img/gluu-cluster-overview.png)
 
-The diagram above shows the design structure of Gluu Cluster. The components are held togather in a docker container, accessed using the `gluu-flask` which has a User Interface that can be used to manage the cluster. Promethius is the monitoring system for the cluster prividing real-time reports on the containers. 
+The diagram above shows the design structure of Gluu Cluster. The components are held together in various docker containers, accessed using the `gluu-flask` which has a separate User Interface that can be used to manage the cluster. Prometheus is the monitoring system for the cluster prividing real-time reports on the containers.
 
 ## Functionalities
 
 The core functionalities of the Gluu Server is available in the cluster design with a few additional features such as cluster monitoring, DDOS protection and a fail-safe system.
-The Cluster monitoring system uses Promethius for alerts and reports on the nodes in real-time.
+The Cluster monitoring system uses Prometheus for alerts and reports on the nodes in real-time.
 The cluster administrator can use the dashboard to check on the health and activity, view logs and other Gluu Server administration tasks. The Gluu Server Administration Guide is available [here](http://www.gluu.org/docs/admin-guide/introduction/).
 
 ## Components
