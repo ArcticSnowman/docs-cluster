@@ -19,6 +19,7 @@ __Form parameters:__
 *   `name` (required)
 
     The name of the cluster.
+
     Rules:
 
     * Minimum 3 characters.

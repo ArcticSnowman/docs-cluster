@@ -33,8 +33,8 @@ pages:
 - [reference/api/index.md, Reference, API]
 
 # Sub Pages of Reference / API
-- [reference/api/provider.md, hidden]
 - [reference/api/cluster.md, hidden]
+- [reference/api/provider.md, hidden]
 - [reference/api/node.md, hidden]
 - [reference/api/license_key.md, hidden]
 

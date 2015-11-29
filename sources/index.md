@@ -23,7 +23,7 @@ is planed for release 0.4 of the Gluu Clusters packages.
 
 # Reference
 - [API](./reference/api/index.md)
-  - [Node](./reference/api/node.md)
   - [Cluster](./reference/api/cluster.md)
   - [Provider](./reference/api/provider.md)
+  - [Node](./reference/api/node.md)
   - [License Key](./reference/api/license_key.md)

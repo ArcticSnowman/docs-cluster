@@ -188,8 +188,8 @@ Content-Type: application/json
         "provider_id": "58848b94-0671-48bc-9c94-04b0351886f0",
         "name": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
         "ldap_port": "1389",
-        "ldap_admin_port":
-        "4444", "ip": "172.17.0.9",
+        "ldap_admin_port": "4444",
+        "ip": "172.17.0.9",
         "ldap_binddn": "cn=directory manager",
         "ldaps_port": "1636",
         "cluster_id": "9ea4d520-bbba-46f6-b779-c29ee99d2e9e",
