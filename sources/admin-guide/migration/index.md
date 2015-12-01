@@ -2,24 +2,39 @@
 
 [TOC]
 
-## Version 0.4.1-8
+## Version 0.4.1-8 and above
+
+Changelog for v0.4.1 is available [here](https://github.com/GluuFederation/gluu-flask/blob/master/CHANGES.md#version-041).
+
+### Master provider
 
 1.  Install latest `gluu-flask` package updates:
 
         apt-get update && apt-get install -y gluu-flask
 
-2.  Remove existing ldap, oxauth, oxtrust, oxidp nodes.
+2.  Remove existing ldap, oxauth, oxtrust, and oxidp nodes.
 3.  Remove gluuopendj, gluuoxtrust, gluuoxidp, and gluuoxauth images:
 
         docker rmi gluuopendj gluuoxtrust gluuoxidp gluuoxauth
 
 4.  Re-deploy ldap, oxauth, oxidp (optional), and oxtrust nodes.
 
-Changelog for v0.4.1 is available [here](https://github.com/GluuFederation/gluu-flask/blob/master/CHANGES.md#version-041).
+### Consumer provider
+
+1.  Remove existing ldap, oxauth, and oxidp nodes.
+2.  Remove gluuopendj, gluuoxidp, and gluuoxauth images:
+
+        docker rmi gluuopendj gluuoxidp gluuoxauth
+
+3.  Re-deploy ldap, oxauth, and optionally oxidp nodes.
 
 ## Version 0.4.1
 
-1.  For master provider, update `gluu-master`, `gluu-flask`, and `gluu-agent` packages.
+Changelog for v0.4.1 is available [here](https://github.com/GluuFederation/gluu-flask/blob/master/CHANGES.md#version-041).
+
+### Master provider
+
+1.  Update `gluu-master`, `gluu-flask`, and `gluu-agent` packages.
 
         apt-get update && apt-get install -y gluu-master gluu-flask gluu-agent
 
@@ -28,7 +43,9 @@ Changelog for v0.4.1 is available [here](https://github.com/GluuFederation/gluu-
 
         service gluu-agent recover
 
-2.  For consumer provider, update `gluu-consumer` and `gluu-agent` packages.
+### Consumer provider
+
+2.  Update `gluu-consumer` and `gluu-agent` packages.
 
         apt-get update && apt-get install -y gluu-consumer gluu-agent
 
@@ -37,9 +54,9 @@ Changelog for v0.4.1 is available [here](https://github.com/GluuFederation/gluu-
 
         service gluu-agent recover
 
-Changelog for v0.4.1 is available [here](https://github.com/GluuFederation/gluu-flask/blob/master/CHANGES.md#version-041).
-
 ## Version 0.4.0
+
+Changelog for v0.4.0 is available [here](https://github.com/GluuFederation/gluu-flask/blob/master/CHANGES.md#version-040).
 
 Steps to migrate to Gluu Cluster v0.4.0:
 
@@ -63,9 +80,9 @@ Steps to migrate to Gluu Cluster v0.4.0:
 
 6.  Re-deploy ldap, oxauth, oxidp (optional), nginx, and oxtrust nodes.
 
-Changelog for v0.4.0 is available [here](https://github.com/GluuFederation/gluu-flask/blob/master/CHANGES.md#version-040).
+## Version 0.3.3-12 and above
 
-## Version 0.3.3-12
+Changelog for v0.3.3 is available [here](https://github.com/GluuFederation/gluu-flask/blob/master/CHANGES.md#version-033).
 
 Steps to migrate to Gluu Cluster v0.3.3-12:
 
@@ -74,5 +91,3 @@ Steps to migrate to Gluu Cluster v0.3.3-12:
 3.  Remove gluuoxauth and gluuoxtrust images via `docker rmi` command.
 4.  Re-deploy ldap, oxauth, httpd, and oxtrust nodes.
 5.  Install gluu-agent: `apt-get update && apt-get install gluu-agent`.
-
-Changelog for v0.3.3 is available [here](https://github.com/GluuFederation/gluu-flask/blob/master/CHANGES.md#version-033).
