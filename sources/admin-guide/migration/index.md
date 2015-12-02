@@ -58,7 +58,7 @@ Changelog for v0.4.1 is available [here](https://github.com/GluuFederation/gluu-
 
 Changelog for v0.4.0 is available [here](https://github.com/GluuFederation/gluu-flask/blob/master/CHANGES.md#version-040).
 
-Steps to migrate to Gluu Cluster v0.4.0:
+### Master provider
 
 1.  Update `gluu-flask`, `gluu-agent` and `weave` packages:
 
@@ -72,13 +72,39 @@ Steps to migrate to Gluu Cluster v0.4.0:
 
         weave setup
 
-4.  Remove existing ldap, oxauth, httpd and oxtrust nodes (containers).
+4.  Update master provider data via REST API/Web UI.
 
-5.  Remove gluuopendj, gluuoxtrust, and gluuoxauth images:
+5.  Remove existing ldap, oxauth, httpd and oxtrust nodes (containers).
+
+6.  Remove gluuopendj, gluuoxtrust, and gluuoxauth images:
 
         docker rmi gluuopendj gluuoxtrust gluuoxauth
 
-6.  Re-deploy ldap, oxauth, oxidp (optional), nginx, and oxtrust nodes.
+7.  Re-deploy ldap, oxauth, oxidp (optional), nginx, and oxtrust nodes.
+
+### Consumer provider
+
+1.  Update `gluu-agent` and `weave` packages:
+
+        apt-get update && apt-get install -y gluu-agent weave
+
+2.  Remove old weave container:
+
+        docker rm -f weave
+
+3.  Update weave image:
+
+        weave setup
+
+4.  Update consumer provider data via REST API/Web UI.
+
+5.  Remove existing ldap, oxauth, and httpd nodes (containers).
+
+6.  Remove gluuopendj and gluuoxauth images:
+
+        docker rmi gluuopendj gluuoxauth
+
+7.  Re-deploy ldap, oxauth, oxidp (optional), and nginx nodes.
 
 ## Version 0.3.3-12 and above
 
