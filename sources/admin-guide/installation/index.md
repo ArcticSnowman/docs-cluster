@@ -3,6 +3,17 @@
 
 The Gluu Cluster is supported for Ubuntu for now. There are three packages that completes the cluster; the master, the consumer and the cluster API. The master package and the cluster API must be installed in the same host. The consumer package is not necessary for a single server installation. There is one additional package, gluu-webui, that provides a user friendly way of using the API and managing the cluster.
 
+## Prerequisites
+
+Cluster requires at least kernel 3.10 at minimum. We can check whether we're using supported kernel.
+
+    uname -r
+
+Also it’s recommended to install the linux-image-extra kernel package. The linux-image-extra package allows us to use the aufs storage driver for docker engine.
+
+    apt-get update
+    apt-get install linux-image-extra-$(uname -r)
+
 ## Gluu Cluster Master
 
 There are various components that make the cluster possible. The components are listed in the [components](../components/) page. The components are packaged into a single `deb` package to minimize the complexity of the situation. The package is named `gluu-master`.
