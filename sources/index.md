@@ -14,7 +14,6 @@ is planed for release 0.4 of the Gluu Clusters packages.
 - [Getting Started](./admin-guide/getting-started/index.md)
 - [Installation](./admin-guide/installation/index.md)
 - [Cluster Management](./admin-guide/cluster-management/index.md)
-- [Overview](./admin-guide/overview/index.md)
 - [Components](./admin-guide/components/index.md)
 - [Web Interface](./admin-guide/webui/index.md)
 - [Troubleshooting](./admin-guide/troubleshooting/index.md)
