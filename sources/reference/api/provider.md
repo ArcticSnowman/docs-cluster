@@ -59,9 +59,6 @@ __Request example:__
 curl http://localhost:8080/providers \
     -d hostname=master-host \
     -d docker_base_url='https://128.199.198.172:2375' \
-    -d ssl_key='multi-line contents of key.pem' \
-    -d ssl_cert='multi-line contents of cert.pem' \
-    -d ca_cert='multi-line contents of ca.pem' \
     -d type='master' \
     -X POST -i
 ```
@@ -98,9 +95,7 @@ __Request example:__
 curl http://localhost:8080/providers \
     -d hostname=consumer-host \
     -d docker_base_url='128.199.198.173:2375' \
-    -d ssl_key='multi-line contents of key.pem' \
-    -d ssl_cert='multi-line contents of cert.pem' \
-    -d ca_cert='multi-line contents of ca.pem' \
+    -d type=consumer \
     -X POST -i
 ```
 
@@ -284,9 +279,6 @@ __Request example:__
 curl http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518677 \
     -d hostname=master-host \
     -d docker_base_url='https://128.199.198.172:2375' \
-    -d ssl_key='multi-line contents of key.pem' \
-    -d ssl_cert='multi-line contents of cert.pem' \
-    -d ca_cert='multi-line contents of ca.pem' \
     -X PUT -i
 ```
 
@@ -312,9 +304,6 @@ __Request example:__
 curl http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518678 \
     -d hostname=consumer-host \
     -d docker_base_url='128.199.198.173:2375' \
-    -d ssl_key='multi-line contents of key.pem' \
-    -d ssl_cert='multi-line contents of cert.pem' \
-    -d ca_cert='multi-line contents of ca.pem' \
     -X PUT -i
 ```
 

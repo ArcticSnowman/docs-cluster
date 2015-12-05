@@ -84,23 +84,12 @@ A provider must be registered after creating the cluster.
 This creates the entity in the `gluu-flask` JSON database to let the  API's know where to deploy the instances.
 The `postinstall.py` script generates TLS certificates which are stored in `/etc/docker` directory.
 
-If we are using Gluu Cluster v0.4.0 or below, the contents of the following files should be copied for later use:
-
-* `/etc/docker/ca.pem` (CA certificate)
-* `/etc/docker/cert.pem` (TLS certificate)
-* `/etc/docker/key.pem`: (TLS certificate key)
-
-Starting from v0.4.1, we don't need to know those file contents as the API takes care the certificates and keys behind the scene.
-
 The following command registers a provider using `curl`.
 
 ```
 curl http://localhost:8080/providers \
     -d hostname=gluu.example.com \
     -d docker_base_url='https://128.199.242.74:2375' \
-    -d ssl_key='multi-line contents of key.pem' \
-    -d ssl_cert='multi-line contents of cert.pem' \
-    -d ca_cert='multi-line contents of ca.pem' \
     -d type='master' \
     -X POST -i
 ```
@@ -109,9 +98,6 @@ The parameters of the command are explained below:
 
 * `hostname` is the FQDN hostname of the server/host.
 * `docker_base_url` is the Docker API URL configured after installing `gluu-master` package. It is recommended to use `https` scheme.
-* `ssl_key` is the contents of `key.pem` (ignored in v0.4.1)
-* `ssl_cert` is the contents of `cert.pem` (ignored in v0.4.1)
-* `ca_cert` is the contents of `ca.pem` (ignored in v0.4.1)
 * `type` is the provider type (either `master` or `consumer`)
 
 A successful request returns a HTTP 201 status code:
@@ -376,23 +362,12 @@ A consumer provider can be registered after the installation of the cluster and 
 It's worth noting that consumer provider should be hosted in another server (separated from master provider).
 As usual, the `postinstall.py` script generates TLS certificates which are stored in `/etc/docker` directory.
 
-If we are using Gluu Cluster v0.4.0 or below, the contents of the following files should be copied for later use:
-
-* `/etc/docker/ca.pem` (CA certificate)
-* `/etc/docker/cert.pem` (TLS certificate)
-* `/etc/docker/key.pem`: (TLS certificate key)
-
-Starting from v0.4.1, we don't need to know those file contents as the API takes care the certificates and keys behind the scene.
-
 The following command registers a provider using `curl`.
 
 ```
 curl http://localhost:8080/providers \
     -d hostname=gluu2.example.com \
     -d docker_base_url='https://128.199.242.75:2375' \
-    -d ssl_key='multi-line contents of key.pem' \
-    -d ssl_cert='multi-line contents of cert.pem' \
-    -d ca_cert='multi-line contents of ca.pem' \
     -d type='consumer' \
     -X POST -i
 ```
@@ -401,9 +376,6 @@ The parameters of the command are explained below:
 
 * `hostname` is the FQDN hostname of the server/host.
 * `docker_base_url` is the Docker API URL configured after installing `gluu-consumer` package. It is recommended to use `https` scheme.
-* `ssl_key` is the contents of `key.pem` (ignored in v0.4.1)
-* `ssl_cert` is the contents of `cert.pem` (ignored in v0.4.1)
-* `ca_cert` is the contents of `ca.pem` (ignored in v0.4.1)
 * `type` is the provider type (either `master` or `consumer`)
 
 A successful request returns a HTTP 201 status code:
