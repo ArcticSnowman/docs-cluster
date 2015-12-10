@@ -31,7 +31,7 @@ The components are listed in the [components page](../components/#components).
 ## License
 There are 3 available licenses for Gluu Cluster deployment:
 
-1. E-Commerce: This license allows a cluster deployed in two separate locations or virtual machines from two different vendors. An example would be a cluster with its master package deployed in Amazon and the consumer deployed in Rackspace. For more information on pricing please go to [Gluu Pricing](http://www.gluu.org/gluu-server/pricing/).
+1. E-Commerce: This license allows a cluster deployed in two separate locations or virtual machines from two different vendors. An example would be a cluster with its master package deployed in Amazon and the consumer deployed in Rackspace. For pricing information please [schedule a meeting](http://www.gluu.org/booking).
 
 2. Premium: This package allows the cluster to be deployed to five (5) locations or virtual machines. The premium package also includes Premium Support. The details are given in the [Gluu Pricing](http://www.gluu.org/gluu-server/pricing/) page.
 
