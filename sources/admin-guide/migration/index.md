@@ -2,6 +2,61 @@
 
 [TOC]
 
+## Version 0.4.2
+
+Changelog for v0.4.2 is available [here](https://github.com/GluuFederation/gluu-flask/blob/master/CHANGES.md#version-042).
+
+### Master provider
+
+1.  Install latest `gluu-flask` and `gluu-agent` package updates:
+
+        apt-get update && apt-get install -y gluu-flask gluu-agent
+
+2.  Remove oxauth, oxidp (if any), and nginx nodes.
+3.  Remove gluuoxauth, gluuoxidp, and gluunginx images.
+
+        docker rmi gluuoxauth gluuoxidp gluunginx
+
+4.  Re-deploy oxauth, nginx, and oxidp (optional) nodes.
+5.  Login to ldap node:
+
+        docker exec -ti $node_id bash
+
+    Afterwards, add new config:
+
+        /opt/opendj/bin/dsconfig \
+            --trustAll \
+            --no-prompt \
+            --bindDN 'cn=Directory Manager' \
+            --bindPassword $passwd \
+            set-global-configuration-prop --set reject-unauthenticated-requests:true
+
+
+### Consumer provider
+
+1.  Install latest `gluu-agent` package updates:
+
+        apt-get update && apt-get install -y gluu-agent
+
+2.  Remove oxauth, oxidp (if any), and nginx nodes.
+3.  Remove gluuoxauth, gluuoxidp, and gluunginx images.
+
+        docker rmi gluuoxauth gluuoxidp gluunginx
+
+4.  Re-deploy oxauth, nginx, and oxidp (optional) nodes.
+5.  Login to ldap node:
+
+        docker exec -ti $node_id bash
+
+    Afterwards, add new config:
+
+        /opt/opendj/bin/dsconfig \
+            --trustAll \
+            --no-prompt \
+            --bindDN 'cn=Directory Manager' \
+            --bindPassword $passwd \
+            set-global-configuration-prop --set reject-unauthenticated-requests:true
+
 ## Version 0.4.1-8 and above
 
 Changelog for v0.4.1 is available [here](https://github.com/GluuFederation/gluu-flask/blob/master/CHANGES.md#version-041).

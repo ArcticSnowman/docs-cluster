@@ -174,9 +174,9 @@ The deployment of nodes can be done after the creation of Cluster and Provider e
 
 2. `oxauth` oxAuth Node
 
-3. optional `oxidp` oxIDP Node
+3. `nginx` nginx Node
 
-4. `nginx` nginx Node
+4. optional `oxidp` oxIDP Node
 
 5. `oxtrust` oxTrust Node
 
@@ -236,6 +236,31 @@ Alternatively, the following command can be used periodically to check the deplo
 curl http://localhost:8080/nodes/<node-name>
 ```
 
+#### nginx Node
+Run the following command to deploy the nginx node:
+
+```sh
+curl http://localhost:8080/nodes \
+    -d provider_id=$MASTER_PROVIDER_ID \
+    -d cluster_id=$CLUSTER_ID \
+    -d node_type=nginx \
+    -X POST -i
+```
+
+A successful request returns a HTTP 202 status code. Note the node name from the code.
+The progress of deployment can be followed by tailing the log.
+Run the following command to tail the log file:
+
+```
+tail -F /var/log/gluu/<node-name>-setup.log
+```
+
+Alternatively, the following command can be used periodically to check the deployment of the node:
+
+```
+curl http://localhost:8080/nodes/<node-name>
+```
+
 #### oxIdp Node (optional)
 Run the following command to deploy oxIdp node:
 
@@ -262,31 +287,6 @@ curl http://localhost:8080/nodes/<node-name>
 ```
 
 To generate default IdP and SP metadata, we need to deploy oxtrust node after deploying oxidp node.
-
-#### nginx Node
-Run the following command to deploy the nginx node:
-
-```sh
-curl http://localhost:8080/nodes \
-    -d provider_id=$MASTER_PROVIDER_ID \
-    -d cluster_id=$CLUSTER_ID \
-    -d node_type=nginx \
-    -X POST -i
-```
-
-A successful request returns a HTTP 202 status code. Note the node name from the code.
-The progress of deployment can be followed by tailing the log.
-Run the following command to tail the log file:
-
-```
-tail -F /var/log/gluu/<node-name>-setup.log
-```
-
-Alternatively, the following command can be used periodically to check the deployment of the node:
-
-```
-curl http://localhost:8080/nodes/<node-name>
-```
 
 #### oxTrust Node
 Run the following command to deploy oxTrust node:
@@ -452,9 +452,9 @@ The deployment of nodes can be done after the creation of Cluster and Provider e
 
 2. `oxauth` oxAuth Node
 
-3. optional `oxidp` oxIDP Node
+3. `nginx` nginx Node
 
-4. `nginx` nginx Node
+4. optional `oxidp` oxIDP Node
 
 #### LDAP Node
 
@@ -513,6 +513,31 @@ Alternatively, the following command can be used periodically to check the deplo
 curl http://localhost:8080/nodes/<node-name>
 ```
 
+#### nginx Node
+Run the following command to deploy the nginx node:
+
+```sh
+curl http://localhost:8080/nodes \
+    -d provider_id=$CONSUMER_PROVIDER_ID \
+    -d cluster_id=$CLUSTER_ID \
+    -d node_type=nginx \
+    -X POST -i
+```
+
+A successful request returns a HTTP 202 status code. Note the node name from the code.
+The progress of deployment can be followed by tailing the log.
+Run the following command to tail the log file:
+
+```
+tail -F /var/log/gluu/<node-name>-setup.log
+```
+
+Alternatively, the following command can be used periodically to check the deployment of the node:
+
+```
+curl http://localhost:8080/nodes/<node-name>
+```
+
 #### oxIdp Node (optional)
 Run the following command to deploy oxIdp node:
 
@@ -538,30 +563,6 @@ Alternatively, the following command can be used periodically to check the deplo
 curl http://localhost:8080/nodes/<node-name>
 ```
 
-#### nginx Node
-Run the following command to deploy the nginx node:
-
-```sh
-curl http://localhost:8080/nodes \
-    -d provider_id=$CONSUMER_PROVIDER_ID \
-    -d cluster_id=$CLUSTER_ID \
-    -d node_type=nginx \
-    -X POST -i
-```
-
-A successful request returns a HTTP 202 status code. Note the node name from the code.
-The progress of deployment can be followed by tailing the log.
-Run the following command to tail the log file:
-
-```
-tail -F /var/log/gluu/<node-name>-setup.log
-```
-
-Alternatively, the following command can be used periodically to check the deployment of the node:
-
-```
-curl http://localhost:8080/nodes/<node-name>
-```
 ## Local DNS Server
 
 Starting from v0.4.0, Gluu Cluster uses its own local DNS server to provide service discovery between containers (nodes).

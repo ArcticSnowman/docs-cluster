@@ -27,13 +27,13 @@ __Form parameters:__
 *   `node_type` (required)
 
     Node type (currently only supports `ldap`, `oxauth`, `oxtrust`, `nginx`, and `oxidp`).
-    Note, to create a clustered nodes successfully, the nodes must be created
+    Note, to create a clustered nodes successfully, the nodes __should__ be created
     in following order:
 
     1. `ldap`
     2. `oxauth`
-    3. `oxidp` (optional; required if we want to use SAML)
-    4. `nginx`
+    3. `nginx`
+    4. `oxidp` (optional; required if we want to use SAML)
     5. `oxtrust`
 
     There are few rules about nodes:
