@@ -356,20 +356,16 @@ curl http://localhost:8080/license_keys \
 
 Here's an example of the output from request above:
 
-    [
-        {
-            "code": "your-code",
-            "id": "3bade490-defe-477d-8146-be0f621940ed",
-            "license_password": "your-license-password",
-            "name": "testing",
-            "public_key": "your-public-key",
-            "public_password": "your-public-password",
-            "metadata": {},
-            "valid": false
-        }
-    ]
-
-
+    {
+        "code": "your-code",
+        "id": "3bade490-defe-477d-8146-be0f621940ed",
+        "license_password": "your-license-password",
+        "name": "testing",
+        "public_key": "your-public-key",
+        "public_password": "your-public-password",
+        "metadata": {},
+        "valid": false
+    }
 
 Note, `public_key`, `public_password`, and `license_password` must use one-liner values.
 Also it's worth noting that `metadata` is still empty and `valid` is set to `false` after adding license key.
