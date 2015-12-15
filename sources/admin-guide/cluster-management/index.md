@@ -354,7 +354,27 @@ curl http://localhost:8080/license_keys \
     -X POST -i
 ```
 
+Here's an example of the output from request above:
+
+    [
+        {
+            "code": "your-code",
+            "id": "3bade490-defe-477d-8146-be0f621940ed",
+            "license_password": "your-license-password",
+            "name": "testing",
+            "public_key": "your-public-key",
+            "public_password": "your-public-password",
+            "metadata": {},
+            "valid": false
+        }
+    ]
+
+
+
 Note, `public_key`, `public_password`, and `license_password` must use one-liner values.
+Also it's worth noting that `metadata` is still empty and `valid` is set to `false` after adding license key.
+These 2 keys will be populated after registering first consumer provider.
+
 For details on how to register a license key, refer to [License Key API](../../reference/api/license_key/) page.
 
 ### Registering Consumer Provider
@@ -444,6 +464,47 @@ $ weave status
        Entries: 5
 
 ```
+
+Before deploying any node in consumer provider, we need to check whether license key is valid.
+Any request to deploy node in any consumer provider will be rejected if license key is invalid.
+
+We can use this command to check the license:
+
+    curl -i http://localhost:8080/license_keys
+
+Here's an example of output from request above:
+
+    [
+        {
+            "code": "your-code",
+            "id": "3bade490-defe-477d-8146-be0f621940ed",
+            "license_password": "your-license-password",
+            "name": "testing",
+            "public_key": "your-public-key",
+            "public_password": "your-public-password",
+            "metadata": {
+                "expiration_date": null,
+                "license_count_limit": 20,
+                "license_features": [
+                    "gluu_server"
+                ],
+                "license_name": "testing-license",
+                "license_type": null,
+                "multi_server": true,
+                "thread_count": 3
+            },
+            "valid": true
+        }
+    ]
+
+As we can see, as `valid` key is set to `true` and `metadata` key is not set to `null` or `{}`,
+we can guarantee that the license key is valid.
+
+However there are circumtances when `valid` and `metadata` keys are not populated correctly.
+The most common issue is license key having incorrect data
+(either `public_key`, `license_password`,`public_password`, or `code` attribute).
+To fix them, we can update the data via [License Key API](../../reference/api/license_key#update-a-license-key).
+
 
 ### Deploying Nodes
 The deployment of nodes can be done after the creation of Cluster and Provider entities. The nodes are interdependent, it's recommended to deploy them in the following order
