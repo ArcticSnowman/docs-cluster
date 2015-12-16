@@ -1,7 +1,7 @@
 # Welcome to the Gluu Enterprise Edition Documentation
 
 The Gluu Enterprise Edition is a high availability and high reliability solution for enterprise authoriztion and authentication.
-The advantages of Enterprise Edition includes elasticity, scalability, security, and a simple management procedure.
+The advantages of Enterprise Edition include elasticity, scalability, security, and a simple management procedure.
 The procedure is made simple through the Enterprise Edition management system, Gluu Flask.
 
 The Gluu Server Enterprise Edition is divided into two packages identified as "master" and "consumer". The "master" package is offered free and the "consumer" package requires a commercial license.
