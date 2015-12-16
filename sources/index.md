@@ -1,13 +1,12 @@
-# Welcome to the Gluu Cluster Documentation
+# Welcome to the Gluu Enterprise Edition Documentation
 
-The Gluu Cluster is a high availability and high reliability solution for enterprise authoriztion and authentication.
-The advantages of the cluster system includes elasticity, scalability, security, and a simple management procedure.
-The procedure is made simple through the cluster management system, Gluu Flask.
+The Gluu Enterprise Edition is a high availability and high reliability solution for enterprise authoriztion and authentication.
+The advantages of Enterprise Edition includes elasticity, scalability, security, and a simple management procedure.
+The procedure is made simple through the Enterprise Edition management system, Gluu Flask.
 
-The Gluu Server Cluster is divided into two packages identified as "master" and "consumer". The "master" package is offered free and the "consumer" package requires a commercial license.
+The Gluu Server Enterprise Edition is divided into two packages identified as "master" and "consumer". The "master" package is offered free and the "consumer" package requires a commercial license.
 
-**Note:** currently the Cluster Edition only supports oxAuth, oxTrust and LDAP. Support for the Shibboleth IDP
-is planed for release 0.4 of the Gluu Clusters packages.
+**Note:** currently Enterprise Edition includes the Shibboleth IDP, oxAuth, oxTrust and LDAP. 
 
 # Admin Guide
 - [Overview](./admin-guide/overview/index.md)
