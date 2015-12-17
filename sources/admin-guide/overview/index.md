@@ -23,9 +23,28 @@ The core functionalities of the Gluu Server is available in the cluster design w
 The Cluster monitoring system uses Prometheus for alerts and reports on the nodes in real-time.
 The cluster administrator can use the dashboard to check on the health and activity, view logs and other Gluu Server administration tasks. The Gluu Server Administration Guide is available [here](http://www.gluu.org/docs/admin-guide/introduction/).
 
+## Supported Operating Systems
+
+The following __64-bit__ operating systems are supported by cluster:
+
+* Ubuntu Trusty (14.04)
+
+_Note_:
+
+* 32-bit operating systems are __not__ supported.
+* At least kernel 3.10 at minimum.
+
+## Hardware Requirements
+
+At minimum, the recommended resources for each server in cluster are:
+
+* 4 CPU Units
+* 8 GB of RAM
+* 40 GB of disk space
+
 ## Components
 
-The Gluu Cluster takes advantage of the latest free, open-source, components which work togather to provide a hickup-free cluster environment.
+The Gluu Cluster takes advantage of the latest free, open-source, components which work together to provide a hickup-free cluster environment.
 The components are listed in the [components page](../components/#components).
 
 ## License
