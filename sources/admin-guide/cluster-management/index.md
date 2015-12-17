@@ -84,11 +84,18 @@ A provider must be registered after creating the cluster.
 This creates the entity in the `gluu-flask` JSON database to let the  API's know where to deploy the instances.
 The `postinstall.py` script generates TLS certificates which are stored in `/etc/docker` directory.
 
+There are few things we need to check before registering the provider.
+
+1.  Grab the actual server hostname. We can use `hostname -f` command. In this example, we have `gluu-master` as the server hostname.
+2.  Since Gluu Cluster relies on salt, we need to double check whether salt uses the same hostname as seen in step 1.
+    We can use `cat /etc/salt/minion_id` command. If the command returns `gluu-master` as well, we are safe to proceed to provider registration.
+    If it's not, use value from `/etc/salt/minion_id` as provider hostname.
+
 The following command registers a provider using `curl`.
 
 ```
 curl http://localhost:8080/providers \
-    -d hostname=gluu.example.com \
+    -d hostname=gluu-master \
     -d docker_base_url='https://128.199.242.74:2375' \
     -d type='master' \
     -X POST -i
@@ -109,7 +116,7 @@ Location: http://localhost:8080/providers/58848b94-0671-48bc-9c94-04b0351886f0
 
 {
     "docker_base_url": "https://128.199.242.74:2375",
-    "hostname": "gluu.example.com",
+    "hostname": "gluu-master",
     "id": "58848b94-0671-48bc-9c94-04b0351886f0",
     "type": "master"
 }
@@ -148,7 +155,7 @@ $ weave status
 
        Service: router
       Protocol: weave 1..2
-          Name: d6:5f:eb:ea:b7:03(gluu.example.com)
+          Name: d6:5f:eb:ea:b7:03(gluu-master)
     Encryption: enabled
  PeerDiscovery: enabled
        Targets: 0
@@ -362,11 +369,18 @@ A consumer provider can be registered after the installation of the cluster and 
 It's worth noting that consumer provider should be hosted in another server (separated from master provider).
 As usual, the `postinstall.py` script generates TLS certificates which are stored in `/etc/docker` directory.
 
+There are few things we need to check before registering the provider.
+
+1.  Grab the actual server hostname. We can use `hostname -f` command. In this example, we have `gluu-consumer` as the server hostname.
+2.  Since Gluu Cluster relies on salt, we need to double check whether salt uses the same hostname as seen in step 1.
+    We can use `cat /etc/salt/minion_id` command. If the command returns `gluu-consumer` as well, we are safe to proceed to provider registration.
+    If it's not, use value from `/etc/salt/minion_id` as provider hostname.
+
 The following command registers a provider using `curl`.
 
 ```
 curl http://localhost:8080/providers \
-    -d hostname=gluu2.example.com \
+    -d hostname=gluu-consumer \
     -d docker_base_url='https://128.199.242.75:2375' \
     -d type='consumer' \
     -X POST -i
@@ -387,7 +401,7 @@ Location: http://localhost:8080/providers/58848b94-0671-48bc-9c94-04b0351886f1
 
 {
     "docker_base_url": "https://128.199.242.75:2375",
-    "hostname": "gluu2.example.com",
+    "hostname": "gluu-consumer",
     "id": "58848b94-0671-48bc-9c94-04b0351886f1",
     "type": "consumer"
 }
@@ -426,7 +440,7 @@ $ weave status
 
        Service: router
       Protocol: weave 1..2
-          Name: d6:5f:eb:ea:b7:04(gluu2.example.com)
+          Name: d6:5f:eb:ea:b7:04(gluu-consumer)
     Encryption: enabled
  PeerDiscovery: enabled
        Targets: 0
