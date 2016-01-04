@@ -40,7 +40,7 @@ At minimum, the recommended resources for each server in cluster are:
 
 * 4 CPU Units
 * 8 GB of RAM
-* 40 GB of disk space
+* 80 GB of disk space
 
 ## Components
 
