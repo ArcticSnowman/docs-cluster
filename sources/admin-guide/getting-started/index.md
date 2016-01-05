@@ -10,6 +10,35 @@ The Gluu Cluster is divided into three separate packages, the master package,the
 The consumer package and the cluster API is dependent on the master package to function, therefore the master package must be installed first.
 The deployment section will cover some basics of installation; for a detailed installation guide please see the [Installation Doc](../installation/)
 
+## Preparing VM
+Cluster installation requires some ports to be accessible by the services and components required.
+
+### External Ports
+External ports can alse be called 'internet-facing' ports that are open to the world or internet.
+
+
+|	Port Protocol	|	Port Number	|	Service		|
+|-----------------------|-----------------------|-----------------------|
+|	TCP		|	80		|	Web Frontend	|
+|	TCP		|	443		|	Web Frontend	|
+
+
+### Internal Ports
+Internal ports are the specific port requirements for the different componenets of the Cluster setup.
+
+
+|	Port Protocol	|	Port Number	|	Service		|
+|-----------------------|-----------------------|-----------------------|
+|	TCP		|	2375		|	Docker Daemon	|
+|	TCP		|	4506 & 4505	|	Salt		|
+|	TCP		|	8800		|	Gluu-webui	|
+|	TCP		|	8080		|	Gluu-flask	|
+|	TCP		|	8443		|	oxTrust GUI	|
+|	TCP		|	9090		|	Prometheus	|
+|	TCP & UDP	|	6783		|	Weave		|
+|	TCP & UDP	|	53		|	Weave DNS	|
+
+
 ## Deployment
 
 ### Cluster Master Package
