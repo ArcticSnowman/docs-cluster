@@ -5,6 +5,8 @@ The Gluu Cluster is supported for Ubuntu for now. There are three packages that 
 
 ## Prerequisites
 
+### Minimum Linux Kernel
+
 Cluster requires at least kernel 3.10 at minimum. We can check whether we're using supported kernel.
 
     uname -r
@@ -13,6 +15,51 @@ Also it’s recommended to install the linux-image-extra kernel package. The lin
 
     apt-get update
     apt-get install linux-image-extra-$(uname -r)
+
+### Available Entropy
+
+In some virtual machines hosted at cloud providers, oxAuth/oxTrust/oxIdp may have a slow start due to insufficient entropy.
+To check available entropy, we can use the following command:
+
+    cat /proc/sys/kernel/random/entropy_avail
+
+If the number returned from the command is above 3000, we can __skip__ this section.
+Otherwise, we need to feed the entropy with other tools.
+
+One of the tools that we can use is `rng-tools`. It's available from Ubuntu repository:
+
+    apt-get install rng-tools
+
+We will probably see the following error:
+
+    Starting Hardware RNG entropy gatherer daemon: (failed).
+    invoke-rc.d: initscript rng-tools, action "start" failed.
+
+We can fix it by modifying HRNGDEVICE in `/etc/default/rng-tools`.
+
+    # Configuration for the rng-tools initscript
+    # $Id: rng-tools.default,v 1.1.2.5 2008-06-10 19:51:37 hmh Exp $
+
+    # This is a POSIX shell fragment
+
+    # Set to the input source for random data, leave undefined
+    # for the initscript to attempt auto-detection.  Set to /dev/null
+    # for the viapadlock driver.
+    #HRNGDEVICE=/dev/hwrng
+    #HRNGDEVICE=/dev/null
+    HRNGDEVICE=/dev/urandom
+
+Afterwards, restart the rng-tools service:
+
+    service rng-tools restart
+
+After rng-tools service is running successfully, we can check the available entropy again.
+
+    cat /proc/sys/kernel/random/entropy_avail
+
+The number returned from the command above is around 3000.
+From this point, we can say that we have enough entropy required
+by oxAuth/oxTrust/oxIdp to start properly.
 
 ## Gluu Cluster Master
 
