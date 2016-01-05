@@ -244,6 +244,13 @@ curl http://localhost:8080/nodes/<node-name>
 ```
 
 #### nginx Node
+
+Starting from v0.4.2, we can use signed SSL certificates instead of self-signed certificates (the ones that generated during nginx node deployment).
+Assuming we have `domain.crt` and `domain.key` certificate/key files, we need to copy them to predefined paths in master provider.
+
+1. Copy `domain.crt` to `/var/lib/gluu-cluster/ssl_certs/nginx.cert` (create the `/var/lib/gluu-cluster/ssl_certs` directory if not exist).
+2. Copy `domain.key` to `/var/lib/gluu-cluster/ssl_certs/nginx.key`.
+
 Run the following command to deploy the nginx node:
 
 ```sh
