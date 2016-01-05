@@ -11,6 +11,10 @@ Gluu-flask is a [flask](http://flask.pocoo.org/) application that publishes API'
 Gluu Agent is a Python library consists of various commands to ensure provider is reachable within cluster. One of its notable features
 is self-recovery that automatically executed after server reboot.
 
+## Gluu Cluster UI
+
+Gluu Cluster UI is a Python application that can be used to manage the cluster through web-based User Interface.
+
 ## Docker
 
 [Docker](https://www.docker.com/) is a container service "that can package an application and its dependencies in a virtual container that can run on any Linux server. This helps enable flexibility and portability on where the application can run, whether on premises, public cloud, private cloud, bare metal, etc."<cite>[1]</cite>
