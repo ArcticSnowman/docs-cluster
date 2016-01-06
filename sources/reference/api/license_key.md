@@ -6,11 +6,11 @@ License key represents an entity to manage keys for license bought from Gluu Inc
 
 ### Create New License Key
 
-`POST /license_keys`
+    POST /license_keys
 
 __URL:__
 
-`http://localhost:8080/license_keys`
+    http://localhost:8080/license_keys
 
 Form parameters:
 
@@ -83,11 +83,11 @@ __Status Code:__
 
 ### Get A License key
 
-`GET /license_keys/{id}`
+    GET /license_keys/{id}
 
 __URL:__
 
-`http://localhost:8080/license_keys/{id}`
+    http://localhost:8080/license_keys/{id}
 
 __Request example:__
 
@@ -133,11 +133,11 @@ __Status Code:__
 
 ### List All License Keys
 
-`GET /license_keys`
+    GET /license_keys
 
 __URL:__
 
-`http://localhost:8080/license_keys`
+    http://localhost:8080/license_keys
 
 __Request example:__
 
@@ -186,11 +186,11 @@ __Status Code:__
 
 ### Update A License Key
 
-`PUT /license_keys/{id}`
+    PUT /license_keys/{id}
 
 __URL:__
 
-`http://localhost:8080/license_keys/{id}`
+    http://localhost:8080/license_keys/{id}
 
 Form parameters:
 
@@ -266,11 +266,11 @@ __Status Code:__
 
 ### Delete A License Key
 
-`DELETE /license_keys/{id}`
+    DELETE /license_keys/{id}
 
 __URL:__
 
-`http://localhost:8080/license_keys/{id}`
+    http://localhost:8080/license_keys/{id}
 
 __Request example:__
 

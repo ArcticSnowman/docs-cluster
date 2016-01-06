@@ -8,14 +8,14 @@ Gluu Cluster Consumer.
 
 ### Create New Provider
 
-`POST /providers`
+    POST /providers
 
 NOTE: make sure `docker`, `salt-minion`, and `weave` have been [installed and configured](../../admin-guide/installation/index.md). Also, a cluster must be created beforehand.
 
 
 __URL:__
 
-`http://localhost:8080/providers`
+    http://localhost:8080/providers
 
 __Form parameters:__
 
@@ -126,11 +126,11 @@ __Status Code:__
 
 ### Get A Provider
 
-`GET /providers/{id}`
+    GET /providers/{id}
 
 __URL:__
 
-`http://localhost:8080/providers/{id}`
+    http://localhost:8080/providers/{id}
 
 __Request example:__
 
@@ -162,11 +162,11 @@ __Status Code:__
 
 ### List All Providers
 
-`GET /providers`
+    GET /providers
 
 __URL:__
 
-`http://localhost:8080/providers`
+    http://localhost:8080/providers
 
 __Request example:__
 
@@ -207,11 +207,11 @@ __Status Code:__
 
 ### Delete A Provider
 
-`DELETE /providers/{id}`
+    DELETE /providers/{id}
 
 __URL:__
 
-`http://localhost:8080/providers/{id}`
+    http://localhost:8080/providers/{id}
 
 __Request example:__
 
@@ -237,11 +237,11 @@ __Status Code:__
 
 ### Update A Provider
 
-`PUT /providers/{id}`
+    PUT /providers/{id}
 
 __URL:__
 
-`http://localhost:8080/providers/{id}`
+    http://localhost:8080/providers/{id}
 
 __Form parameters:__
 
