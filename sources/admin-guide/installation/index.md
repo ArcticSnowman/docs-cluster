@@ -80,13 +80,13 @@ A script called the `postinstall.py` should be downloaded and run to configure t
 
 Run the following command to download the script:
 
-`wget https://raw.githubusercontent.com/GluuFederation/gluu-cluster-postinstall/master/postinstall.py`
+    wget https://raw.githubusercontent.com/GluuFederation/gluu-cluster-postinstall/master/postinstall.py
 
 Make a note of the IP address of the master package as it will be used in the script. Run the script using the following command:
 
-`python postinstall.py`
+    python postinstall.py
 
-3. Enter the values asked by the prompt when the script is run, and press enter to continue. An example of the script's prompt is given below:
+Enter the values asked by the prompt when the script is run, and press enter to continue. An example of the script's prompt is given below:
 
 ```
 root@gluu-master:~# python postinstall.py
@@ -102,7 +102,8 @@ Re-type password for TLS certificate:
 The cluster API, `gluu-flask` must be installed in the same host as gluu-master.
 
 Run the following command to install gluu-flask:
-`apt-get install -y gluu-flask`
+
+    apt-get install -y gluu-flask
 
 The command will install a daemon which is automatically started by init script. There are a few commands that are available for gluu-flask. The available commands are
 
@@ -158,11 +159,11 @@ A script called the `postinstall.py` should be downloaded and run to configure t
 
 Run the following command to download the script:
 
-`wget https://raw.githubusercontent.com/GluuFederation/gluu-cluster-postinstall/master/postinstall.py`
+    wget https://raw.githubusercontent.com/GluuFederation/gluu-cluster-postinstall/master/postinstall.py
 
 Make a note of the IP address of the gluu-master before running the script. Run the script using the following command:
 
-`python postinstall.py`
+    python postinstall.py
 
 Enter the values asked by the prompt when the script is run, and press enter to continue. An example of the script's prompt is given below:
 ```

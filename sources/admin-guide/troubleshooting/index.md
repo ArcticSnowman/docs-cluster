@@ -6,9 +6,11 @@ This section will be added soon.
 
 ## Log Files
 ### Setup Logs
-The setup logs for the cluster nodes are available at `/var/log/gluu/` directory of the master provider. The following path shows the exact location of the logs. The term `<node-name>` represents the currently-supported nodes that are LDAP, oxAuth, oxTrust, oxIdp, and nginx.
+The setup logs for the cluster nodes are available at `/var/log/gluu/` directory of the master provider. The following path shows the exact location of the logs.
 
-`/var/log/gluu/<node-name>-setup.log`
+    /var/log/gluu/<node-name>-setup.log
+
+The term `<node-name>` represents the currently-supported nodes that are LDAP, oxAuth, oxTrust, oxIdp, and nginx.
 
 ## Recovering Cluster
 There are instances when the cluster server may be rebooted, or for some unavoidable circumstances, the cluster server was shutdown and booted again.

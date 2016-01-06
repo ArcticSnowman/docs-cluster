@@ -6,13 +6,13 @@ Node is an entity represents a `docker` container.
 
 ### Create New Node
 
-`POST /nodes`
+    POST /nodes
 
 To create a node, provider and cluster entities must be created first.
 
 __URL:__
 
-`http://localhost:8080/nodes`
+    http://localhost:8080/nodes
 
 __Form parameters:__
 
@@ -112,11 +112,11 @@ __Status Code:__
 
 ### Get A Node
 
-`GET /nodes/{id}`
+    GET /nodes/{id}
 
 __URL:__
 
-`http://localhost:8080/nodes/{id}`
+    http://localhost:8080/nodes/{id}
 
 __Request example:__
 
@@ -171,11 +171,11 @@ __Status Code:__
 
 ### List All Nodes
 
-`GET /nodes`
+    GET /nodes
 
 __URL:__
 
-`http://localhost:8080/nodes`
+    http://localhost:8080/nodes
 
 __Request example:__
 
@@ -220,7 +220,7 @@ __Status Code:__
 
 ### Delete A Node
 
-`DELETE /nodes/{id}`
+    DELETE /nodes/{id}
 
 By default, node with `IN_PROGRESS` state cannot be deleted.
 Any attempt to delete node with `IN_PROGRESS` state will raise status code 403.
@@ -228,7 +228,7 @@ To force node deletion, add `force_rm` option in the request (see below).
 
 __URL:__
 
-`http://localhost:8080/nodes/{id}`
+    http://localhost:8080/nodes/{id}
 
 __Query string parameters:__
 

@@ -6,13 +6,13 @@ Cluster holds all nodes (`docker` containers) within `weave` network.
 
 ### Create New Cluster
 
-`POST /clusters`
+    POST /clusters
 
 Note, currently the API only allow 1 cluster. This may change in the future.
 
 __URL:__
 
-`http://localhost:8080/clusters`
+    http://localhost:8080/clusters
 
 __Form parameters:__
 
@@ -124,11 +124,11 @@ __Status Code:__
 
 ### Get A Cluster
 
-`GET /clusters/{id}`
+    GET /clusters/{id}
 
 __URL:__
 
-`http://localhost:8080/clusters/{id}`
+    http://localhost:8080/clusters/{id}
 
 __Request example:__
 
@@ -235,11 +235,11 @@ __Status Code:__
 
 ### Delete A Cluster
 
-`DELETE /clusters/{id}`
+    DELETE /clusters/{id}
 
 __URL:__
 
-`http://localhost:8080/clusters/{id}`
+    http://localhost:8080/clusters/{id}
 
 __Request example:__
 
