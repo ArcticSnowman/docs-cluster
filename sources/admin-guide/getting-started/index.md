@@ -24,19 +24,21 @@ External ports can alse be called 'internet-facing' ports that are open to the w
 
 
 ### Internal Ports
-Internal ports are the specific port requirements for the different componenets of the Cluster setup.
+Internal ports are the specific port requirements for the different components of the Cluster setup.
 
 
 |	Port Protocol	|	Port Number	|	Service		|
 |-----------------------|-----------------------|-----------------------|
 |	TCP		|	2375		|	Docker Daemon	|
 |	TCP		|	4506 & 4505	|	Salt		|
-|	TCP		|	8800		|	Gluu-webui	|
-|	TCP		|	8080		|	Gluu-flask	|
-|	TCP		|	8443		|	oxTrust GUI	|
-|	TCP		|	9090		|	Prometheus	|
+|	TCP		|	8800\*		|	Gluu-webui	|
+|	TCP		|	8080\*		|	Gluu-flask	|
+|	TCP		|	8443\*		|	oxTrust GUI	|
+|	TCP		|	9090\*		|	Prometheus	|
 |	TCP & UDP	|	6783		|	Weave		|
 |	TCP & UDP	|	53		|	Weave DNS	|
+
+\* only needed by master provider (VM)
 
 
 ## Deployment
@@ -59,7 +61,7 @@ For a detailed configuration instructions, please see the [Installation Doc](../
 The Gluu Cluster API is contained in the `gluu-flask` package. This package will not work without the master package and these two packages must be installed in the same host.
 Run the following command to install the flask package:
 
-`apt-get install -y gluu-flask`
+    apt-get install -y gluu-flask
 
 The installation command will install the `gluu-flask` daemon which is automatically started by init script.
 
