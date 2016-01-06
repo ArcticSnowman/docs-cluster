@@ -53,6 +53,13 @@ echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.lis
 curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add -
 apt-get update
 apt-get install -y gluu-master gluu-agent
+
+For Centos 7
+curl http://repo.gluu.org/centos/Gluu-7.repo -o /etc/yum.repos.d/Gluu-7.repo
+curl http://repo.gluu.org/centos/RPM-GPG-KEY-GLUU -o /etc/pki/rpm-gpg/RPM-GPG-KEY-GLUU
+rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-GLUU
+yum clean all
+yum install -y gluu-master gluu-agent
 ```
 
 For a detailed configuration instructions, please see the [Installation Doc](../installation/).
@@ -62,6 +69,9 @@ The Gluu Cluster API is contained in the `gluu-flask` package. This package will
 Run the following command to install the flask package:
 
     apt-get install -y gluu-flask
+    
+    Centos 7
+    yum install -y gluu-flask
 
 The installation command will install the `gluu-flask` daemon which is automatically started by init script.
 
@@ -76,4 +86,11 @@ echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.lis
 curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add -
 apt-get update
 apt-get install -y gluu-consumer gluu-agent
+
+For Centos 7
+curl http://repo.gluu.org/centos/Gluu-7.repo -o /etc/yum.repos.d/Gluu-7.repo
+curl http://repo.gluu.org/centos/RPM-GPG-KEY-GLUU -o /etc/pki/rpm-gpg/RPM-GPG-KEY-GLUU
+rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-GLUU
+yum clean all
+yum install -y gluu-consumer gluu-agent
 ```
