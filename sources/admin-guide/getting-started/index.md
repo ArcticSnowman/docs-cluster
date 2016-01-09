@@ -31,7 +31,7 @@ Internal ports are the specific port requirements for the different components o
 
 |	Port Protocol	|	Port Number	|	Service		|
 |-----------------------|-----------------------|-----------------------|
-|	TCP		|	2375		|	Docker Daemon	|
+|	TCP		|	2376		|	Docker Daemon	|
 |	TCP		|	4506 & 4505	|	Salt		|
 |	TCP		|	8800\*		|	Gluu-webui	|
 |	TCP		|	8080\*		|	Gluu-flask	|

@@ -96,7 +96,7 @@ The following command registers a provider using `curl`.
 ```
 curl http://localhost:8080/providers \
     -d hostname=gluu-master \
-    -d docker_base_url='https://128.199.242.74:2375' \
+    -d docker_base_url='https://128.199.242.74:2376' \
     -d type='master' \
     -X POST -i
 ```
@@ -115,7 +115,7 @@ Content-Type: application/json
 Location: http://localhost:8080/providers/58848b94-0671-48bc-9c94-04b0351886f0
 
 {
-    "docker_base_url": "https://128.199.242.74:2375",
+    "docker_base_url": "https://128.199.242.74:2376",
     "hostname": "gluu-master",
     "id": "58848b94-0671-48bc-9c94-04b0351886f0",
     "type": "master"
@@ -404,7 +404,7 @@ The following command registers a provider using `curl`.
 ```
 curl http://localhost:8080/providers \
     -d hostname=gluu-consumer \
-    -d docker_base_url='https://128.199.242.75:2375' \
+    -d docker_base_url='https://128.199.242.75:2376' \
     -d type='consumer' \
     -X POST -i
 ```
@@ -423,7 +423,7 @@ Content-Type: application/json
 Location: http://localhost:8080/providers/58848b94-0671-48bc-9c94-04b0351886f1
 
 {
-    "docker_base_url": "https://128.199.242.75:2375",
+    "docker_base_url": "https://128.199.242.75:2376",
     "hostname": "gluu-consumer",
     "id": "58848b94-0671-48bc-9c94-04b0351886f1",
     "type": "consumer"

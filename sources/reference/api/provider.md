@@ -26,7 +26,7 @@ __Form parameters:__
 *   `docker_base_url` (required)
 
     Docker remote API URL. Supported format is `unix` socket (e.g. `unix:///var/run/docker.sock`) or
-    `https://$IP:$PORT`, e.g. `https://128.199.198.172:2375`.
+    `https://$IP:$PORT`, e.g. `https://128.199.198.172:2376`.
     The latter format assumes `docker` daemon has been configured to listen to TCP connection.
     See [configuring docker daemon](../../admin-guide/installation/index.md) for example.
 
@@ -58,7 +58,7 @@ __Request example:__
 ```sh
 curl http://localhost:8080/providers \
     -d hostname=master-host \
-    -d docker_base_url='https://128.199.198.172:2375' \
+    -d docker_base_url='https://128.199.198.172:2376' \
     -d type='master' \
     -X POST -i
 ```
@@ -71,7 +71,7 @@ Content-Type: application/json
 Location: http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518677
 
 {
-    "docker_base_url": "128.199.198.172:2375",
+    "docker_base_url": "128.199.198.172:2376",
     "hostname": "master-host",
     "id": "283bfa41-2121-4433-9741-875004518677",
     "type": "master"
@@ -94,7 +94,7 @@ __Request example:__
 ```sh
 curl http://localhost:8080/providers \
     -d hostname=consumer-host \
-    -d docker_base_url='128.199.198.173:2375' \
+    -d docker_base_url='128.199.198.173:2376' \
     -d type=consumer \
     -X POST -i
 ```
@@ -107,7 +107,7 @@ Content-Type: application/json
 Location: http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518678
 
 {
-    "docker_base_url": "128.199.198.173:2375",
+    "docker_base_url": "128.199.198.173:2376",
     "hostname": "consumer-host",
     "id": "283bfa41-2121-4433-9741-875004518678",
     "type": "consumer"
@@ -145,7 +145,7 @@ HTTP/1.0 200 OK
 Content-Type: application/json
 
 {
-    "docker_base_url": "128.199.198.172:2375",
+    "docker_base_url": "128.199.198.172:2376",
     "hostname": "master-host",
     "id": "283bfa41-2121-4433-9741-875004518677",
     "type": "master"
@@ -182,13 +182,13 @@ Content-Type: application/json
 
 [
     {
-        "docker_base_url": "128.199.198.172:2375",
+        "docker_base_url": "128.199.198.172:2376",
         "hostname": "master-host",
         "id": "283bfa41-2121-4433-9741-875004518677",
         "type": "master"
     },
     {
-        "docker_base_url": "128.199.198.173:2375",
+        "docker_base_url": "128.199.198.173:2376",
         "hostname": "consumer-host",
         "id": "283bfa41-2121-4433-9741-875004518678",
         "type": "consumer"
@@ -252,7 +252,7 @@ __Form parameters:__
 *   `docker_base_url` (required)
 
     Docker remote API URL. Supported format is `unix` socket (e.g. `unix:///var/run/docker.sock`) or
-    `https://$IP:$PORT`, e.g. `https://128.199.198.172:2375`.
+    `https://$IP:$PORT`, e.g. `https://128.199.198.172:2376`.
     The latter format assumes `docker` daemon has been configured to listen to TCP connection.
     See [configuring docker daemon](../../admin-guide/installation/index.md#docker) for example.
 
@@ -278,7 +278,7 @@ __Request example:__
 ```sh
 curl http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518677 \
     -d hostname=master-host \
-    -d docker_base_url='https://128.199.198.172:2375' \
+    -d docker_base_url='https://128.199.198.172:2376' \
     -X PUT -i
 ```
 
@@ -289,7 +289,7 @@ HTTP/1.0 200 OK
 Content-Type: application/json
 
 {
-    "docker_base_url": "128.199.198.172:2375",
+    "docker_base_url": "128.199.198.172:2376",
     "hostname": "master-host",
     "id": "283bfa41-2121-4433-9741-875004518677",
     "type": "master"
@@ -303,7 +303,7 @@ __Request example:__
 ```sh
 curl http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518678 \
     -d hostname=consumer-host \
-    -d docker_base_url='128.199.198.173:2375' \
+    -d docker_base_url='128.199.198.173:2376' \
     -X PUT -i
 ```
 
@@ -314,7 +314,7 @@ HTTP/1.0 200 OK
 Content-Type: application/json
 
 {
-    "docker_base_url": "128.199.198.173:2375",
+    "docker_base_url": "128.199.198.173:2376",
     "hostname": "consumer-host",
     "id": "283bfa41-2121-4433-9741-875004518678",
     "type": "consumer"
