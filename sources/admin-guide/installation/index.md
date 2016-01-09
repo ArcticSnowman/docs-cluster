@@ -30,30 +30,9 @@ One of the tools that we can use is `rng-tools`. It's available from Ubuntu repo
 
     apt-get install rng-tools
 
-We will probably see the following error:
+*Note:* we probably will encounter error starting `rng-tools` service. Refer to [Troubleshooting](../troubleshooting/#unable-to-start-rng-tools-service) page for details.
 
-    Starting Hardware RNG entropy gatherer daemon: (failed).
-    invoke-rc.d: initscript rng-tools, action "start" failed.
-
-We can fix it by modifying HRNGDEVICE in `/etc/default/rng-tools`.
-
-    # Configuration for the rng-tools initscript
-    # $Id: rng-tools.default,v 1.1.2.5 2008-06-10 19:51:37 hmh Exp $
-
-    # This is a POSIX shell fragment
-
-    # Set to the input source for random data, leave undefined
-    # for the initscript to attempt auto-detection.  Set to /dev/null
-    # for the viapadlock driver.
-    #HRNGDEVICE=/dev/hwrng
-    #HRNGDEVICE=/dev/null
-    HRNGDEVICE=/dev/urandom
-
-Afterwards, restart the rng-tools service:
-
-    service rng-tools restart
-
-After rng-tools service is running successfully, we can check the available entropy again.
+After `rng-tools` service is running successfully, we can check the available entropy again.
 
     cat /proc/sys/kernel/random/entropy_avail
 

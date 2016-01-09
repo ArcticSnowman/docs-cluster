@@ -109,3 +109,28 @@ If weave container is listed on the output, we have successfully launching weave
 CONTAINER ID        IMAGE                      COMMAND                STATUS              NAMES
 fd4d3cd4bf70        weaveworks/weave:v1.1.0   "/home/weave/weaver    Up About a minute   weave
 ```
+
+## Unable to Start `rng-tools` Service
+
+We probably will encounter this error after installing `rng-tools`.
+
+    Starting Hardware RNG entropy gatherer daemon: (failed).
+    invoke-rc.d: initscript rng-tools, action "start" failed.
+
+We can fix it by modifying HRNGDEVICE in `/etc/default/rng-tools`.
+
+    # Configuration for the rng-tools initscript
+    # $Id: rng-tools.default,v 1.1.2.5 2008-06-10 19:51:37 hmh Exp $
+
+    # This is a POSIX shell fragment
+
+    # Set to the input source for random data, leave undefined
+    # for the initscript to attempt auto-detection.  Set to /dev/null
+    # for the viapadlock driver.
+    #HRNGDEVICE=/dev/hwrng
+    #HRNGDEVICE=/dev/null
+    HRNGDEVICE=/dev/urandom
+
+Afterwards, restart the rng-tools service:
+
+    service rng-tools restart

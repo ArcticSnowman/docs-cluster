@@ -23,6 +23,8 @@ External ports can alse be called 'internet-facing' ports that are open to the w
 |	TCP		|	443		|	Web Frontend	|
 
 
+*Note:* These ports only need to be open when you are downloading new packages. Most often your upgrade process will be tightly controlled, so you can plan for these changes and re-open the ports as needed.
+
 ### Internal Ports
 Internal ports are the specific port requirements for the different components of the Cluster setup.
 
@@ -36,7 +38,7 @@ Internal ports are the specific port requirements for the different components o
 |	TCP		|	8443\*		|	oxTrust GUI	|
 |	TCP		|	9090\*		|	Prometheus	|
 |	TCP & UDP	|	6783		|	Weave		|
-|	TCP & UDP	|	53		|	Weave DNS	|
+|	TCP & UDP	|	53		|	Weave DNS(Amazon AWS)	|
 
 \* only needed by master provider (VM)
 
