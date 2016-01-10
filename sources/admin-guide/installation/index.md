@@ -46,13 +46,20 @@ There are various components that make the cluster possible. The components are 
 
 ### Installing gluu-master
 
-Run the following commands to install the gluu-master package:
+First things first, we need to add Gluu repository:
+
 ```
-echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list
-curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add -
-apt-get update
+echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list \
+    && curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add - \
+    && apt-get update
+```
+
+Run the following commands to install the `gluu-master` package:
+
+```
 apt-get install -y gluu-master
 ```
+
 ### Configuring gluu-master base package
 
 A script called the `postinstall.py` should be downloaded and run to configure the gluu-master package.
@@ -126,13 +133,21 @@ There are few things we need to know about Gluu Cluster Web UI:
 The consumer package consists of various componenents listed in the [components page](../components/). The components are packaged into a single `deb` package called gluu-consumer.
 
 ### Installing gluu-consumer
-Run the following commands to install gluu-consumer:
+
+First things first, we need to add Gluu repository:
+
 ```
-echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list
-curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add -
-apt-get update
+echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list \
+    && curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add - \
+    && apt-get update
+```
+
+Run the following commands to install the `gluu-consumer` package:
+
+```
 apt-get install -y gluu-consumer
 ```
+
 ### Configuring gluu-consumer
 A script called the `postinstall.py` should be downloaded and run to configure the gluu-consumer package.
 
