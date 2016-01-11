@@ -96,7 +96,7 @@ The following command registers a provider using `curl`.
 ```
 curl http://localhost:8080/providers \
     -d hostname=gluu-master \
-    -d docker_base_url='https://128.199.242.74:2375' \
+    -d docker_base_url='https://128.199.242.74:2376' \
     -d type='master' \
     -X POST -i
 ```
@@ -115,7 +115,7 @@ Content-Type: application/json
 Location: http://localhost:8080/providers/58848b94-0671-48bc-9c94-04b0351886f0
 
 {
-    "docker_base_url": "https://128.199.242.74:2375",
+    "docker_base_url": "https://128.199.242.74:2376",
     "hostname": "gluu-master",
     "id": "58848b94-0671-48bc-9c94-04b0351886f0",
     "type": "master"
@@ -181,9 +181,9 @@ The deployment of nodes can be done after the creation of Cluster and Provider e
 
 2. `oxauth` oxAuth Node
 
-3. optional `oxidp` oxIDP Node
+3. `nginx` nginx Node
 
-4. `nginx` nginx Node
+4. optional `oxidp` oxIDP Node
 
 5. `oxtrust` oxTrust Node
 
@@ -243,6 +243,38 @@ Alternatively, the following command can be used periodically to check the deplo
 curl http://localhost:8080/nodes/<node-name>
 ```
 
+#### nginx Node
+
+Starting from v0.4.2, we can use signed SSL certificates instead of self-signed certificates (the ones that generated during nginx node deployment).
+Assuming we have `domain.crt` and `domain.key` certificate/key files, we need to copy them to predefined paths in master provider.
+
+1. Copy `domain.crt` to `/var/lib/gluu-cluster/ssl_certs/nginx.cert` (create the `/var/lib/gluu-cluster/ssl_certs` directory if not exist).
+2. Copy `domain.key` to `/var/lib/gluu-cluster/ssl_certs/nginx.key`.
+
+Run the following command to deploy the nginx node:
+
+```sh
+curl http://localhost:8080/nodes \
+    -d provider_id=$MASTER_PROVIDER_ID \
+    -d cluster_id=$CLUSTER_ID \
+    -d node_type=nginx \
+    -X POST -i
+```
+
+A successful request returns a HTTP 202 status code. Note the node name from the code.
+The progress of deployment can be followed by tailing the log.
+Run the following command to tail the log file:
+
+```
+tail -F /var/log/gluu/<node-name>-setup.log
+```
+
+Alternatively, the following command can be used periodically to check the deployment of the node:
+
+```
+curl http://localhost:8080/nodes/<node-name>
+```
+
 #### oxIdp Node (optional)
 Run the following command to deploy oxIdp node:
 
@@ -269,31 +301,6 @@ curl http://localhost:8080/nodes/<node-name>
 ```
 
 To generate default IdP and SP metadata, we need to deploy oxtrust node after deploying oxidp node.
-
-#### nginx Node
-Run the following command to deploy the nginx node:
-
-```sh
-curl http://localhost:8080/nodes \
-    -d provider_id=$MASTER_PROVIDER_ID \
-    -d cluster_id=$CLUSTER_ID \
-    -d node_type=nginx \
-    -X POST -i
-```
-
-A successful request returns a HTTP 202 status code. Note the node name from the code.
-The progress of deployment can be followed by tailing the log.
-Run the following command to tail the log file:
-
-```
-tail -F /var/log/gluu/<node-name>-setup.log
-```
-
-Alternatively, the following command can be used periodically to check the deployment of the node:
-
-```
-curl http://localhost:8080/nodes/<node-name>
-```
 
 #### oxTrust Node
 Run the following command to deploy oxTrust node:
@@ -361,7 +368,23 @@ curl http://localhost:8080/license_keys \
     -X POST -i
 ```
 
+Here's an example of the output from request above:
+
+    {
+        "code": "your-code",
+        "id": "3bade490-defe-477d-8146-be0f621940ed",
+        "license_password": "your-license-password",
+        "name": "testing",
+        "public_key": "your-public-key",
+        "public_password": "your-public-password",
+        "metadata": {},
+        "valid": false
+    }
+
 Note, `public_key`, `public_password`, and `license_password` must use one-liner values.
+Also it's worth noting that `metadata` is still empty and `valid` is set to `false` after adding license key.
+These 2 keys will be populated after registering first consumer provider.
+
 For details on how to register a license key, refer to [License Key API](../../reference/api/license_key/) page.
 
 ### Registering Consumer Provider
@@ -381,7 +404,7 @@ The following command registers a provider using `curl`.
 ```
 curl http://localhost:8080/providers \
     -d hostname=gluu-consumer \
-    -d docker_base_url='https://128.199.242.75:2375' \
+    -d docker_base_url='https://128.199.242.75:2376' \
     -d type='consumer' \
     -X POST -i
 ```
@@ -400,7 +423,7 @@ Content-Type: application/json
 Location: http://localhost:8080/providers/58848b94-0671-48bc-9c94-04b0351886f1
 
 {
-    "docker_base_url": "https://128.199.242.75:2375",
+    "docker_base_url": "https://128.199.242.75:2376",
     "hostname": "gluu-consumer",
     "id": "58848b94-0671-48bc-9c94-04b0351886f1",
     "type": "consumer"
@@ -459,6 +482,47 @@ $ weave status
 
 ```
 
+Before deploying any node in consumer provider, we need to check whether license key is valid.
+Any request to deploy node in any consumer provider will be rejected if license key is invalid.
+
+We can use this command to check the license:
+
+    curl -i http://localhost:8080/license_keys
+
+Here's an example of output from request above:
+
+    [
+        {
+            "code": "your-code",
+            "id": "3bade490-defe-477d-8146-be0f621940ed",
+            "license_password": "your-license-password",
+            "name": "testing",
+            "public_key": "your-public-key",
+            "public_password": "your-public-password",
+            "metadata": {
+                "expiration_date": null,
+                "license_count_limit": 20,
+                "license_features": [
+                    "gluu_server"
+                ],
+                "license_name": "testing-license",
+                "license_type": null,
+                "multi_server": true,
+                "thread_count": 3
+            },
+            "valid": true
+        }
+    ]
+
+As we can see, as `valid` key is set to `true` and `metadata` key is not set to `null` or `{}`,
+we can guarantee that the license key is valid.
+
+However there are circumtances when `valid` and `metadata` keys are not populated correctly.
+The most common issue is license key having incorrect data
+(either `public_key`, `license_password`,`public_password`, or `code` attribute).
+To fix them, we can update the data via [License Key API](../../reference/api/license_key#update-a-license-key).
+
+
 ### Deploying Nodes
 The deployment of nodes can be done after the creation of Cluster and Provider entities. The nodes are interdependent, it's recommended to deploy them in the following order
 
@@ -466,9 +530,9 @@ The deployment of nodes can be done after the creation of Cluster and Provider e
 
 2. `oxauth` oxAuth Node
 
-3. optional `oxidp` oxIDP Node
+3. `nginx` nginx Node
 
-4. `nginx` nginx Node
+4. optional `oxidp` oxIDP Node
 
 #### LDAP Node
 
@@ -527,6 +591,31 @@ Alternatively, the following command can be used periodically to check the deplo
 curl http://localhost:8080/nodes/<node-name>
 ```
 
+#### nginx Node
+Run the following command to deploy the nginx node:
+
+```sh
+curl http://localhost:8080/nodes \
+    -d provider_id=$CONSUMER_PROVIDER_ID \
+    -d cluster_id=$CLUSTER_ID \
+    -d node_type=nginx \
+    -X POST -i
+```
+
+A successful request returns a HTTP 202 status code. Note the node name from the code.
+The progress of deployment can be followed by tailing the log.
+Run the following command to tail the log file:
+
+```
+tail -F /var/log/gluu/<node-name>-setup.log
+```
+
+Alternatively, the following command can be used periodically to check the deployment of the node:
+
+```
+curl http://localhost:8080/nodes/<node-name>
+```
+
 #### oxIdp Node (optional)
 Run the following command to deploy oxIdp node:
 
@@ -552,30 +641,6 @@ Alternatively, the following command can be used periodically to check the deplo
 curl http://localhost:8080/nodes/<node-name>
 ```
 
-#### nginx Node
-Run the following command to deploy the nginx node:
-
-```sh
-curl http://localhost:8080/nodes \
-    -d provider_id=$CONSUMER_PROVIDER_ID \
-    -d cluster_id=$CLUSTER_ID \
-    -d node_type=nginx \
-    -X POST -i
-```
-
-A successful request returns a HTTP 202 status code. Note the node name from the code.
-The progress of deployment can be followed by tailing the log.
-Run the following command to tail the log file:
-
-```
-tail -F /var/log/gluu/<node-name>-setup.log
-```
-
-Alternatively, the following command can be used periodically to check the deployment of the node:
-
-```
-curl http://localhost:8080/nodes/<node-name>
-```
 ## Local DNS Server
 
 Starting from v0.4.0, Gluu Cluster uses its own local DNS server to provide service discovery between containers (nodes).
