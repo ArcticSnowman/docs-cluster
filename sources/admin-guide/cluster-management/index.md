@@ -626,3 +626,47 @@ Each line is consists of columns:
 
 3.  A unique `id` of the node.
 4.  weave peer where the node is deployed.
+
+## Simple Load Balancer
+
+Given that we had master and consumer providers, we can use load balancer to manage requests
+to our cluster. It's worth noting that load balancer setup is not provided by Gluu Cluster.
+
+For simple load balancer, we can use `nginx`. Just make sure we use a separate VM to host the load balancer.
+
+    upstream backend {
+        server 128.199.242.74:443 fail_timeout=10s; # IP address of master provider
+        server 128.199.242.75:443 fail_timeout=10s; # IP address of consumer provider
+    }
+
+    server {
+        listen 80 default_server;
+        listen [::]:80 default_server ipv6only=on;
+        server_name gluu.example.com;
+        return 301 https://$server_name$request_uri;
+    }
+
+    server {
+        listen 443 ssl;
+        ssl on;
+        ssl_certificate /etc/nginx/certs/nginx.crt; # grab the file from gluunginx node in master provider
+        ssl_certificate_key /etc/nginx/certs/nginx.key; # grab the file from gluunginx node in master provider
+
+        server_name gluu.example.com;
+
+        location / {
+            proxy_pass https://backend;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_redirect off;
+        }
+    }
+
+Copy the example above and save it as `/etc/nginx/sites-available/gluu-balancer.conf`. Afterwards, we need to enable this new config and replace default config.
+
+    cd /etc/nginx/sites-enable
+    rm default
+    ln -s ../sites-available/gluu-balancer.conf
+    service nginx restart
