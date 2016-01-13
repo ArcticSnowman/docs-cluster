@@ -1,7 +1,7 @@
-Gluu Cluster Documentation
+Gluu Enterprise Edition (EE) Documentation
 ==========================
 
-The Gluu Server cluster project is a docker-based recipe for deploying multiple instances of the Gluu Server to achieve an elastic, highly avalable, centralized authentication and authorization infrastructure.
+The Gluu Server EE project is cla docker-based recipe for deploying multiple instances of the Gluu Server to achieve an elastic, highly avalable, centralized authentication and authorization infrastructure.
 
 # Installation
 
