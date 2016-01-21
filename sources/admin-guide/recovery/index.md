@@ -10,9 +10,11 @@ Refer to installation section to install the package for [master](../installatio
 One of Gluu Agent jobs is to recover nodes automatically after provider is rebooted.
 We can also recover the provider manually using the following command:
 
-    service gluu-agent recover
+    gluu-agent recover
 
-The recovery process is logged to `/var/log/gluuagent-recover.log` so we can investigate the result.
+The recovery process is logged to stdout by default. We can store the log into a file by passing `--logfile` option.
+
+    gluu-agent recover --logfile /var/log/gluuagent-recover.log
 
 Note, Gluu Agent relies on local cluster data that is pushed by `gluu-flask` v0.3.3-12 to each provider,
 hence it is recommended to upgrade to `gluu-flask` v0.3.3-12.

@@ -96,7 +96,7 @@ Changelog for v0.4.1 is available [here](https://github.com/GluuFederation/gluu-
     Note: since newer `gluu-master` package introduces docker v1.8.3, existing nodes might be
     crashed. To recover the nodes, run the recovery command:
 
-        service gluu-agent recover
+        gluu-agent recover
 
 ### Consumer provider
 
@@ -107,7 +107,7 @@ Changelog for v0.4.1 is available [here](https://github.com/GluuFederation/gluu-
     Note: since newer `gluu-consumer` package introduces docker v1.8.3, existing nodes might be
     crashed. To recover the nodes, run the recovery command:
 
-        service gluu-agent recover
+        gluu-agent recover
 
 ## Version 0.4.0
 
