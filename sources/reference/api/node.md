@@ -38,7 +38,7 @@ __Form parameters:__
 
     There are few rules about nodes:
 
-    * `httpd` node is no longer supported since v0.4.0.
+    * `httpd` node is deprecated since v0.4.0 and will be __removed__ in v0.5.0.
     * Maximum allowed `ldap` nodes are 4 per cluster.
     * There's no restriction on how many `oxauth` and `oxidp` nodes per provider or cluster.
     * Only 1 `nginx` node can be deployed in each provider.

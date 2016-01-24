@@ -34,20 +34,13 @@ __Form parameters:__
 
     Provider type, must be one of `master` or `consumer`.
 
-*   `ssl_key` (required only when `docker_base_url` uses HTTPS)
+*   `connect_delay` (optional)
 
-    The contents of `/etc/docker/key.pem` located in provider host.
-    Starting from v0.4.1, this parameter is ignored.
+    Time to wait (in seconds) before start connecting to provider (default to 10 seconds).
 
-*   `ssl_cert` (required only when `docker_base_url` uses HTTPS)
+*   `exec_delay` (optional)
 
-    The contents of `/etc/docker/cert.pem` located in provider host.
-    Starting from v0.4.1, this parameter is ignored.
-
-*   `ca_cert` (required only when `docker_base_url` uses HTTPS)
-
-    The contents of `/etc/docker/ca.pem` located in provider host.
-    Starting from v0.4.1, this parameter is ignored.
+    Time to wait (in seconds) before start executing command in provider (default to 15 seconds).
 
 #### Master Provider
 
