@@ -40,14 +40,14 @@ a problem with salt communication between master and minion
 
         salt-key
 
-    Note, in this context, we use `gluu.example.com` as the minion's key.
+    Note, in this context, we use `gluu-master` as the minion's key.
 
     If minion's key is not accepted, we may need to check whether we use a correct
     `hostname` value when registering the provider.
 
 3.  If minion's key is accepted, try to ping the minion:
 
-        salt gluu.example.com test.ping
+        salt gluu-master test.ping
 
     If the command above returns nothing, check salt-minion service:
 
@@ -90,11 +90,11 @@ The last lines also told us to remove `/etc/salt/pki/minion/minion_master.pub` a
 
 Once `/etc/salt/pki/minion/minion_master.pub` has been removed and salt-minion has been restarted, we can try ping the minion again:
 
-    salt gluu.example.com test.ping
+    salt gluu-master test.ping
 
 A successfull ping request returns the output below:
 
-    gluu.example.com:
+    gluu-master:
         True
 
 The communication between salt-master and salt-minion is now established, hence we can launch weave again by updating the provider
