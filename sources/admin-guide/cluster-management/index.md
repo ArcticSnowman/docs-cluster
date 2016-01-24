@@ -126,6 +126,8 @@ The `provider_id` is required to deploy nodes, so it is best to keep the referen
 
     export MASTER_PROVIDER_ID=58848b94-0671-48bc-9c94-04b0351886f0
 
+##### Weave Routing
+
 The successful creation of provider follows a background job to setup internal routing through `weave`.
 It may take up-to 25 seconds to finish the routing setup.
 
@@ -199,7 +201,24 @@ curl http://localhost:8080/nodes \
     -X POST -i
 ```
 
-A successful request returns a HTTP 202 status code. Note the node name from the code.
+A successful request returns a HTTP 202 status code.
+Here's an example of response returned from request above:
+
+```
+{
+    "cluster_id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
+    "domain_name": "",
+    "id": "",
+    "ip": "",
+    "name": "gluuopendj_51b8b62c-283e-4de8-aa64-4b112e3e036e",
+    "provider_id": "58848b94-0671-48bc-9c94-04b0351886f0",
+    "state": "IN_PROGRESS",
+    "type": "ldap",
+    "weave_ip": "10.2.1.1"
+}
+```
+
+Note the node's `name` from the response above.
 The progress of deployment can be followed by tailing the log.
 Run the following command to tail the log file:
 
@@ -212,6 +231,10 @@ Alternatively, the following command can be used periodically to check the deplo
 ```
 curl http://localhost:8080/nodes/<node-name>
 ```
+
+This technique can be applied to all nodes in the cluster.
+
+##### Custom LDAP Schema
 
 Starting from v0.4.0, ldap node has support for custom schema. To deploy custom schema,
 put the desired schema in `.ldif` file under `/var/lib/gluu-cluster/custom/opendj/schema/`.
@@ -326,7 +349,7 @@ Alternatively, the following command can be used periodically to check the deplo
 curl http://localhost:8080/nodes/<node-name>
 ```
 
-### Accessing oxTrust Web Interface
+##### Accessing oxTrust Web Interface
 
 The Gluu Server web interface can be accessed after the deployment of the nodes are complete. The oxTrust UI is run at `https://localhost:8443` in the master provider. To access the UI, `ssh` tunneling must be used. The exaple will use `128.199.242.74` as an example IP address of the master provider.
 
@@ -434,6 +457,7 @@ The `provider_id` is required to deploy nodes, so it is best to keep the referen
 
     export CONSUMER_PROVIDER_ID=58848b94-0671-48bc-9c94-04b0351886f1
 
+##### Weave Routing
 
 The successful creation of provider follows a background job to setup internal routing through `weave`.
 It may take up-to 25 seconds to finish the routing setup.
@@ -559,6 +583,8 @@ Alternatively, the following command can be used periodically to check the deplo
 ```
 curl http://localhost:8080/nodes/<node-name>
 ```
+
+##### LDAP Replication
 
 Since we already have another LDAP node in master provider, all LDAP nodes will replicate themselves.
 However we need to check whether replication are created successfully by login to one of LDAP node.
