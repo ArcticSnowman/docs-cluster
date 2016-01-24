@@ -1,7 +1,7 @@
 # Installation
 [TOC]
 
-The Gluu Cluster is supported for Ubuntu for now. There are three packages that completes the cluster; the master, the consumer and the cluster API. The master package and the cluster API must be installed in the same host. The consumer package is not necessary for a single server installation. There is one additional package, gluu-webui, that provides a user friendly way of using the API and managing the cluster.
+The Gluu Cluster only supports Ubuntu for now. There are three packages that completes the cluster; the master, the consumer and the cluster API. The master package and the cluster API must be installed in the same host. The consumer package is not necessary for a single server installation. There is one additional package, gluu-webui, that provides a user friendly way of using the API and managing the cluster.
 
 ## Prerequisites
 
@@ -23,7 +23,7 @@ To check available entropy, we can use the following command:
 
     cat /proc/sys/kernel/random/entropy_avail
 
-If the number returned from the command is above 3000, we can __skip__ this section.
+If the number returned from the command is above 1000, we can __skip__ this section.
 Otherwise, we need to feed the entropy with other tools.
 
 One of the tools that we can use is `rng-tools`. It's available from Ubuntu repository:
