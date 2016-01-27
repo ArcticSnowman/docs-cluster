@@ -25,10 +25,7 @@ __Form parameters:__
 
 *   `docker_base_url` (required)
 
-    Docker remote API URL. Supported format is `unix` socket (e.g. `unix:///var/run/docker.sock`) or
-    `https://$IP:$PORT`, e.g. `https://128.199.198.172:2376`.
-    The latter format assumes `docker` daemon has been configured to listen to TCP connection.
-    See [configuring docker daemon](../../admin-guide/installation/index.md) for example.
+    Docker remote API URL. Supported format is `https://$IP:$PORT`, e.g. `https://128.199.198.172:2376`.
 
 *   `type` (required)
 
@@ -244,25 +241,15 @@ __Form parameters:__
 
 *   `docker_base_url` (required)
 
-    Docker remote API URL. Supported format is `unix` socket (e.g. `unix:///var/run/docker.sock`) or
-    `https://$IP:$PORT`, e.g. `https://128.199.198.172:2376`.
-    The latter format assumes `docker` daemon has been configured to listen to TCP connection.
-    See [configuring docker daemon](../../admin-guide/installation/index.md#docker) for example.
+    Docker remote API URL. Supported format is `https://$IP:$PORT`, e.g. `https://128.199.198.172:2376`.
 
-*   `ssl_key` (required only when `docker_base_url` uses HTTPS)
+*   `connect_delay` (optional)
 
-    The contents of `/etc/docker/key.pem` located in provider host.
-    Starting from v0.4.1, this parameter is ignored.
+    Time to wait (in seconds) before start connecting to provider (default to 10 seconds).
 
-*   `ssl_cert` (required only when `docker_base_url` uses HTTPS)
+*   `exec_delay` (optional)
 
-    The contents of `/etc/docker/cert.pem` located in provider host.
-    Starting from v0.4.1, this parameter is ignored.
-
-*   `ca_cert` (required only when `docker_base_url` uses HTTPS)
-
-    The contents of `/etc/docker/ca.pem` located in provider host.
-    Starting from v0.4.1, this parameter is ignored.
+    Time to wait (in seconds) before start executing command in provider (default to 15 seconds).
 
 #### Master Provider
 
