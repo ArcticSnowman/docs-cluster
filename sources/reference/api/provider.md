@@ -77,7 +77,7 @@ There are prerequisites before creating a `consumer`:
 
 It's worth noting that when license for `consumer` provider is expired,
 server will try to retrieve new license automatically. If succeed, the provider will use new license.
-Otherwise, all `oxauth` nodes deployed on this provider will be disabled from cluster.
+Otherwise, all `oxauth` and `oxidp` nodes deployed on this provider will be disabled from cluster.
 
 __Request example:__
 
