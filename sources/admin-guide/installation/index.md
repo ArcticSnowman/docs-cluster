@@ -50,8 +50,8 @@ First things first, we need to add Gluu repository:
 
 ```
 echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list \
-    && curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add - \
-    && apt-get update
+    && curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add -
+apt-get update
 ```
 
 Run the following commands to install the `gluu-master` package:
@@ -138,8 +138,8 @@ First things first, we need to add Gluu repository:
 
 ```
 echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list \
-    && curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add - \
-    && apt-get update
+    && curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add -
+apt-get update
 ```
 
 Run the following commands to install the `gluu-consumer` package:
