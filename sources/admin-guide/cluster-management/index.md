@@ -136,7 +136,7 @@ These certificates are copied from host-level docker config directory (`/etc/doc
 
 1. `/etc/docker/ca.pem` is imported as `/var/lib/gluu-cluster/docker_certs/$PROVIDER_ID__ca.pem`
 2. `/etc/docker/key.pem` is imported as `/var/lib/gluu-cluster/docker_certs/$PROVIDER_ID__key.pem`
-3. `/etc/docker/cert.pem` is imported as `/var/lib/gluu-cluster/docker_certs/$PROVIDER_ID__cer.pem`
+3. `/etc/docker/cert.pem` is imported as `/var/lib/gluu-cluster/docker_certs/$PROVIDER_ID__cert.pem`
 
 ##### Weave Routing
 
@@ -476,7 +476,7 @@ These certificates are copied from host-level docker config directory (`/etc/doc
 
 1. `/etc/docker/ca.pem` is imported as `/var/lib/gluu-cluster/docker_certs/$PROVIDER_ID__ca.pem`
 2. `/etc/docker/key.pem` is imported as `/var/lib/gluu-cluster/docker_certs/$PROVIDER_ID__key.pem`
-3. `/etc/docker/cert.pem` is imported as `/var/lib/gluu-cluster/docker_certs/$PROVIDER_ID__cer.pem`
+3. `/etc/docker/cert.pem` is imported as `/var/lib/gluu-cluster/docker_certs/$PROVIDER_ID__cert.pem`
 
 ##### Weave Routing
 
