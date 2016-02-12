@@ -126,10 +126,19 @@ The `provider_id` is required to deploy nodes, so it is best to keep the referen
 
     export MASTER_PROVIDER_ID=58848b94-0671-48bc-9c94-04b0351886f0
 
-##### Weave Routing
+A successful creation of provider follows a background job to complete internal IP routing through `weave` and importing necessary docker certificates.
+By default, it may take up-to 25 seconds to finish the provider creation.
 
-The successful creation of provider follows a background job to setup internal routing through `weave`.
-It may take up-to 25 seconds to finish the routing setup.
+#### Imported docker Certificates
+
+To deploy/delete nodes, `gluu-flask` uses docker Remote API protected by TLS, hence `gluu-flask` require necessary docker certificates.
+These certificates are copied from host-level docker config directory (`/etc/docker`):
+
+1. `/etc/docker/ca.pem` is imported as `/var/lib/gluu-cluster/docker_certs/$PROVIDER_ID__ca.pem`
+2. `/etc/docker/key.pem` is imported as `/var/lib/gluu-cluster/docker_certs/$PROVIDER_ID__key.pem`
+3. `/etc/docker/cert.pem` is imported as `/var/lib/gluu-cluster/docker_certs/$PROVIDER_ID__cer.pem`
+
+##### Weave Routing
 
 Run the following command to check if routing is ready:
 
@@ -457,10 +466,19 @@ The `provider_id` is required to deploy nodes, so it is best to keep the referen
 
     export CONSUMER_PROVIDER_ID=58848b94-0671-48bc-9c94-04b0351886f1
 
-##### Weave Routing
+A successful creation of provider follows a background job to complete internal IP routing through `weave` and importing necessary docker certificates.
+By default, it may take up-to 25 seconds to finish the provider creation.
 
-The successful creation of provider follows a background job to setup internal routing through `weave`.
-It may take up-to 25 seconds to finish the routing setup.
+#### Imported docker Certificates
+
+To deploy/delete nodes, `gluu-flask` uses docker Remote API protected by TLS, hence `gluu-flask` require necessary docker certificates.
+These certificates are copied from host-level docker config directory (`/etc/docker`):
+
+1. `/etc/docker/ca.pem` is imported as `/var/lib/gluu-cluster/docker_certs/$PROVIDER_ID__ca.pem`
+2. `/etc/docker/key.pem` is imported as `/var/lib/gluu-cluster/docker_certs/$PROVIDER_ID__key.pem`
+3. `/etc/docker/cert.pem` is imported as `/var/lib/gluu-cluster/docker_certs/$PROVIDER_ID__cer.pem`
+
+##### Weave Routing
 
 Run the following command to check if routing is ready:
 
