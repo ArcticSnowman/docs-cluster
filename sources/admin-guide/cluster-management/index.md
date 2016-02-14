@@ -80,6 +80,7 @@ export CLUSTER_ID=1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
 ## Managing Master Provider and Its Nodes
 
 ### Registering Master Provider
+
 A provider must be registered after creating the cluster.
 This creates the entity in the `gluu-flask` JSON database to let the  API's know where to deploy the instances.
 The `postinstall.py` script generates TLS certificates which are stored in `/etc/docker` directory.
@@ -98,6 +99,7 @@ curl http://localhost:8080/providers \
     -d hostname=gluu-master \
     -d docker_base_url='https://128.199.242.74:2376' \
     -d type='master' \
+    -d cluster_id=$CLUSTER_ID \
     -X POST -i
 ```
 
@@ -115,6 +117,7 @@ Content-Type: application/json
 Location: http://localhost:8080/providers/58848b94-0671-48bc-9c94-04b0351886f0
 
 {
+    "cluster_id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
     "docker_base_url": "https://128.199.242.74:2376",
     "hostname": "gluu-master",
     "id": "58848b94-0671-48bc-9c94-04b0351886f0",
@@ -205,7 +208,6 @@ Run the following command to deploy the ldap node:
 ```sh
 curl http://localhost:8080/nodes \
     -d provider_id=$MASTER_PROVIDER_ID \
-    -d cluster_id=$CLUSTER_ID \
     -d node_type=ldap \
     -X POST -i
 ```
@@ -256,7 +258,6 @@ Run the following command to deploy oxAuth node:
 ```sh
 curl http://localhost:8080/nodes \
     -d provider_id=$MASTER_PROVIDER_ID \
-    -d cluster_id=$CLUSTER_ID \
     -d node_type=oxauth \
     -X POST -i
 ```
@@ -288,7 +289,6 @@ Run the following command to deploy the nginx node:
 ```sh
 curl http://localhost:8080/nodes \
     -d provider_id=$MASTER_PROVIDER_ID \
-    -d cluster_id=$CLUSTER_ID \
     -d node_type=nginx \
     -X POST -i
 ```
@@ -313,7 +313,6 @@ Run the following command to deploy oxIdp node:
 ```sh
 curl http://localhost:8080/nodes \
     -d provider_id=$MASTER_PROVIDER_ID \
-    -d cluster_id=$CLUSTER_ID \
     -d node_type=oxidp \
     -X POST -i
 ```
@@ -340,7 +339,6 @@ Run the following command to deploy oxTrust node:
 ```sh
 curl http://localhost:8080/nodes \
     -d provider_id=$MASTER_PROVIDER_ID \
-    -d cluster_id=$CLUSTER_ID \
     -d node_type=oxtrust \
     -X POST -i
 ```
@@ -420,6 +418,7 @@ These 2 keys will be populated after registering first consumer provider.
 For details on how to register a license key, refer to [License Key API](../../reference/api/license_key/) page.
 
 ### Registering Consumer Provider
+
 A consumer provider can be registered after the installation of the cluster and master provider.
 It's worth noting that consumer provider should be hosted in another server (separated from master provider).
 As usual, the `postinstall.py` script generates TLS certificates which are stored in `/etc/docker` directory.
@@ -438,6 +437,7 @@ curl http://localhost:8080/providers \
     -d hostname=gluu-consumer \
     -d docker_base_url='https://128.199.242.75:2376' \
     -d type='consumer' \
+    -d cluster_id=$CLUSTER_ID \
     -X POST -i
 ```
 
@@ -455,6 +455,7 @@ Content-Type: application/json
 Location: http://localhost:8080/providers/58848b94-0671-48bc-9c94-04b0351886f1
 
 {
+    "cluster_id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
     "docker_base_url": "https://128.199.242.75:2376",
     "hostname": "gluu-consumer",
     "id": "58848b94-0671-48bc-9c94-04b0351886f1",
@@ -583,7 +584,6 @@ Run the following command to deploy the ldap node:
 ```sh
 curl http://localhost:8080/nodes \
     -d provider_id=$CONSUMER_PROVIDER_ID \
-    -d cluster_id=$CLUSTER_ID \
     -d node_type=ldap \
     -X POST -i
 ```
@@ -616,7 +616,6 @@ Run the following command to deploy oxAuth node:
 ```sh
 curl http://localhost:8080/nodes \
     -d provider_id=$CONSUMER_PROVIDER_ID \
-    -d cluster_id=$CLUSTER_ID \
     -d node_type=oxauth \
     -X POST -i
 ```
@@ -641,7 +640,6 @@ Run the following command to deploy the nginx node:
 ```sh
 curl http://localhost:8080/nodes \
     -d provider_id=$CONSUMER_PROVIDER_ID \
-    -d cluster_id=$CLUSTER_ID \
     -d node_type=nginx \
     -X POST -i
 ```
@@ -666,7 +664,6 @@ Run the following command to deploy oxIdp node:
 ```sh
 curl http://localhost:8080/nodes \
     -d provider_id=$CONSUMER_PROVIDER_ID \
-    -d cluster_id=$CLUSTER_ID \
     -d node_type=oxidp \
     -X POST -i
 ```
