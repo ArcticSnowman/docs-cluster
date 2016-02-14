@@ -16,10 +16,6 @@ __URL:__
 
 __Form parameters:__
 
-*   `cluster_id` (required)
-
-    The ID of Cluster.
-
 *   `provider_id` (required)
 
     The ID of Provider.
@@ -38,7 +34,6 @@ __Form parameters:__
 
     There are few rules about nodes:
 
-    * `httpd` node is deprecated since v0.4.0 and will be __removed__ in v0.5.0.
     * Maximum allowed `ldap` nodes are 4 per cluster.
     * There's no restriction on how many `oxauth` and `oxidp` nodes per provider or cluster.
     * Only 1 `nginx` node can be deployed in each provider.
@@ -57,7 +52,6 @@ __Request example:__
 ```sh
 curl http://localhost:8080/nodes \
     -d provider_id=58848b94-0671-48bc-9c94-04b0351886f0 \
-    -d cluster_id=9ea4d520-bbba-46f6-b779-c29ee99d2e9e \
     -d node_type=ldap \
     -X POST -i
 ```
