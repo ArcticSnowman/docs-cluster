@@ -31,6 +31,10 @@ __Form parameters:__
 
     Provider type, must be one of `master` or `consumer`.
 
+*   `cluster_id` (required)
+
+    The ID of Cluster. This parameter is introduced starting from v0.5.0.
+
 *   `connect_delay` (optional)
 
     Time to wait (in seconds) before start connecting to provider (default to 10 seconds).
@@ -50,6 +54,7 @@ curl http://localhost:8080/providers \
     -d hostname=master-host \
     -d docker_base_url='https://128.199.198.172:2376' \
     -d type='master' \
+    -d cluster_id= 1279de28-b6d0-4052-bd0c-cc46a6fd5f9f \
     -X POST -i
 ```
 
@@ -61,6 +66,7 @@ Content-Type: application/json
 Location: http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518677
 
 {
+    "cluster_id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
     "docker_base_url": "128.199.198.172:2376",
     "hostname": "master-host",
     "id": "283bfa41-2121-4433-9741-875004518677",
@@ -86,6 +92,7 @@ curl http://localhost:8080/providers \
     -d hostname=consumer-host \
     -d docker_base_url='128.199.198.173:2376' \
     -d type=consumer \
+    -d cluster_id= 1279de28-b6d0-4052-bd0c-cc46a6fd5f9f \
     -X POST -i
 ```
 
@@ -97,6 +104,7 @@ Content-Type: application/json
 Location: http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518678
 
 {
+    "cluster_id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
     "docker_base_url": "128.199.198.173:2376",
     "hostname": "consumer-host",
     "id": "283bfa41-2121-4433-9741-875004518678",
@@ -135,6 +143,7 @@ HTTP/1.0 200 OK
 Content-Type: application/json
 
 {
+    "cluster_id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
     "docker_base_url": "128.199.198.172:2376",
     "hostname": "master-host",
     "id": "283bfa41-2121-4433-9741-875004518677",
@@ -172,12 +181,14 @@ Content-Type: application/json
 
 [
     {
+        "cluster_id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
         "docker_base_url": "128.199.198.172:2376",
         "hostname": "master-host",
         "id": "283bfa41-2121-4433-9741-875004518677",
         "type": "master"
     },
     {
+        "cluster_id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
         "docker_base_url": "128.199.198.173:2376",
         "hostname": "consumer-host",
         "id": "283bfa41-2121-4433-9741-875004518678",
@@ -269,6 +280,7 @@ HTTP/1.0 200 OK
 Content-Type: application/json
 
 {
+    "cluster_id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
     "docker_base_url": "128.199.198.172:2376",
     "hostname": "master-host",
     "id": "283bfa41-2121-4433-9741-875004518677",
@@ -294,6 +306,7 @@ HTTP/1.0 200 OK
 Content-Type: application/json
 
 {
+    "cluster_id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
     "docker_base_url": "128.199.198.173:2376",
     "hostname": "consumer-host",
     "id": "283bfa41-2121-4433-9741-875004518678",
