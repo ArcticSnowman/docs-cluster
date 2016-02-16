@@ -17,7 +17,7 @@ Run the following command to SSH for accessing the web interface:
 
 Point your browser to the following address to access the webui:
 
-`http://localhost:<port-name`
+`http://localhost:<port-name>`
 
 When you access the web interface, the following screen will appear.
 ![overview](../../img/webui_overview.png)
@@ -47,3 +47,12 @@ New resources can be added by clicking the 'New RESOURCE' buttons in the overvie
 Existing resources can be altered when they provide an Edit action. Clicking the Edit button takes you to the edit form which is similar to the 'New' form with the ID of the existing resource disabled. ID's are unique system generated strings and hence disabled from editing.
 
 ![Edit form](../../img/webui_edit_form.png)
+
+## History
+
+All the create requests made by the Web UI is saved in the file called  `config-history.log`. Each post request generate 3 lines of log:
+1. The date and time of logging
+2. The cUrl command equivalent of the POST request made from the web interface
+3. The status code of the response provided by the API server
+
+The log can be accessed from the browser at `http://localhost:<port_name>/static/config-history.log`
