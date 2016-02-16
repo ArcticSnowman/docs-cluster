@@ -51,6 +51,7 @@ Existing resources can be altered when they provide an Edit action. Clicking the
 ## History
 
 All the create requests made by the Web UI is saved in the file called  `config-history.log`. Each post request generate 3 lines of log:
+
 1. The date and time of logging
 2. The cUrl command equivalent of the POST request made from the web interface
 3. The status code of the response provided by the API server
