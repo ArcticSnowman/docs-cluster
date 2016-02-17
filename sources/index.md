@@ -2,7 +2,7 @@
 
 Gluu EE is a high availability and high reliability solution for enterprise authentication and authorization. Gluu EE includes all of the same components as [Community Edition (CE)](http://gluu.org/docs), but each component is delivered in its own docker contaner and EE includes an additional management system, called Gluu Flask, which enables elasticity and scalability across multiple cloud providers in multiple geographic regions. 
 
-The Gluu Server EE is divided into two packages identified as "master" and "consumer". The "master" package is offered free and the "consumer" package requires a commercial license.
+The Gluu Server EE is divided into two packages identified as "master" and "consumer". The "master" package is offered free and the "consumer" package requires a commercial license. For pricing information, please [schedule a meeting with us](http://gluu.org/booking).
 
 **Note:** currently Enterprise Edition includes the Shibboleth IDP, oxAuth, oxTrust and LDAP. 
 
