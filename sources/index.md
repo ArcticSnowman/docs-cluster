@@ -4,7 +4,7 @@ Gluu EE is a high availability and high reliability solution for enterprise auth
 
 The Gluu Server EE is divided into two packages identified as "master" and "consumer". The "master" package is offered free and the "consumer" package requires a commercial license. For pricing information, please [schedule a meeting with us](http://gluu.org/booking).
 
-**Note:** currently Enterprise Edition includes the Shibboleth IDP, oxAuth, oxTrust and LDAP. 
+**Note:** currently Enterprise Edition includes the Shibboleth SAML IDP, oxAuth OpenID Connect IDP and UMA Authorization Server (AS), oxTrust web GUI, and LDAP. 
 
 # Admin Guide
 - [Overview](./admin-guide/overview/index.md)
