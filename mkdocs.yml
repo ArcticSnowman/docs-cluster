@@ -28,6 +28,7 @@ pages:
 - [admin-guide/troubleshooting/index.md, Admin Guide, Troubleshooting]
 - [admin-guide/recovery/index.md, Admin Guide, Recovery]
 - [admin-guide/migration/index.md, Admin Guide, Migration]
+- [admin-guide/known-issues/index.md, Admin Guide, Known Issues]
 
 # API section
 - [reference/api/index.md, Reference, API]

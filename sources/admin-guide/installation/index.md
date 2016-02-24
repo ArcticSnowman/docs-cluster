@@ -11,6 +11,8 @@ Cluster requires at least kernel 3.10 at minimum. We can check whether we're usi
 
     uname -r
 
+Please note, due to [issue with kernel 3.13.0-77](../known-issues#unsupported-kernel), this version should be avoided.
+
 Also it’s recommended to install the linux-image-extra kernel package. The linux-image-extra package allows us to use the aufs storage driver for docker engine.
 
     apt-get update
