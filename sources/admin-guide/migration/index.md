@@ -2,6 +2,28 @@
 
 [TOC]
 
+## Version 0.4.3
+
+Changelog for v0.4.3 is available [here](https://github.com/GluuFederation/gluu-flask/blob/master/CHANGES.md#version-043).
+
+### Master provider
+
+1.  Install latest `gluu-flask` and `gluu-agent` package updates:
+
+        apt-get update && apt-get install -y gluu-flask gluu-agent
+
+2.  Populate node's logs by running this command:
+
+        gluuapi populate-node-logs
+
+    The command above will populate paths to all nodes logs in the cluster.
+
+### Consumer provider
+
+1.  Install latest `gluu-agent` package updates:
+
+        apt-get update && apt-get install -y gluu-agent
+
 ## Version 0.4.2
 
 Changelog for v0.4.2 is available [here](https://github.com/GluuFederation/gluu-flask/blob/master/CHANGES.md#version-042).
