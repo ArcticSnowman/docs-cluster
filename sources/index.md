@@ -24,3 +24,4 @@ The Gluu Server EE is divided into two packages identified as "master" and "cons
   - [Provider](./reference/api/provider.md)
   - [Node](./reference/api/node.md)
   - [License Key](./reference/api/license_key.md)
+  - [Node Log](./reference/api/node_log.md)

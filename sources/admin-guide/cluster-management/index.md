@@ -229,16 +229,10 @@ Here's an example of response returned from request above:
 
 Note the node's `name` from the response above.
 The progress of deployment can be followed by tailing the log.
-Run the following command to tail the log file:
+The following command can be used periodically to check the deployment of the node:
 
 ```
-tail -F /var/log/gluu/<node-name>-setup.log
-```
-
-Alternatively, the following command can be used periodically to check the deployment of the node:
-
-```
-curl http://localhost:8080/nodes/<node-name>
+curl http://localhost:8080/node_logs/<node-name>/setup
 ```
 
 This technique can be applied to all nodes in the cluster.
@@ -263,16 +257,10 @@ curl http://localhost:8080/nodes \
 
 A successful request returns a HTTP 202 status code. Note the node name from the code.
 The progress of deployment can be followed by tailing the log.
-Run the following command to tail the log file:
+The following command can be used periodically to check the deployment of the node:
 
 ```
-tail -F /var/log/gluu/<node-name>-setup.log
-```
-
-Alternatively, the following command can be used periodically to check the deployment of the node:
-
-```
-curl http://localhost:8080/nodes/<node-name>
+curl http://localhost:8080/node_logs/<node-name>/setup
 ```
 
 #### nginx Node
@@ -295,16 +283,10 @@ curl http://localhost:8080/nodes \
 
 A successful request returns a HTTP 202 status code. Note the node name from the code.
 The progress of deployment can be followed by tailing the log.
-Run the following command to tail the log file:
+The following command can be used periodically to check the deployment of the node:
 
 ```
-tail -F /var/log/gluu/<node-name>-setup.log
-```
-
-Alternatively, the following command can be used periodically to check the deployment of the node:
-
-```
-curl http://localhost:8080/nodes/<node-name>
+curl http://localhost:8080/node_logs/<node-name>/setup
 ```
 
 #### oxIdp Node (optional)
@@ -320,16 +302,10 @@ curl http://localhost:8080/nodes \
 
 A successful request returns a HTTP 202 status code. Note the node name from the code.
 The progress of deployment can be followed by tailing the log.
-Run the following command to tail the log file:
+The following command can be used periodically to check the deployment of the node:
 
 ```
-tail -F /var/log/gluu/<node-name>-setup.log
-```
-
-Alternatively, the following command can be used periodically to check the deployment of the node:
-
-```
-curl http://localhost:8080/nodes/<node-name>
+curl http://localhost:8080/node_logs/<node-name>/setup
 ```
 
 To generate default IdP and SP metadata, we need to deploy oxtrust node after deploying oxidp node.
@@ -344,18 +320,13 @@ curl http://localhost:8080/nodes \
     -d node_type=oxtrust \
     -X POST -i
 ```
+
 A successful request returns a HTTP 202 status code. Note the node name from the code.
 The progress of deployment can be followed by tailing the log.
-Run the following command to tail the log file:
+The following command can be used periodically to check the deployment of the node:
 
 ```
-tail -F /var/log/gluu/<node-name>-setup.log
-```
-
-Alternatively, the following command can be used periodically to check the deployment of the node:
-
-```
-curl http://localhost:8080/nodes/<node-name>
+curl http://localhost:8080/node_logs/<node-name>/setup
 ```
 
 ##### Accessing oxTrust Web Interface
@@ -590,16 +561,10 @@ curl http://localhost:8080/nodes \
 
 A successful request returns a HTTP 202 status code. Note the node name from the code.
 The progress of deployment can be followed by tailing the log.
-Run the following command to tail the log file:
+The following command can be used periodically to check the deployment of the node:
 
 ```
-tail -F /var/log/gluu/<node-name>-setup.log
-```
-
-Alternatively, the following command can be used periodically to check the deployment of the node:
-
-```
-curl http://localhost:8080/nodes/<node-name>
+curl http://localhost:8080/node_logs/<node-name>/setup
 ```
 
 ##### LDAP Replication
@@ -623,16 +588,10 @@ curl http://localhost:8080/nodes \
 
 A successful request returns a HTTP 202 status code. Note the node name from the code.
 The progress of deployment can be followed by tailing the log.
-Run the following command to tail the log file:
+The following command can be used periodically to check the deployment of the node:
 
 ```
-tail -F /var/log/gluu/<node-name>-setup.log
-```
-
-Alternatively, the following command can be used periodically to check the deployment of the node:
-
-```
-curl http://localhost:8080/nodes/<node-name>
+curl http://localhost:8080/node_logs/<node-name>/setup
 ```
 
 #### nginx Node
@@ -648,16 +607,10 @@ curl http://localhost:8080/nodes \
 
 A successful request returns a HTTP 202 status code. Note the node name from the code.
 The progress of deployment can be followed by tailing the log.
-Run the following command to tail the log file:
+The following command can be used periodically to check the deployment of the node:
 
 ```
-tail -F /var/log/gluu/<node-name>-setup.log
-```
-
-Alternatively, the following command can be used periodically to check the deployment of the node:
-
-```
-curl http://localhost:8080/nodes/<node-name>
+curl http://localhost:8080/node_logs/<node-name>/setup
 ```
 
 #### oxIdp Node (optional)
@@ -673,16 +626,10 @@ curl http://localhost:8080/nodes \
 
 A successful request returns a HTTP 202 status code. Note the node name from the code.
 The progress of deployment can be followed by tailing the log.
-Run the following command to tail the log file:
+The following command can be used periodically to check the deployment of the node:
 
 ```
-tail -F /var/log/gluu/<node-name>-setup.log
-```
-
-Alternatively, the following command can be used periodically to check the deployment of the node:
-
-```
-curl http://localhost:8080/nodes/<node-name>
+curl http://localhost:8080/node_logs/<node-name>/setup
 ```
 
 ## Local DNS Server
