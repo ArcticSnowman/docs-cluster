@@ -28,9 +28,13 @@ Content-Type: application/json
 
 {
     "id": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
-    "node_name": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043"
+    "node_name": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
+    "setup_log_url": "http://localhost:8080/node_logs/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043/setup",
+    "teardown_log_url": "http://localhost:8080/node_logs/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043/teardown"
 }
 ```
+
+Note: `teardown_log_url` may have empty string value if node is not deleted yet.
 
 __Status Code:__
 
@@ -132,12 +136,17 @@ Content-Type: application/json
 [
     {
         "id": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
-        "node_name": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043"
+        "node_name": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
+        "setup_log_url": "http://localhost:8080/node_logs/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043/setup",
+        "teardown_log_url": "http://localhost:8080/node_logs/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043/teardown"
     }
 ]
 ```
 
-Note, if there's no node logs, the response body will return empty list.
+Note:
+
+* If there's no node logs, the response body will return empty list.
+* `teardown_log_url` may have empty string value if node is not deleted yet.
 
 __Status Code:__
 
