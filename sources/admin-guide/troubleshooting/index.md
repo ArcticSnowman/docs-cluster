@@ -5,10 +5,15 @@
 This section will be added soon.
 
 ## Log Files
-### Setup Logs
-The setup logs for the cluster nodes are available at `/var/log/gluu/` directory of the master provider. The following path shows the exact location of the logs.
+The setup and deployment logs for the cluster nodes are available at Node Log API.
 
-    /var/log/gluu/<node-name>-setup.log
+Example:
+
+    # setup log
+    curl localhost:8080/node_logs/<node-name>/setup
+
+    # teardown log
+    curl localhost:8080/node_logs/<node-name>/teardown
 
 The term `<node-name>` represents the currently-supported nodes that are LDAP, oxAuth, oxTrust, oxIdp, and nginx.
 

@@ -1,5 +1,7 @@
 ## Node API
 
+[TOC]
+
 Node is an entity represents a `docker` container.
 
 ---
@@ -63,6 +65,7 @@ HTTP/1.0 202 ACCEPTED
 Content-Type: application/json
 Location: http://localhost:8080/nodes/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043
 X-Deploy-Log: /var/log/gluu/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043-setup.log
+X-Node-Setup-Log: http://localhost:8080/node_logs/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043/setup
 
 {
     "provider_id": "58848b94-0671-48bc-9c94-04b0351886f0",
@@ -89,11 +92,11 @@ But they will be populated eventually during the process.
 
 There are several ways to track the deployment progress:
 
-1.  By looking at the log file (the path is set in `X-Deploy-Log` response header above).
+1.  By making requests periodically to `http://localhost:8080/node_logs/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043/setup`.
+2.  By looking at the log file (the path is set in `X-Deploy-Log` response header above).
     A typical example is by using `tail` shell command,
     for example `tail -F /var/log/gluu/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043-setup.log`.
-
-2.  By making requests periodically to [retrieve node resource](./#get-a-node) (the URL is set in `Location` response header above).
+    Note, this header is deprecated since v0.4.3 and will be removed in v0.5.0.
 
 __Status Code:__
 
@@ -252,7 +255,11 @@ __Response example:__
 ```http
 HTTP/1.0 204 NO CONTENT
 Content-Type: application/json
+X-Node-Teardown-Log: http://localhost:8080/node_logs/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043/teardown
 ```
+
+Since deleting (teardown) a node may take awhile, the build process is running as background job.
+To track the teardown progress we can make requests periodically to `http://localhost:8080/node_logs/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043/teardown`.
 
 __Status Code:__
 

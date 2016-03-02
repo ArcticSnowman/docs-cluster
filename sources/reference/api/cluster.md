@@ -1,5 +1,7 @@
 ## Cluster API
 
+[TOC]
+
 Cluster holds all nodes (`docker` containers) within `weave` network.
 
 ---

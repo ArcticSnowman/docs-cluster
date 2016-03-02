@@ -1,5 +1,7 @@
 ## License Key API
 
+[TOC]
+
 License key represents an entity to manage keys for license bought from Gluu Inc. These keys are required to generate metadata from signed license retrieved from Gluu Inc. license server.
 
 ---
