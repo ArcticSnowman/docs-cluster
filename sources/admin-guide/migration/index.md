@@ -42,7 +42,8 @@ Changelog for v0.5.0 is available [here](https://github.com/GluuFederation/gluu-
         weave reset
 
 4.  Backup necessary data (mainly LDAP data) and remove existing nodes via web UI or direct API.
-5.  Re-deploy new nodes using web UI or direct API.
+5.  Rename `/var/lib/gluu-cluster/volumes/oxidp` as `/var/lib/gluu-cluster/override/oxidp` due to changes in oxIdp filesystem watcher task.
+6.  Re-deploy new nodes using web UI or direct API.
 
 ### Consumer provider
 
