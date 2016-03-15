@@ -240,9 +240,10 @@ This technique can be applied to all nodes in the cluster.
 ##### Custom LDAP Schema
 
 Starting from v0.4.0, ldap node has support for custom schema. To deploy custom schema,
-put the desired schema in `.ldif` file under `/var/lib/gluu-cluster/custom/opendj/schema/`.
+put the desired schema in `.ldif` file on the same server running gluu-flask under `/var/lib/gluu-cluster/custom/opendj/schema/`.
 For example, we can create `/var/lib/gluu-cluster/custom/opendj/schema/102-customSchema.ldif` for our custom schema.
-This file will be added to ldap node located at `/opt/opendj/config/schema/102-customSchema.ldif`.
+This file will be added to ldap node located at `/opt/opendj/config/schema/102-customSchema.ldif`. The schema is copied on ldap server
+creation.
 
 #### oxAuth Node
 Run the following command to deploy oxAuth node:
