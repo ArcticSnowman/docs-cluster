@@ -1,7 +1,6 @@
-## Provider API
-
 [TOC]
 
+## Provider API
 Provider is an entity represents a machine where `docker`, `salt-minion`,
 and `weave` are hosted. This machine could be a Gluu Cluster Master or
 Gluu Cluster Consumer.
