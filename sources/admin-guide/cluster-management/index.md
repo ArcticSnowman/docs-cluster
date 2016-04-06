@@ -129,7 +129,7 @@ The `provider_id` is required to deploy nodes, so it is best to keep the referen
 A successful creation of provider follows a background job to complete internal IP routing through `weave` and importing necessary docker certificates.
 By default, it may take up-to 25 seconds to finish the provider creation.
 
-#### Imported docker Certificates
+#### Imported Docker Certificates
 
 To deploy/delete nodes, `gluu-flask` uses docker Remote API protected by TLS, hence `gluu-flask` require necessary docker certificates.
 These certificates are copied from host-level docker config directory (`/etc/docker`):
@@ -159,7 +159,7 @@ $ weave status
 
 The command will provide a similar output as below:
 
-```sh
+```
 $ weave status
 
        Version: v1.1.0
@@ -293,7 +293,7 @@ curl http://localhost:8080/node_logs/<node-name>/setup
 #### oxIdp Node (optional)
 Run the following command to deploy oxIdp node:
 
-```sh
+```
 curl http://localhost:8080/nodes \
     -d provider_id=$MASTER_PROVIDER_ID \
     -d cluster_id=$CLUSTER_ID \
@@ -470,7 +470,7 @@ $ weave status
 
 The command will provide a similar output as below:
 
-```sh
+```
 $ weave status
 
        Version: v1.1.0
@@ -552,7 +552,7 @@ The deployment of nodes can be done after the creation of Cluster and Provider e
 
 Run the following command to deploy the ldap node:
 
-```sh
+```
 curl http://localhost:8080/nodes \
     -d provider_id=$CONSUMER_PROVIDER_ID \
     -d cluster_id=$CLUSTER_ID \
@@ -579,7 +579,7 @@ However we need to check whether replication are created successfully by login t
 #### oxAuth Node
 Run the following command to deploy oxAuth node:
 
-```sh
+```
 curl http://localhost:8080/nodes \
     -d provider_id=$CONSUMER_PROVIDER_ID \
     -d cluster_id=$CLUSTER_ID \
@@ -598,7 +598,7 @@ curl http://localhost:8080/node_logs/<node-name>/setup
 #### nginx Node
 Run the following command to deploy the nginx node:
 
-```sh
+```
 curl http://localhost:8080/nodes \
     -d provider_id=$CONSUMER_PROVIDER_ID \
     -d cluster_id=$CLUSTER_ID \
@@ -617,7 +617,7 @@ curl http://localhost:8080/node_logs/<node-name>/setup
 #### oxIdp Node (optional)
 Run the following command to deploy oxIdp node:
 
-```sh
+```
 curl http://localhost:8080/nodes \
     -d provider_id=$CONSUMER_PROVIDER_ID \
     -d cluster_id=$CLUSTER_ID \

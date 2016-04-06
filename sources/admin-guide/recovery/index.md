@@ -1,6 +1,5 @@
-# Recovery Overview
-[TOC]
 
+# Recovery Overview
 A provider may crashes due to various reasons (i.e. power outage).
 When it crashes, all containers (weave, prometheus, and nodes) will crash as well.
 
