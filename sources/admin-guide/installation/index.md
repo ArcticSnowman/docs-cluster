@@ -1,6 +1,5 @@
-# Installation
 [TOC]
-
+# Installation
 The Gluu Cluster only supports Ubuntu for now. There are three packages that completes the cluster; the master, the consumer and the cluster API. The master package and the cluster API must be installed in the same host. The consumer package is not necessary for a single server installation. There is one additional package, gluu-webui, that provides a user friendly way of using the API and managing the cluster.
 
 ## Prerequisites

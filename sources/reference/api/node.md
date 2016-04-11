@@ -1,10 +1,6 @@
-## Node API
-
 [TOC]
-
+## Node API
 Node is an entity represents a `docker` container.
-
----
 
 ### Create New Node
 
@@ -68,7 +64,7 @@ X-Deploy-Log: /var/log/gluu/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043-setu
 X-Node-Setup-Log: http://localhost:8080/node_logs/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043/setup
 
 {
-    "provider_id": "58848b94-0671-48bc-9c94-04b0351886f0",
+   "provider_id": "58848b94-0671-48bc-9c94-04b0351886f0",
     "name": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
     "ldap_port": "1389",
     "ldap_admin_port": "4444",
