@@ -30,6 +30,7 @@ Content-Type: application/json
     "id": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
     "node_name": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
     "setup_log_url": "http://localhost:8080/node_logs/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043/setup",
+    "state": "SETUP_FINISHED",
     "teardown_log_url": "http://localhost:8080/node_logs/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043/teardown"
 }
 ```
@@ -64,12 +65,25 @@ __Response example:__
 HTTP/1.0 200 OK
 Content-Type: application/json
 
-[
-    "2016-02-23 00:48:47,052 - gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043 - INFO  - Waiting for minion to connect; sleeping for 10 seconds",
-    "2016-02-23 00:48:57,058 - gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043 - INFO  - Preparing remote execution; sleeping for 15 seconds",
-    "2016-02-23 00:49:12,074 - gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043 - INFO  - attaching weave IP address 10.2.0.1/16",
-    "2016-02-23 00:53:17,153 - gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043 - INFO  - gluuopendj setup is finished (242.836978912 seconds)"
-]
+```
+
+```http
+HTTP/1.0 200 OK
+Content-Type: application/json
+
+{
+    "id": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
+    "node_name": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
+    "setup_log_contents": [
+        "2016-02-23 00:48:47,052 - gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043 - INFO  - Waiting for minion to connect; sleeping for 10 seconds",
+        "2016-02-23 00:48:57,058 - gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043 - INFO  - Preparing remote execution; sleeping for 15 seconds",
+        "2016-02-23 00:49:12,074 - gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043 - INFO  - attaching weave IP address 10.2.0.1/16",
+        "2016-02-23 00:53:17,153 - gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043 - INFO  - gluuopendj setup is finished (242.836978912 seconds)"
+    ],
+    "setup_log_url": "http://localhost:8080/node_logs/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043/setup",
+    "state": "SETUP_FINISHED",
+    "teardown_log_url": "http://localhost:8080/node_logs/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043/teardown"
+}
 ```
 
 __Status Code:__
@@ -100,10 +114,18 @@ __Response example:__
 HTTP/1.0 200 OK
 Content-Type: application/json
 
-[
-    "2016-02-23 00:53:17,153 - gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043 - INFO  - gluuopendj teardown is finished (20.836978912 seconds)"
-]
+{
+    "id": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
+    "node_name": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
+    "setup_log_url": "http://localhost:8080/node_logs/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043/setup",
+    "state": "TEARDOWN_FINISHED",
+    "teardown_log_contents": [
+        "2016-02-23 00:53:17,153 - gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043 - INFO  - gluuopendj teardown is finished (20.836978912 seconds)"
+    ],
+    "teardown_log_url": "http://localhost:8080/node_logs/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043/teardown"
+}
 ```
+
 
 __Status Code:__
 
@@ -138,6 +160,7 @@ Content-Type: application/json
         "id": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
         "node_name": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
         "setup_log_url": "http://localhost:8080/node_logs/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043/setup",
+        "state": "SETUP_FINISHED",
         "teardown_log_url": "http://localhost:8080/node_logs/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043/teardown"
     }
 ]
