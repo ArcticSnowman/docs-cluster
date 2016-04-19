@@ -47,4 +47,4 @@ At minimum, the recommended resources for each server in cluster are:
 The Gluu Cluster takes advantage of the latest free, open-source, components which work together to provide a hickup-free cluster environment.
 The components are listed in the [components page](../components/#components).
 
-[de]: http://docker.com "Docker Edition"
+[de]: "Docker Edition"
