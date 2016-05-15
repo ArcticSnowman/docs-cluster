@@ -1,61 +1,85 @@
 [TOC]
 
 ## Provider API
-Provider is an entity represents a machine where `docker`, `salt-minion`,
-and `weave` are hosted. This machine could be a Gluu Cluster Master or
-Gluu Cluster Consumer.
+
+Provider is an entity represents a service that provides server. An example of provider is a cloud service.
+Currently, there are various supported provider types:
+
+1. [DigitalOcean](https://www.digitalocean.com/).
+2. Generic; this is a _Bring Your Own Provider_ style. This should be used if none of any provider mentioned above is selected.
 
 ---
 
 ### Create New Provider
 
-    POST /providers
+Any supported provider type can be created by sending a request to `/providers/{type}` URL, where `{type}` is the name of provider type mentioned above.
 
-NOTE: make sure `docker`, `salt-minion`, and `weave` have been [installed and configured](../../admin-guide/installation/index.md). Also, a cluster must be created beforehand.
+#### DigitalOcean Provider
 
+    POST /providers/digitalocean
 
 __URL:__
 
-    http://localhost:8080/providers
+    http://localhost:8080/providers/digitalocean
 
 __Form parameters:__
 
-*   `hostname` (required)
+*   `name` (required)
 
-    Host name of the machine. When in doubt, use `hostname --long` shell command to get the name.
+    A unique name of the provider.
 
-*   `docker_base_url` (required)
+*   `digitalocean_access_token` (required)
 
-    Docker remote API URL. Supported format is `https://$IP:$PORT`, e.g. `https://128.199.198.172:2376`.
+    DigitalOcean access token.
 
-*   `type` (required)
+*   `digitalocean_backups`
 
-    Provider type, must be one of `master` or `consumer`.
+    Enable or disable backup for DigitalOcean droplet (turned off by default).
 
-*   `cluster_id` (required)
+*   `digitalocean_private_networking`
 
-    The ID of Cluster. This parameter is introduced starting from v0.5.0.
+    Enable or disable private networking for DigitalOcean droplet (turned off by default).
 
-*   `connect_delay` (optional)
+*   `digitalocean_region` (required)
 
-    Time to wait (in seconds) before start connecting to provider (default to 10 seconds).
+    Region where droplet is hosted.
 
-*   `exec_delay` (optional)
+    Supported region:
 
-    Time to wait (in seconds) before start executing command in provider (default to 15 seconds).
+    * `nyc1`: New York 1
+    * `nyc2`: New York 2
+    * `nyc3`: New York 3
+    * `ams2`: Amsterdam 2
+    * `ams3`: Amsterdam 3
+    * `sgp1`: Singapore 1
+    * `lon1`: London 1
+    * `sfo1`: San Fransisco 1
+    * `tor1`: Toronto 1
+    * `fra1`: Frankfurt 1
 
-#### Master Provider
+*   `digitalocean_size`
 
-NOTE: Currently only supports a single `master` provider.
+    DigitalOcean droplet size.
+
+    Supported size:
+
+    * `512mb` (1 CPU)
+    * `1gb` (1 CPU)
+    * `2gb` (2 CPUs)
+    * `4gb` (2 CPUs); this is the minimum recommended size hence it is set by default.
+    * `8gb` (4 CPUs)
+    * `16gb` (8 CPUs)
+    * `32gb` (12 CPUs)
+    * `48gb` (16 CPUs)
+    * `64gb` (20 CPUs)
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/providers \
-    -d hostname=master-host \
-    -d docker_base_url='https://128.199.198.172:2376' \
-    -d type='master' \
-    -d cluster_id= 1279de28-b6d0-4052-bd0c-cc46a6fd5f9f \
+curl http://localhost:8080/providers/digitalocean \
+    -d name=my-do-provider \
+    -d digitalocean_access_token=random-token \
+    -d digitalocean_region=nyc3 \
     -X POST -i
 ```
 
@@ -64,61 +88,96 @@ __Response example:__
 ```http
 HTTP/1.0 201 CREATED
 Content-Type: application/json
-Location: http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518677
+Location: http://localhost:8080/providers/fe3eeb1d-7731-43f7-aa90-767d16fa3ab4
 
 {
-    "cluster_id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
-    "docker_base_url": "128.199.198.172:2376",
-    "hostname": "master-host",
-    "id": "283bfa41-2121-4433-9741-875004518677",
-    "type": "master"
+    "digitalocean_access_token": "random-token",
+    "digitalocean_backups": false,
+    "digitalocean_image": "ubuntu-14-04-x64",
+    "digitalocean_ipv6": false,
+    "digitalocean_private_networking": false,
+    "digitalocean_region": "nyc3",
+    "digitalocean_size": "4gb",
+    "driver": "digitalocean",
+    "id": "fe3eeb1d-7731-43f7-aa90-767d16fa3ab4",
+    "name": "my-do-provider",
 }
 ```
 
-#### Consumer Provider
-
-There are prerequisites before creating a `consumer`:
-
-1. `master` provider must exist.
-2. Must have a license key. See [License Key API](./license_key.md) for details.
-
-It's worth noting that when license for `consumer` provider is expired,
-server will try to retrieve new license automatically. If succeed, the provider will use new license.
-Otherwise, all `oxauth` and `oxidp` nodes deployed on this provider will be disabled from cluster.
-
-__Request example:__
-
-```sh
-curl http://localhost:8080/providers \
-    -d hostname=consumer-host \
-    -d docker_base_url='128.199.198.173:2376' \
-    -d type=consumer \
-    -d cluster_id= 1279de28-b6d0-4052-bd0c-cc46a6fd5f9f \
-    -X POST -i
-```
-
-__Response example:__
-
-```http
-HTTP/1.0 201 CREATED
-Content-Type: application/json
-Location: http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518678
-
-{
-    "cluster_id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
-    "docker_base_url": "128.199.198.173:2376",
-    "hostname": "consumer-host",
-    "id": "283bfa41-2121-4433-9741-875004518678",
-    "type": "consumer"
-}
-```
+Please note, `driver` is also known as provider type.
 
 __Status Code:__
 
 * `201`: Provider is successfully created.
 * `400`: Bad request. Possibly malformed/incorrect parameter value.
-* `403`: Access denied. Refer to message key in JSON response for details.
-* `422`: Unprocessable entity. Possibly unable to retrieve license from license server.
+* `500`: The server having errors.
+
+#### Generic Provider
+
+    POST /providers/generic
+
+__URL:__
+
+    http://localhost:8080/providers/generic
+
+__Form parameters:__
+
+*   `name` (required)
+
+    A unique name of the provider.
+
+*   `generic_ip_address` (required)
+
+    IP address of remote machine.
+
+*   `generic_ssh_key` (required)
+
+    Absolute path to private key used for SSH connection.
+
+*   `generic_ssh_user` (required)
+
+    SSH user used for SSH connection.
+
+*   `generic_ssh_port` (required)
+
+    Port used for SSH connection.
+
+__Request example:__
+
+```sh
+curl http://localhost:8080/providers/digitalocean \
+    -d name=my-gen-provider \
+    -d generic_ip_address=172.10.10.10 \
+    -d generic_ssh_key=/home/johndoe/.ssh/id_rsa \
+    -d generic_ssh_user=root \
+    -d generic_ssh_port=22 \
+    -X POST -i
+```
+
+__Response example:__
+
+```http
+HTTP/1.0 201 CREATED
+Content-Type: application/json
+Location: http://localhost:8080/providers/17f9f346-0d28-45f1-96a0-49473cc21769
+
+{
+    "driver": "generic",
+    "generic_ip_address": "172.10.10.10",
+    "generic_ssh_key": "/home/johndoe/.ssh/id_rsa",
+    "generic_ssh_port": 22,
+    "generic_ssh_user": "root",
+    "id": "17f9f346-0d28-45f1-96a0-49473cc21769",
+    "name": "my-gen-provider",
+}
+```
+
+Please note, `driver` is also known as provider type.
+
+__Status Code:__
+
+* `201`: Provider is successfully created.
+* `400`: Bad request. Possibly malformed/incorrect parameter value.
 * `500`: The server having errors.
 
 ---
@@ -134,7 +193,7 @@ __URL:__
 __Request example:__
 
 ```sh
-curl http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518677 -i
+curl http://localhost:8080/providers/fe3eeb1d-7731-43f7-aa90-767d16fa3ab4 -i
 ```
 
 __Response example:__
@@ -144,11 +203,16 @@ HTTP/1.0 200 OK
 Content-Type: application/json
 
 {
-    "cluster_id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
-    "docker_base_url": "128.199.198.172:2376",
-    "hostname": "master-host",
-    "id": "283bfa41-2121-4433-9741-875004518677",
-    "type": "master"
+    "digitalocean_access_token": "random-token",
+    "digitalocean_backups": false,
+    "digitalocean_image": "ubuntu-14-04-x64",
+    "digitalocean_ipv6": false,
+    "digitalocean_private_networking": false,
+    "digitalocean_region": "nyc3",
+    "digitalocean_size": "4gb",
+    "driver": "digitalocean",
+    "id": "fe3eeb1d-7731-43f7-aa90-767d16fa3ab4",
+    "name": "my-do-provider",
 }
 ```
 
@@ -182,18 +246,25 @@ Content-Type: application/json
 
 [
     {
-        "cluster_id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
-        "docker_base_url": "128.199.198.172:2376",
-        "hostname": "master-host",
-        "id": "283bfa41-2121-4433-9741-875004518677",
-        "type": "master"
+        "digitalocean_access_token": "random-token",
+        "digitalocean_backups": false,
+        "digitalocean_image": "ubuntu-14-04-x64",
+        "digitalocean_ipv6": false,
+        "digitalocean_private_networking": false,
+        "digitalocean_region": "nyc3",
+        "digitalocean_size": "4gb",
+        "driver": "digitalocean",
+        "id": "fe3eeb1d-7731-43f7-aa90-767d16fa3ab4",
+        "name": "my-do-provider",
     },
     {
-        "cluster_id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
-        "docker_base_url": "128.199.198.173:2376",
-        "hostname": "consumer-host",
-        "id": "283bfa41-2121-4433-9741-875004518678",
-        "type": "consumer"
+        "driver": "generic",
+        "generic_ip_address": "172.10.10.10",
+        "generic_ssh_key": "/home/johndoe/.ssh/id_rsa",
+        "generic_ssh_port": 22,
+        "generic_ssh_user": "root",
+        "id": "17f9f346-0d28-45f1-96a0-49473cc21769",
+        "name": "my-gen-provider",
     }
 ]
 ```
@@ -207,6 +278,52 @@ __Status Code:__
 
 ---
 
+### Filter Providers
+
+    GET /filter-providers
+
+__URL:__
+
+    http://localhost:8080/filter-providers
+
+__Request example:__
+
+```sh
+curl http://localhost:8080/filter-providers/digitalocean -i
+```
+
+__Response example:__
+
+```http
+HTTP/1.0 200 OK
+Content-Type: application/json
+
+[
+    {
+        "digitalocean_access_token": "random-token",
+        "digitalocean_backups": false,
+        "digitalocean_image": "ubuntu-14-04-x64",
+        "digitalocean_ipv6": false,
+        "digitalocean_private_networking": false,
+        "digitalocean_region": "nyc3",
+        "digitalocean_size": "4gb",
+        "driver": "digitalocean",
+        "id": "fe3eeb1d-7731-43f7-aa90-767d16fa3ab4",
+        "name": "my-do-provider",
+    }
+]
+```
+
+Note, if there's no provider, the response body will return empty list.
+
+__Status Code:__
+
+* `200`: Request is succeed.
+* `500`: The server having errors.
+
+---
+
+
 ### Delete A Provider
 
     DELETE /providers/{id}
@@ -218,7 +335,7 @@ __URL:__
 __Request example:__
 
 ```sh
-curl http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518677 -X DELETE -i
+curl http://localhost:8080/providers/fe3eeb1d-7731-43f7-aa90-767d16fa3ab4 -X DELETE -i
 ```
 
 __Response example:__
@@ -233,91 +350,4 @@ __Status Code:__
 * `204`: Provider has been deleted.
 * `403`: Access denied. Refer to `message` key in JSON response for details.
 * `404`: Provider is not exist.
-* `500`: The server having errors.
-
----
-
-### Update A Provider
-
-    PUT /providers/{id}
-
-__URL:__
-
-    http://localhost:8080/providers/{id}
-
-__Form parameters:__
-
-*   `hostname` (required)
-
-    Host name of the machine. When in doubt, use `hostname --long` shell command to get the name.
-
-*   `docker_base_url` (required)
-
-    Docker remote API URL. Supported format is `https://$IP:$PORT`, e.g. `https://128.199.198.172:2376`.
-
-*   `connect_delay` (optional)
-
-    Time to wait (in seconds) before start connecting to provider (default to 10 seconds).
-
-*   `exec_delay` (optional)
-
-    Time to wait (in seconds) before start executing command in provider (default to 15 seconds).
-
-#### Master Provider
-
-__Request example:__
-
-```sh
-curl http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518677 \
-    -d hostname=master-host \
-    -d docker_base_url='https://128.199.198.172:2376' \
-    -X PUT -i
-```
-
-__Response example:__
-
-```http
-HTTP/1.0 200 OK
-Content-Type: application/json
-
-{
-    "cluster_id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
-    "docker_base_url": "128.199.198.172:2376",
-    "hostname": "master-host",
-    "id": "283bfa41-2121-4433-9741-875004518677",
-    "type": "master"
-}
-```
-
-#### Consumer Provider
-
-__Request example:__
-
-```sh
-curl http://localhost:8080/providers/283bfa41-2121-4433-9741-875004518678 \
-    -d hostname=consumer-host \
-    -d docker_base_url='128.199.198.173:2376' \
-    -X PUT -i
-```
-
-__Response example:__
-
-```http
-HTTP/1.0 200 OK
-Content-Type: application/json
-
-{
-    "cluster_id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
-    "docker_base_url": "128.199.198.173:2376",
-    "hostname": "consumer-host",
-    "id": "283bfa41-2121-4433-9741-875004518678",
-    "type": "consumer"
-}
-```
-
-__Status Code:__
-
-* `200`: Request succeed.
-* `400`: Bad request. Possibly malformed/incorrect parameter value.
-* `404`: Provider not found.
 * `500`: The server having errors.
