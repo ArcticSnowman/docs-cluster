@@ -1,104 +1,173 @@
 [TOC]
+
 ## Node API
-Node is an entity represents a `docker` container.
+
+Node is an entity represents the host of containers.
+Currently there are various supported node types:
+
+1. Discovery; used for service discovery
+2. Master
+3. Worker
+
+---
 
 ### Create New Node
 
-    POST /nodes
+    POST /nodes/{type}
 
-To create a node, provider and cluster entities must be created first.
+Any supported node type can be created by sending a request to `/nodes/{type}` URL, where `{type}` is the name of node type mentioned above.
+
+#### Discovery Node
 
 __URL:__
 
-    http://localhost:8080/nodes
+    http://localhost:8080/nodes/discovery
 
 __Form parameters:__
 
+*   `name` (required)
+
+    Name of the node. This is also acts as its hostname. Currently, the name must be set as `gluu.discovery`.
+
 *   `provider_id` (required)
 
-    The ID of Provider.
-
-*   `node_type` (required)
-
-    Node type (currently only supports `ldap`, `oxauth`, `oxtrust`, `nginx`, and `oxidp`).
-    Note, to create a clustered nodes successfully, the nodes __should__ be created
-    in following order:
-
-    1. `ldap`
-    2. `oxauth`
-    3. `nginx`
-    4. `oxidp` (optional; required if we want to use SAML)
-    5. `oxtrust`
-
-    There are few rules about nodes:
-
-    * Maximum allowed `ldap` nodes are 4 per cluster.
-    * There's no restriction on how many `oxauth` and `oxidp` nodes per provider or cluster.
-    * Only 1 `nginx` node can be deployed in each provider.
-    * Only 1 `oxtrust` node can be deployed in the cluster and it must be deployed in master provider.
-
-*   `connect_delay` (optional)
-
-    Time to wait (in seconds) before start connecting to node (default to 10 seconds).
-
-*   `exec_delay` (optional)
-
-    Time to wait (in seconds) before start executing command in node (default to 15 seconds).
+    The ID of provider. Note, `generic` provider can be used only once by a node.
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/nodes \
-    -d provider_id=58848b94-0671-48bc-9c94-04b0351886f0 \
-    -d node_type=ldap \
+curl http://localhost:8080/nodes/discovery \
+    -d name=gluu.discovery \
+    -d provider_id=fe3eeb1d-7731-43f7-aa90-767d16fa3ab4 \
     -X POST -i
 ```
 
 __Response example:__
 
 ```http
-HTTP/1.0 202 ACCEPTED
+HTTP/1.0 201 CREATED
 Content-Type: application/json
-Location: http://localhost:8080/nodes/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043
-X-Deploy-Log: /var/log/gluu/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043-setup.log
-X-Node-Setup-Log: http://localhost:8080/node_logs/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043/setup
+Location: http://localhost:8080/nodes/283bfa41-2121-4433-9741-875004518677
 
 {
-   "provider_id": "58848b94-0671-48bc-9c94-04b0351886f0",
-    "name": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
-    "ldap_port": "1389",
-    "ldap_admin_port": "4444",
-    "ip": "",
-    "ldap_binddn": "cn=directory manager",
-    "ldaps_port": "1636",
-    "cluster_id": "9ea4d520-bbba-46f6-b779-c29ee99d2e9e",
-    "weave_ip": "",
-    "type": "ldap",
-    "id": "",
-    "ldap_jmx_port": "1689",
-    "state": "IN-PROGRESS",
-    "domain_name": ""
+    "provider_id": "fe3eeb1d-7731-43f7-aa90-767d16fa3ab4",
+    "name": "gluu-discovery",
+    "id": "283bfa41-2121-4433-9741-875004518677",
+    "type": "discovery"
+}
+```
+__Status Code:__
+
+* `201`: Node is successfully created.
+* `400`: Bad request. Possibly malformed/incorrect parameter value.
+* `403`: Access denied. Refer to message key in JSON response for details.
+* `500`: The server having errors.
+
+#### Master Node
+
+There are prerequisites before creating a `master` node:
+
+1. `discovery` node must exist.
+
+__URL:__
+
+    http://localhost:8080/nodes/master
+
+__Form parameters:__
+
+*   `name` (required)
+
+    Name of the node. This is also acts as its hostname.
+
+*   `provider_id` (required)
+
+    The ID of provider. Note, `generic` provider can be used only once by a node.
+
+__Request example:__
+
+```sh
+curl http://localhost:8080/nodes/master \
+    -d name=master-node \
+    -d provider_id=fe3eeb1d-7731-43f7-aa90-767d16fa3ab4 \
+    -X POST -i
+```
+
+__Response example:__
+
+```http
+HTTP/1.0 201 CREATED
+Content-Type: application/json
+Location: http://localhost:8080/nodes/283bfa41-2121-4433-9741-875004518688
+
+{
+    "provider_id": "fe3eeb1d-7731-43f7-aa90-767d16fa3ab4",
+    "name": "master-node",
+    "id": "283bfa41-2121-4433-9741-875004518688",
+    "type": "master"
 }
 ```
 
-Since deploying a node may take awhile, the build process is running as background job.
-As we can see in example above, the ``state`` is set as `IN-PROGRESS`.
-Also, `id`, `ip`, and `weave_ip` are left blank.
-But they will be populated eventually during the process.
+__Status Code:__
 
-There are several ways to track the deployment progress:
+* `201`: Node is successfully created.
+* `400`: Bad request. Possibly malformed/incorrect parameter value.
+* `403`: Access denied. Refer to message key in JSON response for details.
+* `500`: The server having errors.
 
-1.  By making requests periodically to `http://localhost:8080/node_logs/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043/setup`.
-2.  By looking at the log file (the path is set in `X-Deploy-Log` response header above).
-    A typical example is by using `tail` shell command,
-    for example `tail -F /var/log/gluu/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043-setup.log`.
-    Note, this header is deprecated since v0.4.3 and will be removed in v0.5.0.
+#### Worker Node
+
+There are prerequisites before creating a `worker` node:
+
+1. `master` node must exist.
+2. Must have a license key. See [License Key API](./license_key.md) for details.
+
+It's worth noting that when license for `worker` node is expired,
+server will try to retrieve new license automatically. If succeed, the node will use new license.
+Otherwise, all `oxauth` and `oxidp` container deployed inside the node will be disabled from cluster.
+
+__URL:__
+
+    http://localhost:8080/nodes/worker
+
+__Form parameters:__
+
+*   `name` (required)
+
+    Name of the node. This is also acts as its hostname.
+
+*   `provider_id` (required)
+
+    The ID of provider. Note, `generic` provider can be used only once by a node.
+
+__Request example:__
+
+```sh
+curl http://localhost:8080/nodes/worker \
+    -d name=worker-node-1 \
+    -d provider_id=fe3eeb1d-7731-43f7-aa90-767d16fa3ab4 \
+    -X POST -i
+```
+
+__Response example:__
+
+```http
+HTTP/1.0 201 CREATED
+Content-Type: application/json
+Location: http://localhost:8080/nodes/283bfa41-2121-4433-9741-875004518699
+
+{
+    "provider_id": "fe3eeb1d-7731-43f7-aa90-767d16fa3ab4",
+    "name": "worker-node-1",
+    "id": "283bfa41-2121-4433-9741-875004518699",
+    "type": "worker"
+}
+```
 
 __Status Code:__
 
-* `202`: Request has been accepted.
+* `201`: Node is successfully created.
 * `400`: Bad request. Possibly malformed/incorrect parameter value.
-* `403`: Access denied.
+* `403`: Access denied. Refer to message key in JSON response for details.
 * `500`: The server having errors.
 
 ---
@@ -114,13 +183,7 @@ __URL:__
 __Request example:__
 
 ```sh
-curl http://localhost:8080/nodes/9d99c95c4043 -i
-```
-
-or
-
-```sh
-curl http://localhost:8080/nodes/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043 -i
+curl http://localhost:8080/nodes/283bfa41-2121-4433-9741-875004518699 -i
 ```
 
 __Response example:__
@@ -130,29 +193,12 @@ HTTP/1.0 200 OK
 Content-Type: application/json
 
 {
-    "provider_id": "58848b94-0671-48bc-9c94-04b0351886f0",
-    "name": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
-    "ldap_port": "1389",
-    "ldap_admin_port": "4444",
-    "ip": "172.17.0.9",
-    "ldap_binddn": "cn=directory manager",
-    "ldaps_port": "1636",
-    "cluster_id": "9ea4d520-bbba-46f6-b779-c29ee99d2e9e",
-    "weave_ip": "10.2.1.1",
-    "type": "ldap",
-    "id": "9d99c95c4043",
-    "ldap_jmx_port": "1689",
-    "state": "SUCCESS",
-    "domain_name": "9d99c95c4043.ldap.gluu.local"
+    "provider_id": "fe3eeb1d-7731-43f7-aa90-767d16fa3ab4",
+    "name": "worker-node-1",
+    "id": "283bfa41-2121-4433-9741-875004518699",
+    "type": "worker"
 }
 ```
-
-There are 4 states we need to know:
-
-1. ``IN-PROGRESS``: node is being deployed
-2. ``SUCCESS``: node is successfully deployed
-3. ``FAILED``: node is failed
-4. ``DISABLED``: node is disabled
 
 __Status Code:__
 
@@ -184,20 +230,22 @@ Content-Type: application/json
 
 [
     {
-        "provider_id": "58848b94-0671-48bc-9c94-04b0351886f0",
-        "name": "gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043",
-        "ldap_port": "1389",
-        "ldap_admin_port": "4444",
-        "ip": "172.17.0.9",
-        "ldap_binddn": "cn=directory manager",
-        "ldaps_port": "1636",
-        "cluster_id": "9ea4d520-bbba-46f6-b779-c29ee99d2e9e",
-        "weave_ip": "10.2.1.1",
-        "type": "ldap",
-        "id": "9d99c95c4043",
-        "ldap_jmx_port": "1689",
-        "state": "SUCCESS",
-        "domain_name": "9d99c95c4043.ldap.gluu.local"
+        "provider_id": "fe3eeb1d-7731-43f7-aa90-767d16fa3ab4",
+        "name": "gluu-discovery",
+        "id": "283bfa41-2121-4433-9741-875004518677",
+        "type": "discovery"
+    },
+    {
+        "provider_id": "fe3eeb1d-7731-43f7-aa90-767d16fa3ab4",
+        "name": "master-node",
+        "id": "283bfa41-2121-4433-9741-875004518688",
+        "type": "master"
+    },
+    {
+        "provider_id": "fe3eeb1d-7731-43f7-aa90-767d16fa3ab4",
+        "name": "worker-node-1",
+        "id": "283bfa41-2121-4433-9741-875004518699",
+        "type": "worker"
     }
 ]
 ```
@@ -215,35 +263,14 @@ __Status Code:__
 
     DELETE /nodes/{id}
 
-By default, node with `IN_PROGRESS` state cannot be deleted.
-Any attempt to delete node with `IN_PROGRESS` state will raise status code 403.
-To force node deletion, add `force_rm` option in the request (see below).
-
 __URL:__
 
     http://localhost:8080/nodes/{id}
 
-__Query string parameters:__
-
-*   `force_rm` (optional)
-
-    A boolean to delete the node regardless of its state. By default is set to `false`.
-
-    * Truthy values: `1`, `True`, `true`, or `t`
-    * Falsy values: `0`, `False`, `false`, or `f`
-
-    Unknown value will be ignored.
-
 __Request example:__
 
 ```sh
-curl http://localhost:8080/nodes/9d99c95c4043 -X DELETE -i --max-time 300
-```
-
-or
-
-```sh
-curl http://localhost:8080/nodes/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043 -X DELETE -i --max-time 300
+curl http://localhost:8080/nodes/283bfa41-2121-4433-9741-875004518699 -X DELETE -i
 ```
 
 __Response example:__
@@ -251,15 +278,11 @@ __Response example:__
 ```http
 HTTP/1.0 204 NO CONTENT
 Content-Type: application/json
-X-Node-Teardown-Log: http://localhost:8080/node_logs/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043/teardown
 ```
-
-Since deleting (teardown) a node may take awhile, the build process is running as background job.
-To track the teardown progress we can make requests periodically to `http://localhost:8080/node_logs/gluuopendj_f42dd3bf-28c8-450c-b221-77b677b59043/teardown`.
 
 __Status Code:__
 
 * `204`: Node has been deleted.
-* `403`: Access denied.
+* `403`: Access denied. Refer to `message` key in JSON response for details.
 * `404`: Node is not exist.
 * `500`: The server having errors.
