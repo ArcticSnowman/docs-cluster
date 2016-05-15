@@ -5,4 +5,4 @@
 - [Node](./node.md)
 - [Container](./container.md)
 - [License Key](./license_key.md)
-- [Node Log](./node_log.md)
+- [Container Log](./container_log.md)

@@ -23,7 +23,8 @@ The Gluu Server [DE][de] is divided into two packages identified as "master" and
   - [Cluster](./reference/api/cluster.md)
   - [Provider](./reference/api/provider.md)
   - [Node](./reference/api/node.md)
+  - [Container](./reference/api/container.md)
+  - [Container Log](./reference/api/container_log.md)
   - [License Key](./reference/api/license_key.md)
-  - [Node Log](./reference/api/node_log.md)
 
 [de]: "Docker Edition"
