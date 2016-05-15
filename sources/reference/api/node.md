@@ -47,11 +47,11 @@ __Response example:__
 ```http
 HTTP/1.0 201 CREATED
 Content-Type: application/json
-Location: http://localhost:8080/nodes/283bfa41-2121-4433-9741-875004518677
+Location: http://localhost:8080/nodes/gluu.discovery
 
 {
     "provider_id": "fe3eeb1d-7731-43f7-aa90-767d16fa3ab4",
-    "name": "gluu-discovery",
+    "name": "gluu.discovery",
     "id": "283bfa41-2121-4433-9741-875004518677",
     "type": "discovery"
 }
@@ -97,7 +97,7 @@ __Response example:__
 ```http
 HTTP/1.0 201 CREATED
 Content-Type: application/json
-Location: http://localhost:8080/nodes/283bfa41-2121-4433-9741-875004518688
+Location: http://localhost:8080/nodes/master-node
 
 {
     "provider_id": "fe3eeb1d-7731-43f7-aa90-767d16fa3ab4",
@@ -153,7 +153,7 @@ __Response example:__
 ```http
 HTTP/1.0 201 CREATED
 Content-Type: application/json
-Location: http://localhost:8080/nodes/283bfa41-2121-4433-9741-875004518699
+Location: http://localhost:8080/nodes/worker-node-1
 
 {
     "provider_id": "fe3eeb1d-7731-43f7-aa90-767d16fa3ab4",
@@ -174,16 +174,16 @@ __Status Code:__
 
 ### Get A Node
 
-    GET /nodes/{id}
+    GET /nodes/{name}
 
 __URL:__
 
-    http://localhost:8080/nodes/{id}
+    http://localhost:8080/nodes/{name}
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/nodes/283bfa41-2121-4433-9741-875004518699 -i
+curl http://localhost:8080/nodes/worker-node-1 -i
 ```
 
 __Response example:__
@@ -231,7 +231,7 @@ Content-Type: application/json
 [
     {
         "provider_id": "fe3eeb1d-7731-43f7-aa90-767d16fa3ab4",
-        "name": "gluu-discovery",
+        "name": "gluu.discovery",
         "id": "283bfa41-2121-4433-9741-875004518677",
         "type": "discovery"
     },
@@ -261,16 +261,16 @@ __Status Code:__
 
 ### Delete A Node
 
-    DELETE /nodes/{id}
+    DELETE /nodes/{name}
 
 __URL:__
 
-    http://localhost:8080/nodes/{id}
+    http://localhost:8080/nodes/{name}
 
 __Request example:__
 
 ```sh
-curl http://localhost:8080/nodes/283bfa41-2121-4433-9741-875004518699 -X DELETE -i
+curl http://localhost:8080/nodes/worker-node-1 -X DELETE -i
 ```
 
 __Response example:__
