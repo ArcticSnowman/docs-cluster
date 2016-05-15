@@ -56,10 +56,6 @@ __Form parameters:__
 
     Domain name to use for the admin interface website.
 
-*   `weave_ip_network` (required)
-
-    The IP address for `weave` network. The supported format is `$IP:$ROUTING_PREFIX_LEN`, e.g. 10.2.1.0/24.
-
 *   `admin_pw` (required)
 
     Default password for default Admin account. Minimum password length is 6 characters.
@@ -76,7 +72,6 @@ curl http://localhost:8080/clusters \
     -d country_code=US \
     -d admin_email='info@example.com' \
     -d ox_cluster_hostname=ox.example.com \
-    -d weave_ip_network=10.2.1.0/24 \
     -d admin_pw=secret \
     -X POST -i
 ```
@@ -98,7 +93,6 @@ Location: http://localhost:8080/clusters/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
     "city": "Austin",
     "base_inum": "@!FDF8.652A.6EFF.F5A3",
     "inum_org_fn": "FDF8652A6EFFF5A30001DA7B9EB2",
-    "weave_ip_network": "10.2.1.0/24",
     "ldaps_port": "1636",
     "ox_cluster_hostname": "ox.example.com",
     "state": "TX",
@@ -153,7 +147,6 @@ Content-Type: application/json
     "city": "Austin",
     "base_inum": "@!FDF8.652A.6EFF.F5A3",
     "inum_org_fn": "FDF8652A6EFFF5A30001DA7B9EB2",
-    "weave_ip_network": "10.2.1.0/24",
     "ldaps_port": "1636",
     "ox_cluster_hostname": "ox.example.com",
     "state": "TX",
@@ -208,8 +201,7 @@ Content-Type: application/json
         "city": "Austin",
         "base_inum": "@!FDF8.652A.6EFF.F5A3",
         "inum_org_fn": "FDF8652A6EFFF5A30001DA7B9EB2",
-        "weave_ip_network": "10.2.1.0/24",
-        "ldaps_port": "1636",
+        "ldaps_port": "1637",
         "ox_cluster_hostname": "ox.example.com",
         "state": "TX",
         "country_code": "US",

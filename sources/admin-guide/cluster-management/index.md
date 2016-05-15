@@ -26,7 +26,6 @@ curl http://localhost:8080/clusters \
     -d country_code=US \
     -d admin_email='info@example.com' \
     -d ox_cluster_hostname=gluu.example.com \
-    -d weave_ip_network=10.2.1.0/24 \
     -d admin_pw=secret \
     -X POST -i
 ```
@@ -35,7 +34,6 @@ The parameters of the command are explained below:
 * `name` represents the cluster name or label with which the cluster is identified.
 * `org_name`, `org_short_name`, `city`, `state`, `country_code`, and `admin_email` are used for X509 certificate.
 * `ox_cluster_hostname` is a URL for the appliance; this name must be reachable from the browser.
-* `weave_ip_network` is IP address network used for inter-container communication; every cluster should have an unique IP address.
 * `admin_pw` is used for LDAP password, LDAP replication password, and oxTrust admin password.
 
 A successful request returns a HTTP 201 status code:
@@ -55,7 +53,6 @@ Location: http://localhost:8080/clusters/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
     "city": "Austin",
     "base_inum": "@!FDF8.652A.6EFF.F5A3",
     "inum_org_fn": "FDF8652A6EFFF5A30001DA7B9EB2",
-    "weave_ip_network": "10.2.1.0/24",
     "ldaps_port": "1636",
     "ox_cluster_hostname": "gluu.example.com",
     "state": "TX",
