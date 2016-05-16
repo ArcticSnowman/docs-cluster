@@ -6,82 +6,8 @@
 
 Changelog for v0.5.0 is available [here](https://github.com/GluuFederation/gluu-flask/blob/master/CHANGES.md#version-050).
 
-### Master provider
-
-1.  Due to internal changes in docker engine, all existing images must be migrated to use new format.
-    Depending on storage driver used by docker engine, we need to pass correct storage option to avoid
-    errors.
-
-    Take note about storage driver using `docker info` command:
-
-        docker info | grep 'Storage Driver'
-
-    The output will inform us about the driver, whether it is an `aufs`, `devicemapper`, or any
-    supported storage driver as seen in example below:
-
-        WARNING: No swap limit support
-        Storage Driver: aufs
-
-    Run the following command to migrate images:
-
-        docker run --rm -v /var/lib/docker:/var/lib/docker docker/v1.10-migrator -s $STORAGE_DRIVER
-
-    where `$STORAGE_DRIVER` holds the value of storage driver used by existing docker engine.
-
-    __Note, this migration process may take a while.__
-
-2.  Update `gluu-master`, `gluu-flask`, and `gluu-agent` packages:
-
-        apt-get update
-        apt-get install -y gluu-master gluu-flask gluu-agent
-
-3.  Migrate `weave`:
-
-        weave stop
-        weave setup
-        weave reset
-
-4.  Backup necessary data (mainly LDAP data) and remove existing nodes via web UI or direct API.
-5.  Rename `/var/lib/gluu-cluster/volumes/oxidp` as `/var/lib/gluu-cluster/override/oxidp` due to changes in oxIdp filesystem watcher task.
-6.  Re-deploy new nodes using web UI or direct API.
-
-### Consumer provider
-
-1.  Due to internal changes in docker engine, all existing images must be migrated to use new format.
-    Depending on storage driver used by docker engine, we need to pass correct storage option to avoid
-    errors.
-
-    Take note about storage driver using `docker info` command:
-
-        docker info | grep 'Storage Driver'
-
-    The output will inform us about the driver, whether it is an `aufs`, `devicemapper`, or any
-    supported storage driver as seen in example below:
-
-        WARNING: No swap limit support
-        Storage Driver: aufs
-
-    Run the following command to migrate images:
-
-        docker run --rm -v /var/lib/docker:/var/lib/docker docker/v1.10-migrator -s $STORAGE_DRIVER
-
-    where `$STORAGE_DRIVER` holds the value of storage driver used by existing docker engine.
-
-    __Note, this migration process may take a while.__
-
-2.  Update `gluu-consumer` and `gluu-agent` packages:
-
-        apt-get update
-        apt-get install -y gluu-consumer gluu-agent
-
-3.  Migrate `weave`:
-
-        weave stop
-        weave setup
-        weave reset
-
-4.  Backup necessary data (mainly LDAP data) and remove existing nodes via web UI or direct API.
-5.  Re-deploy new nodes using web UI or direct API.
+As version 0.5.0 is not backward compatible with older releases, to migrate to the new version,
+user need to backup necessary data (mainly LDAP data) and reinstall everything from scratch.
 
 ## Version 0.4.4
 

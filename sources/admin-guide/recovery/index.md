@@ -1,7 +1,15 @@
-
 # Recovery Overview
+
 A provider may crashes due to various reasons (i.e. power outage).
-When it crashes, all containers (weave, prometheus, and nodes) will crash as well.
+When it crashes, all containers will crash as well.
+
+# Version 0.5.0
+
+Starting from v0.5.0, we have simplified the [script](https://github.com/GluuFederation/cluster-tools/blob/master/recovery/recovery.py)
+which is installed during node creation.
+To run this script, simply execute `recovery.py` in the shell.
+
+## Older Releases
 
 As of v0.3.3-12, recovery script is moved to Gluu Agent package.
 Refer to installation section to install the package for [master](../installation/#installing-gluu-agent-on-master-provider) and [consumer](../installation/#installing-gluu-agent-on-consumer-provider) provider.
