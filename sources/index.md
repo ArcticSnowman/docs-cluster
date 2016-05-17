@@ -8,8 +8,8 @@ The Gluu Server [DE][de] is divided into two packages identified as "master" and
 
 # Admin Guide
 - [Overview](./admin-guide/overview/index.md)
-- [Getting Started](./admin-guide/getting-started/index.md)
 - [Installation](./admin-guide/installation/index.md)
+- [Getting Started](./admin-guide/getting-started/index.md)
 - [Cluster Management](./admin-guide/cluster-management/index.md)
 - [Components](./admin-guide/components/index.md)
 - [Web Interface](./admin-guide/webui/index.md)

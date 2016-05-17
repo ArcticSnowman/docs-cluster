@@ -17,8 +17,8 @@ pages:
 
 # Admin Guide Sections
 - [admin-guide/overview/index.md, Admin Guide, Overview]
-- [admin-guide/getting-started/index.md, Admin Guide, Getting Started]
 - [admin-guide/installation/index.md, Admin Guide, Installation]
+- [admin-guide/getting-started/index.md, Admin Guide, Getting Started]
 - [admin-guide/cluster-management/index.md, Admin Guide, Cluster Management]
 - [admin-guide/components/index.md, Admin Guide, Components]
 # - [admin-guide/monitoring/index.md, Admin Guide, Monitoring]

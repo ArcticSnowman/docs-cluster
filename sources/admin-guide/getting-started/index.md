@@ -6,8 +6,8 @@ This document will show you how to get up and running with the Gluu Cluster Serv
 
 ## Overview
 
-The Gluu Cluster is divided into three separate packages, the master package,the consumer package and the cluster API.
-The consumer package and the cluster API is dependent on the master package to function, therefore the master package must be installed first.
+The Gluu Cluster is divided into various components; cluster API, discovery, master, and worker.
+The cluster API is independent to function, but discovery, master, and worker are dependent to each other.
 The deployment section will cover some basics of installation; for a detailed installation guide please see the [Installation Doc](../installation/)
 
 ## Preparing VM
@@ -29,53 +29,24 @@ External ports can alse be called 'internet-facing' ports that are open to the w
 Internal ports are the specific port requirements for the different components of the Cluster setup.
 
 
-|	Port Protocol	|	Port Number	|	Service		|
-|-----------------------|-----------------------|-----------------------|
-|	TCP		|	2376		|	Docker Daemon	|
-|	TCP		|	4506 & 4505	|	Salt		|
-|	TCP		|	8800\*		|	Gluu-webui	|
-|	TCP		|	8080\*		|	Gluu-flask	|
-|	TCP		|	8443\*		|	oxTrust GUI	|
-|	TCP		|	9090\*		|	Prometheus	|
-|	TCP & UDP	|	6783		|	Weave		|
-|	TCP & UDP	|	53		|	Weave DNS(Amazon AWS)	|
+|	Port Protocol	|	Port Number	|	Service		            |
+|-------------------|---------------|---------------------------|
+|	TCP		        |	8800		|	gluu-cluster-webui	    |
+|	TCP		        |	8080		|	gluu-flask	            |
+|	TCP		        |	2376		|	Docker Daemon	        |
+|	TCP		        |	3376		|	Docker Swarm Daemon	    |
+|	TCP		        |	8443		|	oxTrust GUI	            |
+|	TCP		        |	8500		|	Consul	                |
+|	TCP & UDP	    |	6783		|	Weave		            |
+|	TCP & UDP	    |	53		    |	Weave DNS(Amazon AWS)	|
 
-\* only needed by master provider (VM)
+Notes:
+
+* Port 8080 and 8800 needed by control machine.
+* Port 8443 needed by master node (VM).
+* Port 8500 needed by discovery node (VM).
 
 
 ## Deployment
 
-### Cluster Master Package
-
-The master package is the primary package for cluster services, but it is not stand-alone. A single master will not complete the cluster.
-Run the following commands to install the master package:
-
-```
-echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list \
-    && curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add - \
-    && apt-get update
-apt-get install -y gluu-master gluu-agent
-```
-
-For a detailed configuration instructions, please see the [Installation Doc](../installation/).
-### Cluster API
-
-The Gluu Cluster API is contained in the `gluu-flask` package. This package will not work without the master package and these two packages must be installed in the same host.
-Run the following command to install the flask package:
-
-    apt-get install -y gluu-flask
-
-The installation command will install the `gluu-flask` daemon which is automatically started by init script.
-
-### Cluster Consumer Package
-
-The consumer package requires the master package to function and requires a commercial license. Please see the [pricing](http://www.gluu.org/gluu-server/pricing/) for more details.
-
-Run the following commands to install the consumer package:
-
-```
-echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list \
-    && curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add - \
-    && apt-get update
-apt-get install -y gluu-consumer gluu-agent
-```
+[TBA]
