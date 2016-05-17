@@ -1,7 +1,7 @@
 [TOC]
 ## Cluster API
 
-Cluster holds all nodes (`docker` containers) within `weave` network.
+Cluster holds all `docker` containers within `weave` network.
 
 ---
 
@@ -85,7 +85,7 @@ Location: http://localhost:8080/clusters/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
 
 {
     "inum_org": "@!FDF8.652A.6EFF.F5A3!0001!DA7B.9EB2",
-    "oxauth_nodes": [],
+    "oxauth_containers": [],
     "inum_appliance": "@!FDF8.652A.6EFF.F5A3!0002!FA83.4368",
     "admin_email": "info@example.com",
     "inum_appliance_fn": "FDF8652A6EFFF5A30002FA834368",
@@ -97,14 +97,14 @@ Location: http://localhost:8080/clusters/1279de28-b6d0-4052-bd0c-cc46a6fd5f9f
     "ox_cluster_hostname": "ox.example.com",
     "state": "TX",
     "country_code": "US",
-    "ldap_nodes": [],
-    "nginx_nodes": [],
+    "ldap_containers": [],
+    "nginx_containers": [],
     "org_short_name": "my-org",
     "org_name": "my-org",
     "id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
-    "oxtrust_nodes": [],
+    "oxtrust_containers": [],
     "name": "cluster1",
-    "oxidp_nodes": []
+    "oxidp_containers": []
 }
 ```
 
@@ -139,7 +139,7 @@ Content-Type: application/json
 
 {
     "inum_org": "@!FDF8.652A.6EFF.F5A3!0001!DA7B.9EB2",
-    "oxauth_nodes": [],
+    "oxauth_containers": [],
     "inum_appliance": "@!FDF8.652A.6EFF.F5A3!0002!FA83.4368",
     "admin_email": "info@example.com",
     "inum_appliance_fn": "FDF8652A6EFFF5A30002FA834368",
@@ -151,14 +151,14 @@ Content-Type: application/json
     "ox_cluster_hostname": "ox.example.com",
     "state": "TX",
     "country_code": "US",
-    "ldap_nodes": [],
-    "nginx_nodes": [],
+    "ldap_containers": [],
+    "nginx_containers": [],
     "org_short_name": "my-org",
     "org_name": "my-org",
     "id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
-    "oxtrust_nodes": [],
+    "oxtrust_containers": [],
     "name": "cluster1",
-    "oxidp_nodes": []
+    "oxidp_containers": []
 }
 ```
 
@@ -193,7 +193,7 @@ Content-Type: application/json
 [
     {
         "inum_org": "@!FDF8.652A.6EFF.F5A3!0001!DA7B.9EB2",
-        "oxauth_nodes": [],
+        "oxauth_containers": [],
         "inum_appliance": "@!FDF8.652A.6EFF.F5A3!0002!FA83.4368",
         "admin_email": "info@example.com",
         "inum_appliance_fn": "FDF8652A6EFFF5A30002FA834368",
@@ -205,14 +205,14 @@ Content-Type: application/json
         "ox_cluster_hostname": "ox.example.com",
         "state": "TX",
         "country_code": "US",
-        "ldap_nodes": [],
-        "nginx_nodes": [],
+        "ldap_containers": [],
+        "nginx_containers": [],
         "org_short_name": "my-org",
         "org_name": "my-org",
         "id": "1279de28-b6d0-4052-bd0c-cc46a6fd5f9f",
-        "oxtrust_nodes": [],
+        "oxtrust_containers": [],
         "name": "cluster1",
-        "oxidp_nodes": []
+        "oxidp_containers": []
     }
 ]
 ```
