@@ -9,18 +9,11 @@ An overview of the Gluu Server is available [here](http://www.gluu.org/docs/admi
 
 ## Design
 
-The Gluu Docker Edition has two principle compoents that are interdependent, the master and the consumer.
-The master package must be installed for the cluster to be functional, and without the master package, the consumer will not work.
-The installation instructions are available in the [Installation Docs](../installation/).
-
-![image](../../img/gluu-cluster-overview.png)
-
-The diagram above shows the design structure of Gluu [DE][de]. The components are held together in various docker containers, accessed using the `gluu-flask` which has a separate User Interface that can be used to manage the cluster. Prometheus is the monitoring system for the cluster providing real-time reports on the containers.
+The Gluu Docker Edition has three principle components that are interdependent; the discovery, master, and worker.
 
 ## Functionalities
 
 The core functionalities of the Gluu Server is available in the [DE][de] design with a few additional features such as cluster monitoring, DDOS protection and a fail-safe system.
-The Cluster monitoring system uses Prometheus for alerts and reports on the nodes in real-time.
 The cluster administrator can use the dashboard to check on the health and activity, view logs and other Gluu Server administration tasks. The Gluu Server Administration Guide is available [here](http://www.gluu.org/docs/admin-guide/introduction/).
 
 ## Supported Operating Systems
