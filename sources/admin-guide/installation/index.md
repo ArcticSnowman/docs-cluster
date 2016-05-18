@@ -18,30 +18,6 @@ Also it’s recommended to install the linux-image-extra kernel package. The lin
     apt-get update
     apt-get install linux-image-extra-$(uname -r)
 
-### Available Entropy
-
-In some virtual machines hosted at cloud providers, oxAuth/oxTrust/oxIdp may have a slow start due to insufficient entropy.
-To check available entropy, we can use the following command:
-
-    cat /proc/sys/kernel/random/entropy_avail
-
-If the number returned from the command is above 1000, we can __skip__ this section.
-Otherwise, we need to feed the entropy with other tools.
-
-One of the tools that we can use is `rng-tools`. It's available from Ubuntu repository:
-
-    apt-get install rng-tools
-
-*Note:* we probably will encounter error starting `rng-tools` service. Refer to [Troubleshooting](../troubleshooting/#unable-to-start-rng-tools-service) page for details.
-
-After `rng-tools` service is running successfully, we can check the available entropy again.
-
-    cat /proc/sys/kernel/random/entropy_avail
-
-The number returned from the command above is around 3000.
-From this point, we can say that we have enough entropy required
-by oxAuth/oxTrust/oxIdp to start properly.
-
 ## Gluu Cluster API
 
 ### Installing gluu-flask Package
