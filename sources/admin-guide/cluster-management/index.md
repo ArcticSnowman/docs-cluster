@@ -204,7 +204,7 @@ export MASTER_NODE_ID=0c715335-a1fe-4cd8-93f3-73fda8539f88
 
 #### Creating Containers
 
-Once we have a running `master` node, we can start creating nodes. To ensure the cluster running as expected, the order of container creation is shown below:
+Once we have a running `master` node, we can start creating containers. To ensure the cluster running as expected, the order of container creation is shown below:
 
 1. `ldap`
 2. `oxauth`
@@ -274,4 +274,137 @@ If the credentials are supplied correctly, the page will be redirected to the ox
 
 ### Creating Worker Node and Containers
 
-[TBA]
+One of the purposes of creating worker node is to achieve HA setup in the cluster.
+It means when master node (and its containers) is unavailable, we still have another node (and its containers) to serve requests.
+Although creating worker node is an optional step, it's recommended to do so if we want to achieve full-featured Gluu Cluster.
+
+#### Registering License Key
+
+Registering license key is required before registering any worker node.
+Refer to [License](../overview/#license) section to see available license types.
+
+To register license key, we need to obtain code, public password, public key, and license password from Gluu.
+Afterwards, we can store them as Gluu Cluster's license key.
+
+The following command will create a new license key.
+
+```sh
+curl http://localhost:8080/license_keys \
+    -d public_key=unique-public-key \
+    -d public_password=unique-public-password \
+    -d license_password=unique-license-password \
+    -d name=testing \
+    -d code=unique-code \
+    -X POST -i
+```
+
+Here's an example of the response from request above:
+
+```json
+{
+        "code": "unique-code",
+        "id": "cebc74fe-d4f2-4f02-9e99-4187f6b55b93",
+        "license_password": "unique-license-password",
+        "metadata": {
+            "expiration_date": null,
+            "license_count_limit": 100,
+            "license_features": [
+                "gluu_server"
+            ],
+            "license_name": "testing",
+            "license_type": null,
+            "multi_server": false,
+            "thread_count": 3
+        },
+        "name": "testing",
+        "public_key": "unique-public-key"
+        "public_password": "unique-public-password",
+        "valid": true
+    }
+
+```
+
+Note, `public_key`, `public_password`, and `license_password` must use one-liner values.
+
+#### Creating The Node
+
+The following command creates a worker node using `curl`.
+
+```
+curl http://localhost:8080/nodes/worker \
+    -d name=gluu-worker \
+    -d provider_id=$PROVIDER_ID \
+    -X POST -i
+```
+
+A successful request returns a HTTP 201 status code:
+
+```http
+HTTP/1.0 201 CREATED
+Content-Type: application/json
+Location: http://localhost:8080/nodes/gluu-master
+
+{
+    "id": "0c715335-a1fe-4cd8-93f3-73fda8539f99",
+    "name": "gluu-worker",
+    "provider_id": "4362b1a2-ce6a-4b06-9a97-6ba9a0b952ea",
+    "type": "worker"
+}
+```
+
+Creating a node will take a while, hence the process is running as background job. To check the status, we can make request to the URL as shown in `Location` header above.
+
+We will need the `node_id` when creating nodes, so let's keep the reference to `node_id` as environment variable.
+
+```
+export WORKER_NODE_ID=0c715335-a1fe-4cd8-93f3-73fda8539f99
+```
+
+#### Creating Containers
+
+Once we have a running `worker` node, we can start creating containers. To ensure the cluster running as expected, the order of container creation is shown below:
+
+1. `ldap`
+2. `oxauth`
+3. `oxidp` (optional)
+4. `nginx`
+
+In this example, we are going to create `ldap` container using `curl`:
+
+```
+curl http://localhost:8080/containers/ldap \
+    -d node_id=$WORKER_NODE_ID \
+    -X POST -i
+```
+
+A successful request returns a HTTP 202 status code:
+
+```http
+HTTP/1.0 202 ACCEPTED
+Content-Type: application/json
+Location: http://localhost:8080/containers/gluuopendj_dbaadb89-4703-47e2-9d07-5fa7aa76e617
+X-Container-Setup-Log: http://localhost:8080/container_logs/gluuopendj_dbaadb89-4703-47e2-9d07-5fa7aa76e617/setup
+
+{
+    "cid": "",
+    "cluster_id": "0085d134-c60a-483f-8e14-ebf7afd362f0",
+    "hostname": "",
+    "id": "c14bd694-3895-4a77-8f51-200a232d5380",
+    "ldap_admin_port": "4444",
+    "ldap_binddn": "cn=directory manager",
+    "ldap_jmx_port": "1689",
+    "ldap_port": "1389",
+    "ldaps_port": "1636",
+    "name": "gluuopendj_dbaadb89-4703-47e2-9d07-5fa7aa76e617",
+    "node_id": "0c715335-a1fe-4cd8-93f3-73fda8539f99",
+    "state": "IN_PROGRESS",
+    "type": "ldap"
+}
+```
+
+Creating a container will take a while, hence the process is running as background job.
+To check the status, we can make request to the URL as shown in `Location` or `X-Container-Setup-Log` header above.
+
+The rest of the containers can be created by using similar `curl` command above. Make sure to change the URL.
+For example, instead of sending request to `http://localhost:8080/containers/ldap`,
+we need to use `http://localhost:8080/containers/oxauth` and so on.
