@@ -202,6 +202,38 @@ We will need the `node_id` when creating nodes, so let's keep the reference to `
 export MASTER_NODE_ID=0c715335-a1fe-4cd8-93f3-73fda8539f88
 ```
 
+#### Custom LDAP Schema
+
+Any `ldap` container has support for custom schema. To deploy custom schema, put the desired schema in `.ldif` file
+on the same machine running `gluu-flask` under `/var/lib/gluu-cluster/custom/opendj/schema/`.
+For example, we can create `/var/lib/gluu-cluster/custom/opendj/schema/102-customSchema.ldif` for our custom schema.
+This file will be added to ldap container located at `/opt/opendj/config/schema/102-customSchema.ldif`.
+The schema is copied on ldap server creation.
+
+Please note, custom schema file must be created first before creating any LDAP container.
+
+#### Custom oxAuth Files
+
+Any `oxauth` container has support for custom `xhtml`, `xml`, or even `jar` files.
+There are predefined directories (create them if not exist yet) to put this file into:
+
+1. `/var/lib/gluu-cluster/override/oxauth/pages` for any HTML or XML file.
+2. `/var/lib/gluu-cluster/override/oxauth/libs` for any JAR file.
+3. `/var/lib/gluu-cluster/override/oxauth/resources` for any resource file (e.g. CSS).
+
+Custom oxAuth file can be created before or after `oxauth` container creation.
+
+#### Custom oxTrust Files
+
+Any `oxtrust` container has support for custom `xhtml`, `xml`, or even `jar` files.
+There are predefined directories (create them if not exist yet) to put this file into:
+
+1. `/var/lib/gluu-cluster/override/oxtrust/pages` for any HTML or XML file.
+2. `/var/lib/gluu-cluster/override/oxtrust/libs` for any JAR file.
+3. `/var/lib/gluu-cluster/override/oxtrust/resources` for any resource file (e.g. CSS).
+
+Custom oxTrust file can be created before or after `oxtrust` container creation.
+
 #### Creating Containers
 
 Once we have a running `master` node, we can start creating containers. To ensure the cluster running as expected, the order of container creation is shown below:
@@ -409,7 +441,7 @@ The rest of the containers can be created by using similar `curl` command above.
 For example, instead of sending request to `http://localhost:8080/containers/ldap`,
 we need to use `http://localhost:8080/containers/oxauth` and so on.
 
-### LDAP Replication
+#### LDAP Replication
 
 As we have two LDAP containers in the cluster (one each in master and worker node), all these LDAP containers will replicate themselves.
 However we need to check whether replication are created successfully by login to one of the LDAP containers.
