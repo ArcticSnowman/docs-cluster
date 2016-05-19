@@ -408,3 +408,30 @@ To check the status, we can make request to the URL as shown in `Location` or `X
 The rest of the containers can be created by using similar `curl` command above. Make sure to change the URL.
 For example, instead of sending request to `http://localhost:8080/containers/ldap`,
 we need to use `http://localhost:8080/containers/oxauth` and so on.
+
+### LDAP Replication
+
+As we have two LDAP containers in the cluster (one each in master and worker node), all these LDAP containers will replicate themselves.
+However we need to check whether replication are created successfully by login to one of the LDAP containers.
+
+We can list all containers in the cluster by running the following command:
+
+```
+docker `docker-machine config --swarm gluu-master` ps
+```
+
+Here's an example of the output:
+
+```
+CONTAINER ID        IMAGE                               NAMES
+f7f150462622        registry.gluu.org:5000/gluuopendj   gluu-worker/gluuopendj_e7c3ce2c-3d0f-40a1-bdd2-c4bfbabb6b16
+41ccbfdbd124        registry.gluu.org:5000/gluuopendj   gluu-master/gluuopendj_094ca34d-bd4b-4112-96f0-140b9652f20f
+```
+
+From the example above, we know that one of the LDAP containers is having `41ccbfdbd124` as its ID. We can login to this container by running this command:
+
+    docker `docker-machine config --swarm gluu-master` exec -ti 41ccbfdbd124 bash
+
+Once we are logged into the container, we can check the replication status by running the following command:
+
+    /opt/opendj/bin/dsreplication status
