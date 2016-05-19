@@ -258,7 +258,7 @@ A full reference to Container API is available at [Container API page](../../ref
 
 The Gluu Server web interface can be accessed after the deployment of the containers are complete.
 The oxTrust UI is run at `https://localhost:8443` in the master node.
-To access the UI, `ssh` tunneling must be established through `docker-machine` script that comes preinstalled with `gluu-flask` package.
+To access the UI, `ssh` tunneling must be established through `docker-machine` script that have been installed.
 
 ```
 docker-machine ssh gluu-master -L 8443:localhost:8443
