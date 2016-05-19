@@ -72,3 +72,37 @@ Run the following commands to install the `gluu-cluster-webui` package:
 ```
 apt-get install -y gluu-cluster-webui
 ```
+
+## Docker Engine and Docker Machine Packages
+
+### Installing Docker Engine
+
+First things first, we need to add Docker repository:
+
+```
+apt-get update
+apt-get install apt-transport-https ca-certificates
+apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+```
+
+Afterwards, open `/etc/apt/sources.list.d/docker.list` and add the following line:
+
+```
+deb https://apt.dockerproject.org/repo ubuntu-trusty main
+```
+
+Now, we can fetch the latest stable docker engine:
+
+```
+apt-get update
+apt-get install -y docker-engine
+```
+
+### Installing Docker Machine
+
+Download the Docker Machine binary and extract it to our PATH:
+
+```
+curl -L https://github.com/docker/machine/releases/download/v0.7.0/docker-machine-`uname -s`-`uname -m` > /usr/local/bin/docker-machine && \
+chmod +x /usr/local/bin/docker-machine
+```
