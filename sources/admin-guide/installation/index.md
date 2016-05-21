@@ -1,6 +1,6 @@
 [TOC]
 # Installation
-The Gluu Cluster only supports Ubuntu for now. There is only one mandatory package need to be installed in a machine (whether it's a remote VM, PC, or even laptop); the `gluu-flask` package.
+The Gluu Cluster only supports Ubuntu for now. There is only one mandatory package need to be installed in a machine; the `gluu-flask` package.
 There is one additional package, `gluu-cluster-webui`, that provides a user friendly way of using the API and managing the cluster. Note, this package must be installed in same host with `gluu-flask`.
 
 ## Prerequisites
