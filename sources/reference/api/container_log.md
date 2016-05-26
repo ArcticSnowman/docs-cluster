@@ -1,8 +1,17 @@
-## Container Log API
-
 [TOC]
 
+## Container Log API
+
+### Overview
+
 Container Log is an entity holds setup and teardown logs for specific container.
+
+Each ContainerLog object holds the state of setup or teardown process:
+
+* `SETUP_IN_PROGRESS`: container deployment is in progress.
+* `SETUP_FINISHED`: container deployment is finished (regardless succeed or failed).
+* `TEARDOWN_IN_PROGRESS`: container deletion is in progress.
+* `TEARDOWN_FINISHED`: container deletion is finished (regardless succeed or failed).
 
 ---
 

@@ -2,6 +2,8 @@
 
 ## Provider API
 
+### Overview
+
 Provider is an entity represents a service that provides server. An example of provider is a cloud service.
 Currently, there are various supported provider types:
 
