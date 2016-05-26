@@ -1,8 +1,8 @@
 # Welcome to the Gluu Server Docker Edition (DE) Documentation
 
-The Gluu Server Docker Edition ([DE][de]) is a high availability and high reliability solution for enterprise authentication and authorization. Gluu [DE][de] includes the same components as [Community Edition (CE)](http://gluu.org/docs), but instead of using `chroot` to deliver all the components in one package, each component in [DE][de] is delivered in its own `docker` container. In addition, [DE][de] includes a management system, called Gluu Flask, which enables rapid elasticity and scalability of individual containers across multiple cloud providers in multiple geographic regions.
+The Gluu Server Docker Edition ([DE][de]) is a high availability and high reliability solution for enterprise authentication and authorization. Gluu [DE][de] includes the same components as [Community Edition (CE)](http://gluu.org/docs), but instead of using `chroot` to deliver all the components in one package, each component in [DE][de] is delivered in its own `docker` container. In addition, [DE][de] includes a management system, called Gluu Engine, which enables rapid elasticity and scalability of individual containers across multiple cloud providers in multiple geographic regions.
 
-The Gluu Server [DE][de] is divided into two packages identified as "master" and "consumer". The "master" package is offered free and the "consumer" package requires a commercial license. For pricing information, please [schedule a meeting with us](http://gluu.org/booking).
+The Gluu Server [DE][de] is divided into three main components identified as "discovery", "master", and "worker". The "discovery" and "master" is offered free, whereas the "worker" requires a commercial license. For pricing information, please [schedule a meeting with us](http://gluu.org/booking).
 
 **Note:** currently [DE][de] includes the Shibboleth SAML IDP, oxAuth OpenID Connect IDP and UMA Authorization Server (AS), oxTrust web GUI, and LDAP.
 

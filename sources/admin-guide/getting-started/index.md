@@ -32,7 +32,7 @@ Internal ports are the specific port requirements for the different components o
 |	Port Protocol	|	Port Number	|	Service		            |
 |-------------------|---------------|---------------------------|
 |	TCP		        |	8800		|	gluu-cluster-webui	    |
-|	TCP		        |	8080		|	gluu-flask	            |
+|	TCP		        |	8080		|	gluu-engine             |
 |	TCP		        |	2376		|	Docker Daemon	        |
 |	TCP		        |	3376		|	Docker Swarm Daemon	    |
 |	TCP		        |	8443		|	oxTrust GUI	            |

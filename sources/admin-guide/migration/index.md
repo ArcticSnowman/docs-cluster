@@ -4,7 +4,7 @@
 
 ## Version 0.5.0
 
-Changelog for v0.5.0 is available [here](https://github.com/GluuFederation/gluu-flask/blob/master/CHANGES.md#version-050).
+Changelog for v0.5.0 is available [here](https://github.com/GluuFederation/gluu-engine/blob/master/CHANGES.md#version-050).
 
 As version 0.5.0 is not backward compatible with older releases, to migrate to the new version,
 user need to backup necessary data (mainly LDAP data) and reinstall everything from scratch.

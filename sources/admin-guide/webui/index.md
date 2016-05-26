@@ -9,7 +9,7 @@ The installation of the web interface is covered in the Installation Section.
 * [Install Web Interface Package](../installation/#gluu-cluster-web-interface-package)
 
 ## Accessing the Interface
-To log into the web interface, it is necessary to ssh into the master provider, as the interface is run locally and it is not facing the internet for security reasons.
+To log into the web interface, it is necessary to ssh into the control machine, as the interface is run locally and it is not facing the internet for security reasons.
 
 Run the following command to SSH for accessing the web interface:
 

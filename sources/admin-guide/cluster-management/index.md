@@ -205,7 +205,7 @@ export MASTER_NODE_ID=0c715335-a1fe-4cd8-93f3-73fda8539f88
 #### Custom LDAP Schema
 
 Any `ldap` container has support for custom schema. To deploy custom schema, put the desired schema in `.ldif` file
-on the same machine running `gluu-flask` under `/var/lib/gluu-cluster/custom/opendj/schema/`.
+on the same machine running `gluu-engine` under `/var/lib/gluu-cluster/custom/opendj/schema/`.
 For example, we can create `/var/lib/gluu-cluster/custom/opendj/schema/102-customSchema.ldif` for our custom schema.
 This file will be added to ldap container located at `/opt/opendj/config/schema/102-customSchema.ldif`.
 The schema is copied on ldap server creation.

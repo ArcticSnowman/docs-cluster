@@ -1,7 +1,7 @@
 [TOC]
 # Installation
-The Gluu Cluster only supports Ubuntu for now. There is only one mandatory package need to be installed in a machine; the `gluu-flask` package.
-There is one additional package, `gluu-cluster-webui`, that provides a user friendly way of using the API and managing the cluster. Note, this package must be installed in same host with `gluu-flask`.
+The Gluu Cluster only supports Ubuntu for now. There is only one mandatory package need to be installed in a machine; the `gluu-engine` package.
+There is one additional package, `gluu-cluster-webui`, that provides a user friendly way of using the API and managing the cluster. Note, this package must be installed in same host with `gluu-engine`.
 
 ## Prerequisites
 
@@ -20,7 +20,7 @@ Also it’s recommended to install the linux-image-extra kernel package. The lin
 
 ## Gluu Cluster API
 
-### Installing gluu-flask Package
+### Installing gluu-engine Package
 
 First things first, we need to add Gluu repository:
 
@@ -30,18 +30,18 @@ echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.lis
 apt-get update
 ```
 
-Run the following commands to install the `gluu-flask` package:
+Run the following commands to install the `gluu-engine` package:
 
 ```
-apt-get install -y gluu-flask
+apt-get install -y gluu-engine
 ```
 
-The command will install a daemon which is automatically started by init script. There are a few commands that are available for gluu-flask. The available commands are
+The command will install a daemon which is automatically started by init script. There are a few commands that are available for gluu-engine. The available commands are
 
-	service gluu-flask start
-	service gluu-flask restart
-	service gluu-flask stop
-	service gluu-flask status
+	service gluu-engine start
+	service gluu-engine restart
+	service gluu-engine stop
+	service gluu-engine status
 
 ## Gluu Cluster Web Interface package
 
