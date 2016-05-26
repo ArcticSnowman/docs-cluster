@@ -47,7 +47,7 @@ curl http://localhost:8080/nodes/discovery \
 __Response example:__
 
 ```http
-HTTP/1.0 201 CREATED
+HTTP/1.0 202 ACCEPTED
 Content-Type: application/json
 Location: http://localhost:8080/nodes/gluu.discovery
 
@@ -60,7 +60,7 @@ Location: http://localhost:8080/nodes/gluu.discovery
 ```
 __Status Code:__
 
-* `201`: Node is successfully created.
+* `202`: Request has been accepted.
 * `400`: Bad request. Possibly malformed/incorrect parameter value.
 * `403`: Access denied. Refer to message key in JSON response for details.
 * `500`: The server having errors.
@@ -205,6 +205,43 @@ Content-Type: application/json
 __Status Code:__
 
 * `200`: Node is exist.
+* `404`: Node is not exist.
+* `500`: The server having errors.
+
+---
+
+### Update A Node
+
+    PUT /nodes/{name}
+
+__URL:__
+
+    http://localhost:8080/nodes/{name}
+
+__Request example:__
+
+```sh
+curl http://localhost:8080/nodes/worker-node-1 -X PUT -i
+```
+
+__Response example:__
+
+```http
+HTTP/1.0 202 ACCEPTED
+Content-Type: application/json
+Location: http://localhost:8080/nodes/worker-node-1
+
+{
+    "provider_id": "fe3eeb1d-7731-43f7-aa90-767d16fa3ab4",
+    "name": "worker-node-1",
+    "id": "283bfa41-2121-4433-9741-875004518699",
+    "type": "worker"
+}
+```
+
+__Status Code:__
+
+* `202`: Request has been accepted.
 * `404`: Node is not exist.
 * `500`: The server having errors.
 
