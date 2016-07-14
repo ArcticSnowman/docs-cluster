@@ -288,3 +288,75 @@ __Status Code:__
 * `403`: Access denied.
 * `404`: Container is not exist.
 * `500`: The server having errors.
+
+---
+
+### Scale Container
+
+    POST /scale-containers/{container_type}/{number}
+
+This will try to deploy given numbers of containers of given type
+
+__URL:__
+
+    http://localhost:8080/scale-containers/{container_type}/{number}
+
+__Request example:__
+
+```sh
+curl http://localhost:8080/containers/oxauth/20 -X POST -i
+```
+
+__Response example:__
+
+```http
+HTTP/1.0 202 ACCEPTED
+Content-Type: application/json
+{
+    "status": 202
+    "message": "deploying 20 oxauth"
+}
+```
+
+__Status Code:__
+
+* `202`: request accepted.
+* `403`: Access denied.
+* `404`: Container type not supported.
+* `500`: The server having errors.
+
+---
+
+### Descale Container
+
+    DELETE /scale-containers/{container_type}/{number}
+
+This will try to remove given numbers of running containers of given type
+
+__URL:__
+
+    http://localhost:8080/scale-containers/{container_type}/{number}
+
+__Request example:__
+
+```sh
+curl http://localhost:8080/containers/oxauth/20 -X DELETE -i
+```
+
+__Response example:__
+
+```http
+HTTP/1.0 202 ACCEPTED
+Content-Type: application/json
+{
+    "status": 202
+    "message": "deleting 20 oxauth"
+}
+```
+
+__Status Code:__
+
+* `202`: request accepted.
+* `403`: Access denied.
+* `404`: Container type not supported.
+* `500`: The server having errors.
