@@ -8,7 +8,8 @@ Provider is an entity represents a service that provides server. An example of p
 Currently, there are various supported provider types:
 
 1. [DigitalOcean](https://www.digitalocean.com/).
-2. Generic; this is a _Bring Your Own Provider_ style. This should be used if none of any provider mentioned above is selected.
+2. [AWS](https://aws.amazon.com/).
+3. Generic; this is a _Bring Your Own Provider_ style. This should be used if none of any provider mentioned above is selected.
 
 ---
 
@@ -175,6 +176,100 @@ Location: http://localhost:8080/providers/17f9f346-0d28-45f1-96a0-49473cc21769
 ```
 
 Please note, `driver` is also known as provider type.
+
+__Status Code:__
+
+* `201`: Provider is successfully created.
+* `400`: Bad request. Possibly malformed/incorrect parameter value.
+* `500`: The server having errors.
+
+#### AWS Provider
+
+    POST /providers/aws
+
+__URL:__
+
+    http://localhost:8080/providers/aws
+
+__Form parameters:__
+
+*   `name` (required)
+
+    A unique name of the provider.
+
+*   `amazonec2_access_key` (required)
+
+    Access key of aws cloud service.
+
+*   `amazonec2_secret_key` (required)
+
+    Secret key of aws cloud service.
+
+*   `amazonec2_region` (required)
+
+    Region where vm is hosted.
+
+    Supported region:
+
+    * `us-east-1`: US East (N. Virginia)
+    * `us-west-2`: US West (Oregon)
+    * `us-west-1`: US West (N. California)
+    * `eu-west-1`: EU (Ireland)
+    * `eu-central-1`: EU (Frankfurt)
+    * `ap-southeast-1`: Asia Pacific (Singapore)
+    * `ap-northeast-1`: Asia Pacific (Tokyo)
+    * `ap-southeast-2`: Asia Pacific (Sydney)
+    * `ap-northeast-2`: Asia Pacific (Seoul)
+    * `sa-east-1`: South America (São Paulo)
+
+*   `amazonec2_instance_type`
+
+    AWS instance type.
+    
+    Supported types:
+
+    * t2.micro
+    * m4.large
+    * m4.xlarge
+    * m4.2xlarge
+    * m4.4xlarge
+    * m4.10xlarge
+
+*   `amazonec2_private_address_only`
+    
+    Enable or disable private networking for AWS VM (turned off by default). 
+
+__Request example:__
+
+```sh
+curl http://localhost:8080/providers/aws \
+    -d name=my-aws-provider \
+    -d amazonec2_access_key=xx-xx-xx \
+    -d amazonec2_secret_key=xx-xx-xx \
+    -d amazonec2_region=us-east-1 \
+    -d amazonec2_instance_type=t2.micro \
+    -X POST -i
+```
+
+__Response example:__
+
+```http
+HTTP/1.0 201 CREATED
+Content-Type: application/json
+Location: http://localhost:8080/providers/17f9f346-0d28-45f1-96a0-49473cc21769
+
+{
+    "driver": "amazonec2",
+    "id": "9234f346-0d28-45f1-67a0-49473cc897xx",
+    "name": "my-aws-provider",
+    "amazonec2_access_key": "xx-xx-xx",
+    "amazonec2_secret_key": "xx-xx-xx",
+    "amazonec2_ami": "ami-5f709f34",
+    "amazonec2_instance_type": "t2.micro",
+    "amazonec2_region": "us-east-1",
+    "amazonec2_private_address_only": "false",
+}
+```
 
 __Status Code:__
 
