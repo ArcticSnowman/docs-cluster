@@ -210,7 +210,7 @@ __Status Code:__
 
 ---
 
-### Update A Node
+### Retry a Node deployment
 
     PUT /nodes/{name}
 

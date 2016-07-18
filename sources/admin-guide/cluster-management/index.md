@@ -75,7 +75,8 @@ A full reference to Cluster API is available at [Cluster API page](../../referen
 Provider represents a service that host the nodes. There are various provider type (driver) supported by Gluu Cluster Docker Edition at the moment:
 
 1. `digitalocean`
-2. `generic`
+2. `aws`
+3. `generic`
 
 Note, we will use `digitalocean` as provider throughout this page.
 

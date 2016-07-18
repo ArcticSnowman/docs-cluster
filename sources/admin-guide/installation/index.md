@@ -13,34 +13,14 @@ Cluster requires at least kernel 3.10 at minimum. We can check whether we're usi
 
 Please note, due to [issue with kernel 3.13.0-77](../known-issues#unsupported-kernel), this version should be avoided.
 
-Also it’s recommended to install the linux-image-extra kernel package. The linux-image-extra package allows us to use the aufs storage driver for docker engine.
-
-    apt-get update
-    apt-get install linux-image-extra-$(uname -r)
-
 ## Docker Engine and Docker Machine Packages
 
-### Installing Docker Engine
+### Installing Docker Engine (Deprecated)
 
-First things first, we need to add Docker repository:
-
-```
-apt-get update
-apt-get install apt-transport-https ca-certificates
-apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-```
-
-Afterwards, open `/etc/apt/sources.list.d/docker.list` and add the following line:
+Run this:
 
 ```
-deb https://apt.dockerproject.org/repo ubuntu-trusty main
-```
-
-Now, we can fetch the latest stable docker engine:
-
-```
-apt-get update
-apt-get install -y docker-engine=1.11.2-0~trusty
+$ sudo curl -fsSL https://raw.githubusercontent.com/GluuFederation/cluster-tools/master/get_docker.sh | sh
 ```
 
 ### Installing Docker Machine
@@ -62,7 +42,7 @@ First things first, we need to add Gluu repository and install few packages:
 echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list \
     && curl -s https://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add -
 apt-get update
-apt-get -y install git python-virtualenv swig openjdk-7-jre-headless oxd-license-validator python-dev libssl-dev
+apt-get -y install git swig openjdk-7-jre-headless oxd-license-validator python-pip python-dev libssl-dev
 ```
 
 Clone the `gluu-engine` project from our GitHub repository:
@@ -79,6 +59,7 @@ Afterwards, we need to install the `gluuengine` Python package (latest stable re
 cd gluu-engine
 git checkout 0.5.0-beta5
 mkdir -p /root/.virtualenvs
+pip install virtualenv
 virtualenv /root/.virtualenvs/gluu-engine
 source /root/.virtualenvs/gluu-engine/bin/activate
 pip install -U pip
