@@ -1,9 +1,12 @@
 Gluu Docker Edition (DE) Documentation
-==========================
+======================================
 
-The Gluu Server DE project is cla docker-based recipe for deploying multiple instances of the Gluu Server to achieve an elastic, highly avalable, centralized authentication and authorization infrastructure.
+This is the home of the documentation for Gluu Server Docker Edition, which is 
+built using mkdocs, and is rendered as html on the [Gluu Documentation site]
+(https://www.gluu.org/docs-enterprise-edition/)
+.
 
-# Installation
+# Mkdocs Installation / Site Generation
 
 Install virtualenv if necessary:
 

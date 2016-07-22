@@ -1,10 +1,34 @@
 # Welcome to the Gluu Server Docker Edition (DE) Documentation
 
-The Gluu Server Docker Edition ([DE][de]) is a high availability and high reliability solution for enterprise authentication and authorization. Gluu [DE][de] includes the same components as [Community Edition (CE)](http://gluu.org/docs), but instead of using `chroot` to deliver all the components in one package, each component in [DE][de] is delivered in its own `docker` container. In addition, [DE][de] includes a management system, called Gluu Engine, which enables rapid elasticity and scalability of individual containers across multiple cloud providers in multiple geographic regions.
+The Gluu Server is an Identity and Access Management (IAM) suite. It consists
+of several fee open source components integrated together. [Community Edition 
+(CE)](http://gluu.org/docs), uses a `chroot` file system container. Docker containers
+offer process and network isolation. Docker is the future! This distribution
+is a starting point--it's experimental. We don't recommend using it in production.
 
-The Gluu Server [DE][de] is divided into three main components identified as "discovery", "master", and "worker". The "discovery" and "master" is offered free, whereas the "worker" requires a commercial license. For pricing information, please [schedule a meeting with us](http://gluu.org/booking).
+There are several goals for the [DE][de] distribution:
+ 1. Elasticity: rapidly scale up and down compute resources based on demand.
+ 2. Mutli-cloud: support deployment on hybrid cloud or heterogenous cloud providers
+ 3. Self-healing: system smart enough to adjust capacity based on demand
 
-**Note:** currently [DE][de] includes the Shibboleth SAML IDP, oxAuth OpenID Connect IDP and UMA Authorization Server (AS), oxTrust web GUI, and LDAP.
+In addition to the components found in CE, [DE][de] includes several
+other standard components. Gluu Engine provides API's to automate devops--
+deployment of VM's, network, containers, software and data. These API's also have 
+an optional Web interface to facilitate administration by people.
+
+While one instance of CE is deployed on a single VM, [DE][de] components are 
+distributed. The diagram below provides an overview of where these components reside.
+
+![Gluu Server DE components]
+(https://raw.githubusercontent.com/GluuFederation/docs-cluster/master/sources/img/de-components.png
+"Gluu Server Topology Overview")
+
+The control node can run anywhere on the network, even on your laptop. The discovery
+node is a single instance. One Master node is required for each DE deployment. It includes
+the Swarm master server, and it is the only node on which you can deploy oxTrust (which is
+not a stateless application). The worker nodes is where you would scale--you can deploy
+any number of worker nodes.
+
 
 # Admin Guide
 - [Overview](./admin-guide/overview/index.md)
