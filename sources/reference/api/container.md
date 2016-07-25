@@ -297,6 +297,11 @@ __Status Code:__
 
 This will try to deploy given numbers of containers of given type
 
+Container type:
+
+* `oxauth`
+* `oxidp`
+
 __URL:__
 
     http://localhost:8080/scale-containers/{container_type}/{number}
@@ -332,6 +337,11 @@ __Status Code:__
     DELETE /scale-containers/{container_type}/{number}
 
 This will try to remove given numbers of running containers of given type
+
+Container type:
+
+* `oxauth`
+* `oxidp`
 
 __URL:__
 
