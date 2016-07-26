@@ -53,11 +53,11 @@ cd /root
 git clone https://github.com/GluuFederation/gluu-engine.git
 ```
 
-Afterwards, we need to install the `gluuengine` Python package (latest stable release is `0.5.0-beta5`) and its dependencies:
+Afterwards, we need to install the `gluuengine` Python package (latest stable release is `0.5.0-beta6`) and its dependencies:
 
 ```sh
 cd gluu-engine
-git checkout 0.5.0-beta5
+git checkout 0.5.0-beta6
 mkdir -p /root/.virtualenvs
 pip install virtualenv
 virtualenv /root/.virtualenvs/gluu-engine
