@@ -16,15 +16,14 @@ where `{type}` is one of the container types as listed below:
 1. `ldap`
 2. `oxauth`
 3. `oxtrust`
-4. `oxidp` (optional; required if we want to use SAML)
-5. `nginx`
+4. `nginx`
 
 There are few rules about container:
 
 * Only 1 `ldap` container can be deployed in each node.
 * Only 1 `nginx` container can be deployed in each node.
 * Only 1 `oxtrust` container can be deployed in the cluster and it must be deployed in master node.
-* There's no restriction on how many `oxauth` and `oxidp` container per node.
+* There's no restriction on how many `oxauth` container per node.
 
 __URL:__
 
@@ -300,7 +299,6 @@ This will try to deploy given numbers of containers of given type
 Container type:
 
 * `oxauth`
-* `oxidp`
 
 __URL:__
 
@@ -341,7 +339,6 @@ This will try to remove given numbers of running containers of given type
 Container type:
 
 * `oxauth`
-* `oxidp`
 
 __URL:__
 

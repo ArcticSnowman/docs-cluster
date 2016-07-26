@@ -242,8 +242,7 @@ Once we have a running `master` node, we can start creating containers. To ensur
 1. `ldap`
 2. `oxauth`
 3. `oxtrust`
-4. `oxidp` (optional)
-5. `nginx`
+4. `nginx`
 
 In this example, we are going to create `ldap` container using `curl`:
 
@@ -399,8 +398,7 @@ Once we have a running `worker` node, we can start creating containers. To ensur
 
 1. `ldap`
 2. `oxauth`
-3. `oxidp` (optional)
-4. `nginx`
+3. `nginx`
 
 In this example, we are going to create `ldap` container using `curl`:
 

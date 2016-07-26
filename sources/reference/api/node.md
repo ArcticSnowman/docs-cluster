@@ -125,7 +125,7 @@ There are prerequisites before creating a `worker` node:
 
 It's worth noting that when license for `worker` node is expired,
 server will try to retrieve new license automatically. If succeed, the node will use new license.
-Otherwise, all `oxauth` and `oxidp` container deployed inside the node will be disabled from cluster.
+Otherwise, all `oxauth` containers deployed inside the node will be disabled from cluster.
 
 __URL:__
 
