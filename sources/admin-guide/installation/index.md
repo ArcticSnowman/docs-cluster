@@ -92,7 +92,7 @@ There's no exact formula about how many workers needed, but as `gunicorn` mentio
 using CPU core number, we can use the following recipe to check the number:
 
 ```sh
-python -c 'from multiprocessing import cpu_count; print (cpu_count() * 2) + 1
+python -c 'from multiprocessing import cpu_count; print (cpu_count() * 2) + 1'
 ```
 
 For example, if we have 4 CPU cores, then we'll get `9` as the result returned from recipe above.
