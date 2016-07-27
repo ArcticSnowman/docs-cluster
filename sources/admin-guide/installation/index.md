@@ -139,17 +139,3 @@ There are few things we need to know about Gluu Cluster Web UI:
 
 1. The application is bind to 127.0.0.1 (localhost) as currently there's no protection mechanism yet.
 2. The application is listening on port 8800 to avoid conflict with port used by nodes.
-
-First things first, we need to add Gluu repository:
-
-```
-echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list \
-    && curl http://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add -
-apt-get update
-```
-
-Run the following commands to install the `gluu-cluster-webui` package:
-
-```
-apt-get install -y gluu-cluster-webui
-```
