@@ -1,7 +1,8 @@
 [TOC]
 # Installation
-The Gluu Cluster only supports Ubuntu for now. There is only one mandatory package need to be installed in a machine; the `gluu-engine` package.
-There is one additional package, `gluu-cluster-webui`, that provides a user friendly way of using the API and managing the cluster. Note, this package must be installed in same host with `gluu-engine`.
+The Gluu Cluster only supports Ubuntu for now. we need two container to install gluu cluster management system.
+1. gluuengine
+2. gluuwebui
 
 ## Prerequisites
 
@@ -15,7 +16,7 @@ Please note, due to [issue with kernel 3.13.0-77](../known-issues#unsupported-ke
 
 ## Docker Engine and Docker Machine Packages
 
-### Installing Docker Engine (Deprecated)
+### Installing Docker Engine
 
 Run this:
 
@@ -23,7 +24,7 @@ Run this:
 $ sudo curl -fsSL https://raw.githubusercontent.com/GluuFederation/cluster-tools/master/get_docker.sh | sh
 ```
 
-### Installing Docker Machine
+### Installing Docker Machine (optional)
 
 Download the Docker Machine binary and extract it to our PATH:
 
@@ -32,48 +33,23 @@ curl -L https://github.com/docker/machine/releases/download/v0.7.0/docker-machin
 chmod +x /usr/local/bin/docker-machine
 ```
 
-## Gluu Engine API
+## Installing and running gluu cluster management system
 
-### Installing gluu-engine
+### Installing gluu-engine and gluu-webui image:
 
-First things first, we need to add Gluu repository and install few packages:
+build it: (optional)
 
 ```sh
-echo "deb http://repo.gluu.org/ubuntu/ trusty-devel main" > /etc/apt/sources.list.d/gluu-repo.list \
-    && curl -s https://repo.gluu.org/ubuntu/gluu-apt.key | apt-key add -
-apt-get update
-apt-get -y install git swig openjdk-7-jre-headless oxd-license-validator python-pip python-dev libssl-dev
+git clone https://github.com/GluuFederation/gluu-docker.git
+docker build --rm=true --force-rm=true --tag=gluuengine gluu-docker/ubuntu/14.04/gluuengine
+docker build --rm=true --force-rm=true --tag=gluuengine gluu-docker/ubuntu/14.04/gluuwebui
 ```
 
-Clone the `gluu-engine` project from our GitHub repository:
+from docker hub:
 
 ```sh
-mkdir -p /root
-cd /root
-git clone https://github.com/GluuFederation/gluu-engine.git
-```
-
-Afterwards, we need to install the `gluuengine` Python package (latest stable release is `0.5.0-beta7`) and its dependencies:
-
-```sh
-cd gluu-engine
-git checkout 0.5.0-beta7
-mkdir -p /root/.virtualenvs
-pip install virtualenv
-virtualenv /root/.virtualenvs/gluu-engine
-source /root/.virtualenvs/gluu-engine/bin/activate
-pip install -U pip
-pip install -r requirements.txt
-python setup.py install
-```
-
-### Creating Data and Log Directories
-
-All data and logs are saved under predefined directories. Create the directories if not exist:
-
-```sh
-mkdir -p /var/log/gluuengine  # directory for all gluuengine logs
-mkdir -p /var/lib/gluuengine/db  # directory for gluuengine data
+docker pull gluu/gluuengine
+docker pull gluu/gluuwebui
 ```
 
 ### Preparing Database
@@ -81,58 +57,26 @@ mkdir -p /var/lib/gluuengine/db  # directory for gluuengine data
 All data is saved into MongoDB, hence we need to prepare the database before running `gluu-engine`:
 
 ```sh
-docker run -d --name mongo -v /var/lib/gluuengine/db/mongo:/data/db -p 27017:27017 mongo
+docker run -d --name mongo -v /var/lib/gluuengine/db/mongo:/data/db mongo
 ```
 
 ### Running gluu-engine
 
-The simplest way to run `gluu-engine` is to use `gunicorn` webserver.
-But before doing it, we need to define how many workers `gunicorn` should use.
-There's no exact formula about how many workers needed, but as `gunicorn` mentioned about
-using CPU core number, we can use the following recipe to check the number:
+Running gluu-engine:
 
 ```sh
-python -c 'from multiprocessing import cpu_count; print (cpu_count() * 2) + 1'
+docker run -d -p 127.0.0.1:8080:8080 --name gluuengine \
+    -v /var/log/gluuengine:/var/log/gluuengine \
+    -v /var/lib/gluuengine:/var/lib/gluuengine \
+    -v /var/lib/gluuengine/machine:/root/.docker/machine \
+    --link mongo:mongo gluuengine
 ```
 
-For example, if we have 4 CPU cores, then we'll get `9` as the result returned from recipe above.
+### Running gluu-webui
 
 ```sh
-gunicorn -b 127.0.0.1:8080 --log-level warning --access-logfile - --error-logfile - -w 9 -k gthread -e API_ENV=prod 'gluuengine.app:create_app()'
-```
-
-Note, this will make the app running in foreground. To run `gluu-engine` app in background, we recommend `supervisor` to manage the process.
-
-```sh
-apt-get install -y supervisor
-```
-
-Add configuration below and save it as `/etc/supervisor/conf.d/gluuengine.conf` file:
-
-```ini
-[program:gluu-engine]
-command=/root/.virtualenvs/gluu-engine/bin/gunicorn -b 127.0.0.1:8080 --log-level warning --access-logfile - --error-logfile - -w 9 -k gthread -e API_ENV=prod 'gluuengine.app:create_app()'
-stdout_logfile=/var/log/gluuengine/api.log
-stderr_logfile=/var/log/gluuengine/api.log
-```
-
-Each time we modify the config file above, we need to run `supervisorctl reload`.
-Double-check whether `gluu-engine` is running:
-
-```sh
-supervisorctl status gluu-engine
-# here's the output example: gluu-engine     RUNNING    pid 13025, uptime 0:00:21
-```
-
-## Gluu Cluster Web Interface package
-
-### Installing gluu-cluster-webui
-
-Run the following commands to install gluu-cluster-webui:
-```
-apt-get install -y gluu-cluster-webui
-a2dissite 000-default
-service apache2 restart
+docker run -d -p 127.0.0.1:8800:8800 --name gluuwebui \
+    --link gluuengine:gluuengine gluuwebui
 ```
 
 There are few things we need to know about Gluu Cluster Web UI:
