@@ -1,4 +1,5 @@
 [TOC]
+
 # Installation
 The Gluu Cluster only supports Ubuntu for now. we need two container to install gluu cluster management system.
 1. gluuengine
@@ -14,7 +15,7 @@ Cluster requires at least kernel 3.10 at minimum. We can check whether we're usi
 
 Please note, due to [issue with kernel 3.13.0-77](../known-issues#unsupported-kernel), this version should be avoided.
 
-## Docker Engine and Docker Machine Packages
+## Docker Engine
 
 ### Installing Docker Engine
 
@@ -24,32 +25,23 @@ Run this:
 $ sudo curl -fsSL https://raw.githubusercontent.com/GluuFederation/cluster-tools/master/get_docker.sh | sh
 ```
 
-### Installing Docker Machine (optional)
-
-Download the Docker Machine binary and extract it to our PATH:
-
-```
-curl -L https://github.com/docker/machine/releases/download/v0.7.0/docker-machine-`uname -s`-`uname -m` > /usr/local/bin/docker-machine && \
-chmod +x /usr/local/bin/docker-machine
-```
-
 ## Installing and running gluu cluster management system
 
 ### Installing gluu-engine and gluu-webui image:
 
-build it: (optional)
+From docker hub (not yet released):
+
+```sh
+docker pull gluu/gluuengine
+docker pull gluu/gluuwebui
+```
+
+Alternatively you can build it:
 
 ```sh
 git clone https://github.com/GluuFederation/gluu-docker.git
 docker build --rm=true --force-rm=true --tag=gluuengine gluu-docker/ubuntu/14.04/gluuengine
 docker build --rm=true --force-rm=true --tag=gluuengine gluu-docker/ubuntu/14.04/gluuwebui
-```
-
-from docker hub:
-
-```sh
-docker pull gluu/gluuengine
-docker pull gluu/gluuwebui
 ```
 
 ### Preparing Database
@@ -61,6 +53,12 @@ docker run -d --name mongo -v /var/lib/gluuengine/db/mongo:/data/db mongo
 ```
 
 ### Running gluu-engine
+
+We need mongodb for gluuengine:
+
+```sh
+docker run -d --name mongo -v /var/lib/gluuengine/db/mongo:/data/db mongo
+```
 
 Running gluu-engine:
 
@@ -78,6 +76,8 @@ docker run -d -p 127.0.0.1:8080:8080 --name gluuengine \
 docker run -d -p 127.0.0.1:8800:8800 --name gluuwebui \
     --link gluuengine:gluuengine gluuwebui
 ```
+
+now open your browser and hit, http://localhost:8800
 
 There are few things we need to know about Gluu Cluster Web UI:
 
