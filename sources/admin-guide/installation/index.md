@@ -1,7 +1,7 @@
 [TOC]
 
 # Installation
-The Gluu Cluster only supports Ubuntu for now. we need two container to install gluu cluster management system.
+The Gluu Cluster only supports Ubuntu for now. We need two container to install gluu cluster management system.
 1. gluuengine
 2. gluuwebui
 
@@ -54,13 +54,7 @@ docker run -d --name mongo -v /var/lib/gluuengine/db/mongo:/data/db mongo
 
 ### Running gluu-engine
 
-We need mongodb for gluuengine:
-
-```sh
-docker run -d --name mongo -v /var/lib/gluuengine/db/mongo:/data/db mongo
-```
-
-Running gluu-engine:
+gluu-engine command:
 
 ```sh
 docker run -d -p 127.0.0.1:8080:8080 --name gluuengine \
@@ -71,6 +65,8 @@ docker run -d -p 127.0.0.1:8080:8080 --name gluuengine \
 ```
 
 ### Running gluu-webui
+
+gluu-webui command:
 
 ```sh
 docker run -d -p 127.0.0.1:8800:8800 --name gluuwebui \
