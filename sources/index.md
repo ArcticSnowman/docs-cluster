@@ -1,22 +1,23 @@
 # Welcome to the Gluu Server Docker Edition (DE) Documentation
 
 The Gluu Server is an Identity and Access Management (IAM) suite. It consists
-of several fee open source components integrated together. [Community Edition 
+of several free open source components integrated together. [Community Edition 
 (CE)](http://gluu.org/docs), uses a `chroot` file system container. Docker containers
 offer process and network isolation. Docker is the future! This distribution
 is a starting point--it's experimental. We don't recommend using it in production.
 
-There are several goals for the [DE][de] distribution:
- 1. Elasticity: rapidly scale up and down compute resources based on demand.
- 2. Mutli-cloud: support deployment on hybrid cloud or heterogenous cloud providers
- 3. Self-healing: system smart enough to adjust capacity based on demand
+> If you'd like to help us beta test DE, please [contact us](https://www.gluu.org/company/contact-us/) and we will provide you with test licenses. 
 
-In addition to the components found in CE, [DE][de] includes several
-other standard components. Gluu Engine provides API's to automate devops--
+There are several goals for the Gluu Server DE distribution:    
+ 1. Elasticity: rapidly scale up and down compute resources based on demand.     
+ 2. Mutli-cloud: support deployment on hybrid cloud or heterogenous cloud providers.     
+ 3. Self-healing: system smart enough to adjust capacity based on demand.      
+
+DE includes the Gluu Engine component, which provides API's to automate devops--
 deployment of VM's, network, containers, software and data. These API's also have 
 an optional Web interface to facilitate administration by people.
 
-While one instance of CE is deployed on a single VM, [DE][de] components are 
+While one instance of CE is deployed on a single VM, DE components are 
 distributed. The diagram below provides an overview of where these components reside.
 
 ![Gluu Server DE components]
