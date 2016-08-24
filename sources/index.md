@@ -2,9 +2,9 @@
 
 The Gluu Server is an Identity and Access Management (IAM) suite. It consists
 of several free open source components integrated together. [Community Edition 
-(CE)](http://gluu.org/docs), uses a `chroot` file system container. Docker containers
+(CE)](http://gluu.org/docs) uses a `chroot` file system container. Docker containers
 offer process and network isolation. Docker is the future! This distribution
-is a starting point--it's experimental. We don't recommend using it in production.
+is *still in beta.* We don't recommend using it in production.
 
 > If you'd like to help us beta test DE, please [contact us](https://www.gluu.org/company/contact-us/) and we will provide you with test licenses. 
 
