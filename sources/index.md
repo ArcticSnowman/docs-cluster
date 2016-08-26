@@ -8,7 +8,7 @@ is **still in beta.** We don't recommend using it in production.
 
 !!! note "Note"
 
-    If you'd like to help us beta test DE, please [contact us](https://www.gluu.org/company/contact-us/) and we will provide you with test licenses. 
+    If you'd like to help us beta test DE, please [contact us](https://www.gluu.org/company/contact-us/) and we'll provide you with test licenses. 
 
 There are several goals for the Gluu Server DE distribution:    
  1. Elasticity: rapidly scale up and down compute resources based on demand.     
