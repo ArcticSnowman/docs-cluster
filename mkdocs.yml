@@ -10,6 +10,9 @@ theme_dir: ./theme/mkdocs/
 theme_center_lead: false
 include_search: true
 
+markdown_extensions:
+ - admonition
+
 pages:
 
 # Home Page
