@@ -19,68 +19,57 @@ Point your browser to the following address to access the webui:
 
 `http://localhost:8800`
 
-When you access the web interface, the following screen will appear.
-![overview](../../img/webui_overview.png)
-
 ## Using the Web Interface
-### The overview page
 
-The overview page consists of a table which lists all the entities of that particular resource type, with their most important details (each item in the table has clickable link to expand the details) and their associated actions if any.
+### Managing Cluster
 
-If the API provides only POST and DELETE actions then the interface provides a 'New RESOURCE' button on top and a 'DELETE' button for each resource in the table.
+When we access the interface for the first time, the following screen will appear:
 
-#### Cluster Overview
+![Empty cluster](../../img/webui/cluster-empty.png)
 
-![Cluster Overview](../../img/webui_overview_cluster.png)
+To create a new cluster, click the "New Cluster" button. A new form with various fields will appear:
 
-#### Provider Overview
+![New cluster part 1](../../img/webui/cluster-new-1.png)
 
-![Provider Overview](../../img/webui_overview_provider.png)
+Each field is mandatory, except "Description".
 
-#### Node Overview
+![New cluster part 2](../../img/webui/cluster-new-2.png)
 
-Node deployment might be interrupted in the middle of the process, hence there's also __Retry__ button
-to continue the deployment process.
+In the screen above, we use `ox.example.weave.local` as an example of cluster domain.
+To access the cluster, type `https://ox.example.weave.local` in browser's address bar.
+In production, use our actual domain instead, e.g. `my-gluu-cluster.com`.
+Note, this domain must be resolvable via DNS; otherwise the cluster will not work as expected.
 
-![Node Overview](../../img/webui_overview_node.png)
+Please remember, all URLs must be prefixed with `https`. That means we need to provide SSL certificate and key.
+In Gluu Server Docker Edition, the certificate and key are called `nginx.crt` and `nginx.key` respectively, as we are using `nginx` as frontend.
+So for example, if we have `my-ssl.crt` and `my-ssl.key`, we need to rename them into `nginx.crt` and `nginx.key`.
+Afterwards, put them under `/var/lib/gluuengine/ssl_certs` directory (create the directory if not exist).
 
-#### Container Overview
+Now back to cluster overview.
 
-The table for container list is filterable.
+![Cluster details](../../img/webui/cluster-details.png)
 
-![Container Overview](../../img/webui_overview_container.png)
+As we have created a new cluster, a table will appear showing existing cluster information.
+To see the details, click the link under "Name" header row. A new table will appear below the main table.
+To delete the cluster, click the "Delete" button (the red box) under "Actions" header row.
 
-Each container has its own deployment log. To access the log, user need to click the __Search__ button first.
-A new __Setup__ button will appear and it will take the user to the specified log, as seen below:
+Now we can continue creating Provider.
 
-![Container Log](../../img/webui_container_log.png)
+### Managing Provider
 
-#### License Overview
+[TBA]
 
-![License Overview](../../img/webui_overview_license.png)
+### Managing Nodes
 
-### Adding/Editing Resources
+[TBA]
 
-New resources can be added by clicking the 'New RESOURCE' buttons in the overview pages. This takes you to the form where all the values required for that particular resource can put entered. Submitting the form requests the API for action. If the resource creation is successful, you are taken back to the overview page and you can see the new resource listed in the overview table.
+### Managing Container
 
-#### Adding New Resource
+[TBA]
 
-In this example, the provider will be hosted at DigitalOcean.
+### Managing License Key
 
-![New Resource form](../../img/webui_new_provider.png)
-
-To add new container, user need to choose the type and node to host the container.
-
-![New Resource form](../../img/webui_new_container.png)
-
-Scaling containers can be done for oxAuth container only. A given number of oxAuth containers will be deployed to existing master and worker nodes.
-![Scale container form](../../img/webui_scale_container.png)
-
-#### Editing Existing Resource
-
-Existing resources can be altered when they provide an Edit action. Clicking the Edit button takes you to the edit form which is similar to the 'New' form with the ID of the existing resource disabled. ID's are unique system generated strings and hence disabled from editing.
-
-![Edit form](../../img/webui_edit_license.png)
+[TBA]
 
 ## History
 
