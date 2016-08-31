@@ -116,7 +116,7 @@ To see the progress of node deployment, we need to run a command in the shell:
 tailf /var/log/gluuengine/node.log
 ```
 
-Below is an example of discovery node deployment:
+Below is an example of discovery node deployment log:
 
 ![Discovery node log](../../img/webui/node-log-discovery.png)
 
@@ -138,7 +138,7 @@ To see the progress of the new node deployment, repeat this command in the shell
 tailf /var/log/gluuengine/node.log
 ```
 
-Below is an example of master node deployment:
+Below is an example of master node deployment log:
 
 ![Master node log](../../img/webui/node-log-master.png)
 
@@ -204,6 +204,28 @@ We can use any value for "Name" field, but we need to match the values for "Code
 
 Once the license has been created, the license will be validated.
 If the license is valid or not expired, we can continue to add more nodes and deploy containers in those new nodes.
+
+### Managing Additional Worker Nodes
+
+To create worker node, repeat the process of creating new node. When the form is shown, choose "Worker" in "Type" dropdown field.
+
+![New worker node](../../img/webui/node-new-worker.png)
+
+Click the "Add Node" button as seen above and we will be redirected back and see there's new worker node listed there.
+
+![Worker node details](../../img/webui/node-details-worker.png)
+
+To see the progress of the new node deployment, repeat this command in the shell:
+
+```
+tailf /var/log/gluuengine/node.log
+```
+
+Below is an example of worker node deployment log:
+
+![Worker node log](../../img/webui/node-log-worker.png)
+
+We can add more worker nodes, but in this example we will not add them anymore. Instead let's deploy containers to worker node.
 
 ## History
 
