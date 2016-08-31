@@ -42,7 +42,7 @@ Note, this domain must be resolvable via DNS; otherwise the cluster will not wor
 
 Please remember, all URLs must be prefixed with `https`. That means we need to provide SSL certificate and key.
 In Gluu Server Docker Edition, the certificate and key are called `nginx.crt` and `nginx.key` respectively, as we are using `nginx` as frontend.
-So for example, if we have `my-ssl.crt` and `my-ssl.key`, we need to rename them into `nginx.crt` and `nginx.key`.
+So for example, if we have `my-ssl.crt` and `my-ssl.key`, we need to rename them to `nginx.crt` and `nginx.key`.
 Afterwards, put them under `/var/lib/gluuengine/ssl_certs` directory (create the directory if not exist).
 
 Now back to cluster overview.
@@ -57,7 +57,29 @@ Now we can continue creating Provider.
 
 ### Managing Provider
 
-[TBA]
+Provider represents a service (typically a cloud provider) that host the nodes. There are various provider type (driver) supported by Gluu Cluster Docker Edition at the moment:
+
+1. `digitalocean` for DigitalOcean
+2. `aws` for Amazon AWS EC2
+3. `generic` for any generic service
+
+![Empty provider](../../img/webui/provider-empty.png)
+
+Note, we will use `digitalocean` provider throughout this page.
+
+To create a new provider, select dropbox as seen in screenshot above. A new form will appear as seen below:
+
+![New provider](../../img/webui/provider-new.png)
+
+This `digitalocean` provider form has different fields with the ones that used for `aws` or `generic` provider.
+Refer to [Provider](/reference/api/provider/#create-new-provider) API for details.
+
+Once provider has been created, we will be redirected to a page where we can see a list of providers.
+To see each provider's details, we can click a link under "ID" header row.
+
+![Provider details](../../img/webui/provider-details.png)
+
+Now let's continue to Node management.
 
 ### Managing Nodes
 
