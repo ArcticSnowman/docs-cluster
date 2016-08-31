@@ -157,7 +157,7 @@ To ensure the cluster running as expected, the deployment should follow the foll
 
 1. `ldap`
 2. `oxauth`
-3. `oxtrust`
+3. `oxtrust` (can be deployed only in master node)
 4. `nginx`
 
 Click the "New Container" button and a new form will appear:
@@ -226,6 +226,56 @@ Below is an example of worker node deployment log:
 ![Worker node log](../../img/webui/node-log-worker.png)
 
 We can add more worker nodes, but in this example we will not add them anymore. Instead let's deploy containers to worker node.
+
+### Managing Containers in Worker Node
+
+To deploy container in worker node, repeat the same process as we did in master node, but remember to choose the worker node in "Node ID" dropdown.
+
+Below is an example of how to deploy `nginx` container in worker node:
+
+![New nginx container](../../img/webui/container-new-worker.png)
+
+Note: In worker node, we are only allowed to deploy `ldap`, `oxauth`, and `nginx` container.
+
+### Scaling oxAuth Container
+
+To scale `oxauth` container (deploying multiple instances at once), we can use the scaling feature introduced in `gluuengine` version 0.5.0.
+
+Let's get back to page where containers are listed. Click the "Containers" left pane menu and the buttons will be available as shown below:
+
+![Scale container button](../../img/webui/container-empty-buttons.png)
+
+Click the "Scale Containers" button and new form will appear:
+
+![Scaling container](../../img/webui/container-scaling.png)
+
+In the screenshot above, we're telling the app to deploy __2 instances__ of __oxAuth__ container into the cluster.
+Afterwards click the "Scale" button and we will be redirected to list of containers page:
+
+![Container list scaled](../../img/webui/container-list-scaled.png)
+
+As we can see, there are 2 new oxAuth containers deployed in master and worker node (see the bottom 2 of the table above).
+
+In addition, there's a counterpart of scaling feature called descaling:
+
+![Descaling container](../../img/webui/container-descaling.png)
+
+The form is identical to scaling one, but we need to check the tickbox above the "Scale" button. What this descaling feature do is removing __n instances__ of oxAuth container from the cluster.
+
+With these scale/descale features, we can add or remove oxAuth containers easier than before.
+
+### Reviewing Cluster Setup
+
+As we have multi-nodes with various containers deployed into the cluster, let's take a review of our cluster.
+To see an overview of what our cluster looks like, click the Gluu's logo (top left corner) in the app.
+
+![Cluster overview 1](../../img/webui/cluster-overview-1.png)
+
+We can see how many nodes deployed in the cluster.
+
+![Cluster overview 2](../../img/webui/cluster-overview-2.png)
+
+And yes, we can see how many containers deployed in the cluster.
 
 ## History
 
