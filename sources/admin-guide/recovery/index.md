@@ -3,11 +3,11 @@
 A provider may crashes due to various reasons (i.e. power outage).
 When it crashes, all containers will crash as well.
 
-# Version 0.5.0
+## Version 0.5.0 and Above
 
 Starting from v0.5.0, we have simplified the [script](https://github.com/GluuFederation/cluster-tools/blob/master/recovery/recovery.py)
 which is installed during node creation.
-To run this script, simply execute `recovery.py` in the shell.
+To run this script, simply execute `supervisorctl restart recovery` in the shell.
 
 ## Older Releases
 
