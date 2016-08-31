@@ -41,7 +41,7 @@ In production, use our actual domain instead, e.g. `my-gluu-cluster.com`.
 Note, this domain must be resolvable via DNS; otherwise the cluster will not work as expected.
 
 Please remember, all URLs must be prefixed with `https`. That means we need to provide SSL certificate and key.
-In Gluu Server Docker Edition, the certificate and key are called `nginx.crt` and `nginx.key` respectively, as we are using `nginx` as frontend.
+In Gluu Docker Edition, the certificate and key are called `nginx.crt` and `nginx.key` respectively, as we are using `nginx` as frontend.
 So for example, if we have `my-ssl.crt` and `my-ssl.key`, we need to rename them to `nginx.crt` and `nginx.key`.
 Afterwards, put them under `/var/lib/gluuengine/ssl_certs` directory (create the directory if not exist).
 
@@ -67,12 +67,12 @@ Provider represents a service (typically a cloud provider) that host the nodes. 
 
 Note, we will use `digitalocean` provider throughout this page.
 
-To create a new provider, select dropbox as seen in screenshot above. A new form will appear as seen below:
+To create a new provider, select dropdown as seen in screenshot above. A new form will appear as seen below:
 
 ![New provider](../../img/webui/provider-new.png)
 
 This `digitalocean` provider form has different fields with the ones that used for `aws` or `generic` provider.
-Refer to [Provider](/reference/api/provider/#create-new-provider) API for details.
+Refer to [Provider](../../reference/api/provider/#create-new-provider) API for details.
 
 Once provider has been created, we will be redirected to a page where we can see a list of providers.
 To see each provider's details, we can click a link under "ID" header row.
@@ -83,7 +83,66 @@ Now let's continue to Node management.
 
 ### Managing Nodes
 
-[TBA]
+Node represents the actual server to host containers.
+There are 3 node types supported by Gluu Docker Edition at the moment:
+
+1. Discovery
+2. Master
+3. Worker (optional)
+
+A full reference to Node API is available at [Node API page](../../reference/api/node).
+
+#### Managing Discovery Node
+
+To create a new node, click the "New Node" button:
+
+![Empty node](../../img/webui/node-empty.png)
+
+A new form will appear and we can choose to create 3 different nodes, but since we don't have any node yet, the first node we must create is the discovery node.
+The role of this node is to provide node discovery (adding/removing/searching) for all nodes in the cluster.
+
+![New discovery node](../../img/webui/node-new-discovery.png)
+
+Click the "Add Node" button as seen above and we will be redirected to a new page where we can see list of available nodes and their details.
+
+![Discovery node details](../../img/webui/node-details-discovery.png)
+
+As we can see, there are various `state_*` attributes. Each of this attribute marks the progress of node deployment.
+Eventually these attributes will be marked as finished (or `true` in this context) one by one.
+
+To see the progress of node deployment, we need to run a command in the shell:
+
+```
+tailf /var/log/gluuengine/node.log
+```
+
+Below is an example of discovery node deployment:
+
+![Discovery node log](../../img/webui/node-log-discovery.png)
+
+Note, we cannot deploy any Gluu container in discovery node, hence we need to create another node ... the Master node.
+
+#### Managing Master Node
+
+To create master node, repeat the process. When the form is shown, choose "Master" in "Type" dropdown field.
+
+![New master node](../../img/webui/node-new-master.png)
+
+Click the "Add Node" button as seen above and we will be redirected back and see there's new master node listed there.
+
+![Master node details](../../img/webui/node-details-master.png)
+
+To see the progress of the new node deployment, repeat this command in the shell:
+
+```
+tailf /var/log/gluuengine/node.log
+```
+
+Below is an example of master node deployment:
+
+![Master node log](../../img/webui/node-log-master.png)
+
+As we already have discovery and master nodes, let's start deploying Gluu container.
 
 ### Managing Container
 
