@@ -190,7 +190,20 @@ Let's continue to add more nodes (including license key management, scaling cont
 
 ### Managing License Key
 
-[TBA]
+Before adding any additional `worker` node, we need to add license first by clicking the "New License Key" button.
+
+![Empty license](../../img/webui/license-empty.png)
+
+A new form will appear and we need to fill all the fields.
+
+![New license](../../img/webui/license-new.png)
+
+We can use any value for "Name" field, but we need to match the values for "Code" (or "licenseId"), "Public Key", "Public Password", and "License Password" fields with license we retrieved from Gluu.
+
+![License details](../../img/webui/license-details.png)
+
+Once the license has been created, the license will be validated.
+If the license is valid or not expired, we can continue to add more nodes and deploy containers in those new nodes.
 
 ## History
 
