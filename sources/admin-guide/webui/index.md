@@ -144,9 +144,49 @@ Below is an example of master node deployment:
 
 As we already have discovery and master nodes, let's start deploying Gluu container.
 
-### Managing Container
+### Managing Containers
 
-[TBA]
+There are 2 ways to deploy container(s):
+
+1. Using `New Container` button: only a single container can be selected.
+2. Using `Scale Containers` button: deploy multiple `oxauth` containers. We will cover this feature later.
+
+![Empty container](../../img/webui/container-empty.png)
+
+To ensure the cluster running as expected, the deployment should follow the following order:
+
+1. `ldap`
+2. `oxauth`
+3. `oxtrust`
+4. `nginx`
+
+Click the "New Container" button and a new form will appear:
+
+![New container](../../img/webui/container-new.png)
+
+Choose "LDAP" in "Container Type" dropdown field and select existing node; in this case the "gluu-master" (master node). Remember, don't choose discovery node as it doesn't support Gluu container deployment.
+
+Once the container has been created, it will be listed in a table as seen below:
+![Container details](../../img/webui/container-details-single.png)
+
+Clicking the link under "Name" header row will show us the container's details.
+As we can see, the `ldap` container marked as `IN_PROGRESS`. That means the deployment is running (it may take a while to finish the whole process though). To see the progress, click the "Search" button under "Logs" header row.
+
+When "Search" button is clicked, a new "Setup" button will replace the old button under "Logs" header row. See the screenshot below:
+
+![Container details with setup button](../../img/webui/container-details-setup-button.png)
+
+Click the "Setup" button and we will be redirected to a page where we can see the container deployment log.
+
+![Container log](../../img/webui/container-log.png)
+
+To complete cluster setup, repeat the process of deploying container for `oxauth`, `oxtrust`, and `nginx`.
+
+![Container details](../../img/webui/container-details-full.png)
+
+Once we have those 4 container types (all of them should be marked as SUCCESS though), we already have a basic cluster setup that should work as expected.
+
+Let's continue to add more nodes (including license key management, scaling containers, etc.) in next sections.
 
 ### Managing License Key
 
