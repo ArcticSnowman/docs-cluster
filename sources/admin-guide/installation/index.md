@@ -41,7 +41,7 @@ Alternatively you can build it:
 ```sh
 git clone https://github.com/GluuFederation/gluu-docker.git
 docker build --rm=true --force-rm=true --tag=gluuengine gluu-docker/ubuntu/14.04/gluuengine
-docker build --rm=true --force-rm=true --tag=gluuengine gluu-docker/ubuntu/14.04/gluuwebui
+docker build --rm=true --force-rm=true --tag=gluuwebui gluu-docker/ubuntu/14.04/gluuwebui
 ```
 
 ### Preparing Database
